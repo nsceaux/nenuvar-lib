@@ -1,6 +1,6 @@
 \version "2.19.37"
 
-\include "../markup.ily"
+\include "../text-formatting.ily"
 \include "../columns.ily"
 \include "../livret.ily"
 
