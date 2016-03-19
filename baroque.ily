@@ -90,20 +90,20 @@ dotSign=\markup\vcenter "╸"
        (avoid-slur . around)
        (direction . ,UP))
       ("arcTrill" ; + with an arc above (like a formata with a + signe instead of dot)
-       (script-stencil
-        . (markup . ,(markup #:combine
-                             #:concat (#:null #:translate '(0.3 . 0.8) #:rotate -90
-                                              #:musicglyph "accidentals.leftparen")
-                             #:musicglyph "scripts.stopped")))
+       (script-stencil . (markup . , #{
+     \markup\rotate#-90 \concat {
+       \musicglyph#"accidentals.leftparen"
+       \musicglyph#"scripts.stopped"
+     }#}))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
       ("arcDot"
-       (script-stencil
-        . (markup . ,(markup #:combine
-                             #:concat (#:null #:translate '(0.3 . 0.65) #:rotate -90
-                                              #:musicglyph "accidentals.leftparen")
-                             #:musicglyph "scripts.staccato")))
+       (script-stencil . (markup . , #{
+     \markup\rotate#-90 \concat {
+       \musicglyph#"accidentals.leftparen"
+       \musicglyph#"scripts.staccato"
+     }#}))
        (padding . 0.40)
        (avoid-slur . around)
        (direction . ,UP))
@@ -139,20 +139,19 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("dotPrall" ; Articulation used Charpentier: a dot, followed by a prall sign
-       (script-stencil
-        . (markup . ,(markup #:override '(word-space . 1)
-                             #:line (#:vcenter "╸" #:vcenter #:musicglyph "scripts.prall"))))
+       ("dotPrall"
+        ; Articulation used Charpentier: a dot, followed by a prall sign
+        (script-stencil . (markup . , #{
+     \markup\concat\vcenter { "╸" \musicglyph#"scripts.prall" }#}))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
       ("dotDoublePrallDoublePrall"
-       (script-stencil
-        . (markup . ,(markup #:override '(word-space . 2) #:override '(baseline-skip . 0)
-                           #:column (#:line (#:vcenter "╸"
-                                             #:vcenter #:musicglyph "scripts.prallprall" )
-                                     #:line (#:transparent #:vcenter "╸"
-                                             #:vcenter #:musicglyph "scripts.prallprall")))))
+        (script-stencil . (markup . , #{
+     \markup\override #'(baseline-skip . 0) \column {
+       \concat\vcenter { "╸" \musicglyph#"scripts.prallprall" }
+       \concat\vcenter { \transparent "╸" \musicglyph#"scripts.prallprall" }
+     }#}))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
@@ -317,23 +316,6 @@ blackNotation =
       \revert NoteHead #'stencil #})
 
 ficta = { \once\set suggestAccidentals = ##t }
-
-%% Figured bass
-%% change a flat or sharp alteration into natural
-%% unless 'ancient-style option is true
-naturalFig =
-#(define-music-function (parser location fig) (ly:music?)
-   (if (eqv? #t (ly:get-option 'ancient-style))
-       fig
-       (music-map
-        (lambda (music)
-          (if (eqv? 'BassFigureEvent (ly:music-property music 'name))
-              (let ((alteration (ly:music-property music 'alteration)))
-                (if (and (number? alteration)
-                         (or (= alteration 1/2) (= alteration -1/2)))
-                    (set! (ly:music-property music 'alteration) 0))))
-          music)
-        fig)))
 
 %% Nuances
 tresdoux =
