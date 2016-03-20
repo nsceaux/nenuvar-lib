@@ -1,6 +1,8 @@
 # Nenuvar LilyPond Framework
 
-clef.ily: print ancient and modern clefs side by side.
+Framework used by `Edition Nicolas Sceaux' scores.
 
-toc-columns.ily: print table of contents on several columns
+add this directory to LilyPond include path, then use:
+
+  \include "nenuvar-lib.ily"
 
