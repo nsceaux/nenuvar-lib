@@ -1,3 +1,6 @@
+%%%
+%%% Character marks
+%%%
 #(define-markup-command (characteri paper props name)
      (markup?)
   (interpret-markup
@@ -45,7 +48,9 @@
                \once\override Staff.Clef.full-size-change = ##t }
              <> ^\markup\character-text-col $name $text >> #}))
 
-
+%%%
+%%%
+%%%
 endMark =
 #(define-music-function (parser location text) (markup?)
    #{
@@ -99,3 +104,17 @@ beginMarkDown =
 \once\override Score.RehearsalMark.self-alignment-X = #LEFT
 \once\override Score.RehearsalMark.font-size = #1
 \mark\markup $text #})
+
+%% Dacapo, segno...
+segnoMark = { 
+  \once\override Score.RehearsalMark.break-visibility =
+  #end-of-line-invisible
+  \once\override Score.RehearsalMark.direction = #UP
+  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
+  \mark \markup \musicglyph #"scripts.segno"
+}
+
+fineMark = \endMark "Fin."
+dalSegnoMark = \endMark "Dal Segno."
+dacapoMark = \endMark "Da Capo."
+
