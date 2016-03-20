@@ -93,12 +93,13 @@ for `tessitura'"
     (original-clef-stencil clef)
     X RIGHT
     (ly:clef::print clef)
+    ;; padding:
     0.5))
 
 #(define (clef-modifier-with-original-clef-x-offset clef-modifier)
    (+ (ly:self-alignment-interface::x-aligned-on-self clef-modifier)
       (ly:self-alignment-interface::centered-on-x-parent clef-modifier)
-      0.1 ;; padding / 2
+      0.25 ;; padding / 2
       (* 0.5 (interval-length
                (ly:stencil-extent
                 (original-clef-stencil (ly:grob-parent clef-modifier Y))
