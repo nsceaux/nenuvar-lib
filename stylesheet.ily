@@ -166,7 +166,7 @@
         \tagline-vspacer
         Sheet music from
         \with-url #"http://nicolas.sceaux.free.fr"
-        \typewriter\smaller http://nicolas.sceaux.free.fr
+        http://nicolas.sceaux.free.fr
         typeset using \with-url #"http://lilypond.org" LilyPond
         on \concat { \today . }
       }

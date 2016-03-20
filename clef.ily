@@ -113,14 +113,14 @@ clef =
           (clefs (clef-map (string->symbol clef-name)))
           (ancient-clef (cond (match (match:substring match 1))
                               (clefs (symbol->string (cadr clefs)))
-                              (else clef-name)))
+                              (else #f)))
           (modern-clef (cond (match (match:substring match 2))
                              (clefs (symbol->string (cddr clefs)))
                              (else clef-name))))
-     (cond ((eqv? #t (ly:get-option 'use-ancient-clef))
+     (cond (and ancient-clef (eqv? #t (ly:get-option 'use-ancient-clef)))
             ;; ancient clef only
             (make-clef-set ancient-clef))
-           ((eqv? #t (ly:get-option 'show-ancient-clef))
+           (and ancient-clef (eqv? #t (ly:get-option 'show-ancient-clef)))
             ;; ancient and moden clef side by side
             (let ((clef-def (assoc ancient-clef supported-clefs)))
               (if (not (pair? clef-def))
