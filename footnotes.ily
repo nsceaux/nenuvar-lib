@@ -1,6 +1,6 @@
 %%% Foot notes
 %%%
-%%% options: show-footnotes
+%%% options: print-footnotes
 %%%
 \paper {
   footnote-auto-numbering = ##t
@@ -32,10 +32,10 @@
 footnoteHere =
 #(define-music-function (parser this-location offset note)
      (number-pair? markup?)
-   "If `show-footnotes' option is true, then print adds a footnote at
+   "If `print-footnotes' option is true, then print adds a footnote at
 that point."
    (with-location #f
-     (if (eqv? #t (ly:get-option 'show-footnotes))
+     (if (eqv? #t (ly:get-option 'print-footnotes))
          #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
             ^\markup\transparent\box "1" #})
          (make-music 'Music 'void #t)))
@@ -44,7 +44,7 @@ footnoteHereNoSpace =
 #(define-music-function (parser this-location offset note)
      (number-pair? markup?)
    (with-location #f
-     (if (eqv? #t (ly:get-option 'show-footnotes))
+     (if (eqv? #t (ly:get-option 'print-footnotes))
          #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
              ^\markup\null #})
          (make-music 'Music 'void #t)))
