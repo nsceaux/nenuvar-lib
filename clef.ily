@@ -93,7 +93,7 @@ for `tessitura'"
     (original-clef-stencil clef)
     X RIGHT
     (ly:clef::print clef)
-    0.2))
+    0.5))
 
 #(define (clef-modifier-with-original-clef-x-offset clef-modifier)
    (+ (ly:self-alignment-interface::x-aligned-on-self clef-modifier)

@@ -1,5 +1,5 @@
-#(define-markup-command (character-ambitus layout props old-clef new-clef ambitus)
-     (string? string? ly:music?)
+#(define-markup-command (character-ambitus layout props clef ambitus)
+     (string? ly:music?)
    (let* ((low-pitch (ly:music-property
                       (car (ly:music-property ambitus 'elements))
                       'pitch))
@@ -18,13 +18,11 @@
                                    'pitch high-pitch))))
           (score #{ \markup { \null \raise#1 \score {
   \new Staff {
-    \clef $old-clef s8
-    \set Staff.forceClef = ##t \clef $new-clef s8
-    $chord
+    \clef $clef $chord
   }
   \layout {
     \quoteLayout
-    line-width = #14
+    line-width = #12
     ragged-right = ##f
     \context {
       \Staff
