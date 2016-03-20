@@ -22,6 +22,30 @@ haraKiriFirst = \with {
   \override VerticalAxisGroup.remove-first = ##t
 }
 
+%%%
+%%% On-demand hara-kiri
+%%%
+startHaraKiri = \set Staff.keepAliveInterfaces = #'()
+stopHaraKiri = \unset Staff.keepAliveInterfaces
+
+noHaraKiri = \set Staff.keepAliveInterfaces =
+#'(multi-measure-interface
+   rhythmic-grob-interface
+   lyric-interface
+   percent-repeat-item-interface
+   percent-repeat-interface
+   stanza-number-interface)
+revertNoHaraKiri = \unset Staff.keepAliveInterfaces
+
+%% The following hack make regular rests hara-kiri-able
+#(let* ((rest-def (assoc 'Rest all-grob-descriptions))
+        (meta-def (assoc 'meta (cdr rest-def)))
+        (interfaces-def (assoc 'interfaces (cdr meta-def)))
+        (interfaces (filter (lambda (interface)
+                              (not (eqv? interface 'rhythmic-grob-interface)))
+                            (cdr interfaces-def))))
+  (set-cdr! interfaces-def interfaces))
+
 tinyStaff = \with {
   \override StaffSymbol.staff-space = #(magstep -2)
   fontSize = #-2

@@ -18,8 +18,6 @@
 %%% ===============
 %%%   \clef "ancient/modern"
 %%%   \clef "name"
-%%%   \forcedClef "ancient/modern"
-%%%   \forcedClef "name"
 %%%
 %%% Dependencies
 %%% ============
@@ -142,6 +140,12 @@ clef =
             ;; modern clef only
             (make-clef-set modern-clef)))))
 
-forcedClef =
+ffclef =
+#(define-music-function (parser location clef-name) (string?)
+   #{ \set Staff.forceClef = ##t
+\once\override Staff.Clef #'full-size-change = ##t
+\clef $clef-name #})
+
+fclef =
 #(define-music-function (parser location clef-name) (string?)
    #{ \set Staff.forceClef = ##t \clef $clef-name #})
