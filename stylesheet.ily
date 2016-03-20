@@ -210,12 +210,9 @@
     \fill-line { \fontsize #6 \italic \fromproperty #'header:poet }
     \null \null \null \null \null \null
     \fontsize #12 \fill-line {
-                 \apply-fromproperty #make-smallCaps-markup #'header:title }
+      \apply-fromproperty #make-smallCaps-markup #'header:title }
     \null \null \null \null \null \null
-    \fill-line { \postscript #(format #f "~a 0 moveto ~a 0 rlineto stroke"
-                               (/ -400 (*staff-size*))
-                               (/ 800 (*staff-size*)))
-                             }
+    \separation-line#0.2
     \null \null \null \null \null \null
     \fill-line { \fontsize #4 \fromproperty #'header:date }
     \null

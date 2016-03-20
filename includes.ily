@@ -3,25 +3,19 @@
 %%% Author: Nicolas Sceaux <nicolas.sceaux@free.fr>
 %%%
 %%% Directory hierarchy:
-%%%   Composer > Category > Opus > Piece
+%%%   ProjectPath > Piece
 %%%
 %%% For instance:
 %%%
-%%%   Lully/Ballets/AmourMalade/AAouverture
+%%%   ly/AAouverture
 %%%
 %%% LilyPond should be invoked from the hierarchy root,
 %%% or the hierarchy root should be in LilyPond include path.
 %%%
 %%% Special variables
 %%% =================
-%%%   (*composer*)
-%%%     the composer identifier in the project herarchy (a string)
-%%%
-%%%   (*category*)
-%%%     the category identifier in the project herarchy (a string)
-%%%
-%%%   (*opus*)
-%%%     the opus identifier in the project herarchy (a string)
+%%%   (*path*)
+%%%     path to pieces (a string)
 %%%
 %%%   (*piece*)
 %%%     the piece identifier in the project herarchy (a string)
@@ -30,7 +24,7 @@
 %%% ================
 %%%
 %%%  (include-pathname name)
-%%%    Composer, category, opus and piece special variables being set,
+%%%    path and piece special variables being set,
 %%%    possibly to an empty string, return the complete pathname of
 %%%    file <name>.ily
 %%%
@@ -41,20 +35,7 @@
 %%%
 %%% Music functions
 %%% ===============
-%%% Functions setting the current composer, category and opus:
-%%%
-%%%   \setComposer "composer"
-%%%     define the current composer
-%%%
-%%%   \setCategory "category"
-%%%   \setCategory "composer/category"
-%%%     define the current category, and possibly the current composer
-%%%
-%%%   \setOpus "opus"
-%%%   \setOpus "category/opus"
-%%%   \setOpus "composer/category/opus"
-%%%     define the current opus, and possibly the current composer and
-%%%     category
+%%%   \setPath "path/to/pieces"
 %%%
 %%% Functions for parsing a piece score:
 %%%
@@ -117,15 +98,11 @@ toplevel bookparts."
 	(ly:parser-define! 'toplevel-scores (list))))
    (make-music 'Music 'void #t))
 
-#(define *composer* (make-parameter ""))
-#(define *category* (make-parameter ""))
-#(define *opus* (make-parameter ""))
+#(define *path* (make-parameter ""))
 #(define *piece* (make-parameter ""))
 
 #(define-public (include-pathname name)
-   (let ((hierarchy (list (*composer*)
-                          (*category*)
-                          (*opus*)
+   (let ((hierarchy (list (*path*)
                           (*piece*))))
      (string-append
       (apply string-append
@@ -373,7 +350,7 @@ global =
 #(define-music-function (parser this-location) ()
    (with-location #f
   (let* ((global-symbol
-          (string->symbol (format "global~a~a" (*opus*) (*piece*))))
+          (string->symbol (format "global~a~a" (*path*) (*piece*))))
          (global-music (ly:parser-lookup global-symbol)))
    (if (not (ly:music? global-music))
        (let* ((global-file (include-pathname "global")))
@@ -405,37 +382,9 @@ includeFigures =
   (let ((include-file (include-pathname pathname)))
      #{ \new FiguredBass \figuremode { \include $include-file } #})))
 
-setComposer =
-#(define-music-function (parser location name) (string?)
-   (*composer* name)
-   (make-music 'Music 'void #t))
-
-setCategory =
-#(define-music-function (parser location name) (string?)
-   (let ((match (string-match "^(.*)/(.*)$" name)))
-     (if match
-         (begin ;; composer/category
-           (*composer* (match:substring match 1))
-           (*category* (match:substring match 2)))
-         ;; category
-         (*category* name)))
-   (make-music 'Music 'void #t))
-
-setOpus =
-#(define-music-function (parser location name) (string?)
-   (let ((match (string-match "^(.*)/(.*)/(.*)$" name)))
-     (if match
-         (begin ;; composet/category/opus
-           (*composer* (match:substring match 1))
-           (*category* (match:substring match 2))
-           (*opus* (match:substring match 3)))
-         (let ((match (string-match "^(.*)/(.*)$" name)))
-           (if match
-               (begin ;; category/opus
-                 (*category* (match:substring match 1))
-                 (*opus* (match:substring match 2)))
-               ;; opus
-               (*opus* name)))))
+setPath =
+#(define-music-function (parser location path) (string?)
+   (*path* path)
    (make-music 'Music 'void #t))
 
 #(define (include-score-helper parser name label allow-page-turn)

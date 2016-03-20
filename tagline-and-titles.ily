@@ -52,13 +52,12 @@
         (interpret-markup layout props (fn m))
         empty-stencil)))
 
-#(define-markup-command (separation-line layout props width) (number?)
-   #:properties ((line-width)
-                 (separation-line-width-ratio 0.2))
+#(define-markup-command (separation-line layout props width-ratio) (number?)
+   #:properties ((line-width))
    (interpret-markup
     layout props
     #{\markup\fill-line {
-  \draw-line #(cons (* separation-line-width-ratio line-width) 0) }#}))
+  \draw-line #(cons (* width-ratio line-width) 0) }#}))
 
 #(define-markup-command (sep layout props) ()
    (interpret-markup
