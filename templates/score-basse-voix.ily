@@ -1,6 +1,10 @@
 \score {
-  \new StaffGroupNoBar <<
-    \newTinyHaraKiriStaffB \withLyrics <<
+  \new ChoirStaff <<
+    \new Staff \with {
+      \remove "Page_turn_engraver"
+      \tinyStaff
+      \haraKiriFirst
+    } \withLyrics <<
       \global \keepWithTag #'basse \includeNotes "voix"
     >> \keepWithTag #'basse \includeLyrics "paroles"
     \new Staff <<
