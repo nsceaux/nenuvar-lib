@@ -43,8 +43,14 @@
     (make-wordwrap-center-lines-markup-list args))))
 
 %%%
-%%% Corresponding markup-list commands
+%%% markup-list commands
 %%%
+
+%% \paragraph { markups }
+#(define-markup-list-command (paragraph layout props text) (markup-list?)
+  (let ((indentation (markup #:pad-to-box (cons 0 3) (cons 0 0) #:null)))
+    (interpret-markup-list layout props
+       (make-justified-lines-markup-list (cons indentation text)))))
 
 %% \indented-lines { markups }
 #(define-markup-list-command (indented-lines layout props indent args)

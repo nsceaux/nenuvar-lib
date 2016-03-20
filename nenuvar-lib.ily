@@ -8,6 +8,7 @@
 \include "marks.ily"
 \include "music-commands.ily"
 \include "page-references.ily"
+\include "quoting.ily"
 \include "staff.ily"
 \include "tagline-and-titles.ily"
 \include "text-formatting.ily"
