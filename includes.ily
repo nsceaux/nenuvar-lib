@@ -102,9 +102,18 @@ toplevel bookparts."
 #(define *piece* (make-parameter ""))
 
 #(define-public (include-pathname name)
-   (let ((hierarchy (list (getcwd)
-                          (*path*)
-                          (*piece*))))
+   (let ((hierarchy
+          (if (eqv? #t (ly:get-option 'point-and-click))
+              ;; hm. Why is LilyPond writing relative paths in
+              ;; point-and-click URI?  here, we make sure to use full
+              ;; paths, but it breaks when a -o outputdir/... option
+              ;; is used. I only use point-and-click with -o option so
+              ;; that works for me, perchance.
+              (list (getcwd)
+                    (*path*)
+                    (*piece*))
+              (list (*path*)
+                    (*piece*)))))
      (string-append
       (apply string-append
              (map (lambda (dir)
