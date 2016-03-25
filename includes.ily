@@ -102,7 +102,8 @@ toplevel bookparts."
 #(define *piece* (make-parameter ""))
 
 #(define-public (include-pathname name)
-   (let ((hierarchy (list (*path*)
+   (let ((hierarchy (list (getcwd)
+                          (*path*)
                           (*piece*))))
      (string-append
       (apply string-append
