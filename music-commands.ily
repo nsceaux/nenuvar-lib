@@ -291,7 +291,7 @@ shiftRest =
 %%% Misc utilities
 %%%
 
-altKeys =
+altTime =
 #(define-music-function (parser location fractions) (list?)
    (define (make-time-sig-markup num den . rest)
      (if den
