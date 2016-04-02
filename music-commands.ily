@@ -348,8 +348,8 @@ figPosOff = {
 %% geometric figures
 
 #(define-markup-command (triangle-up layout props a b c) (markup? markup? markup?)
-   (let ((base (interpret-markup layout props (markup #:tiny #:line (#:number b #:number c))))
-         (top (interpret-markup layout props (markup #:tiny #:number a))))
+   (let ((base (interpret-markup layout props (markup #:fontsize -2 #:line (#:number b #:number c))))
+         (top (interpret-markup layout props (markup #:fontsize -2 #:number a))))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (top-width (interval-length (ly:stencil-extent top X)))
             (top-left-padding (/ (- base-width top-width) 2.0)))
@@ -360,8 +360,10 @@ figPosOff = {
                      base)))))
 
 #(define-markup-command (triangle-down layout props a b c) (markup? markup? markup?)
-   (let ((base (interpret-markup layout props (markup #:tiny #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:tiny #:number c))))
+   (let ((base (interpret-markup
+                layout props #{\markup\fontsize#-2 { \number $a \number $b } #}))
+         (bottom (interpret-markup
+                  layout props #{\markup\fontsize#-2 \number $c #})))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (bottom-width (interval-length (ly:stencil-extent bottom X)))
             (bottom-left-padding (/ (- base-width bottom-width) 2.0)))
@@ -375,9 +377,9 @@ figPosOff = {
                               bottom)))))))
 
 #(define-markup-command (triangle-down-down layout props a b c d) (markup? markup? markup? markup?)
-   (let ((base (interpret-markup layout props (markup #:tiny #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:tiny #:number c)))
-         (bottom2 (interpret-markup layout props (markup #:tiny #:number d))))
+   (let ((base (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -2 #:number c)))
+         (bottom2 (interpret-markup layout props (markup #:fontsize -2 #:number d))))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (bottom-width (interval-length (ly:stencil-extent bottom X)))
             (bottom-left-padding (/ (- base-width bottom-width) 2.0))
@@ -401,13 +403,13 @@ figPosOff = {
    "figure:
 a b
  c d"
-   (let ((top (interpret-markup layout props (markup #:tiny #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:tiny #:line (#:number c #:number d)))))
+   (let ((top (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -2 #:line (#:number c #:number d)))))
      (let* ((top-width (interval-length (ly:stencil-extent top X)))
             (bottom-left-padding (/ (- top-width
                                        (interval-length
                                         (ly:stencil-extent
-                                         (interpret-markup layout props (markup #:tiny #:number c)) X)))
+                                         (interpret-markup layout props (markup #:fontsize -2 #:number c)) X)))
                                     2.0)))
        (stack-lines DOWN 0.0 2
                     (list
@@ -423,8 +425,8 @@ a b
    "figure:
 a b
 c d"
-   (let ((top (interpret-markup layout props (markup #:tiny #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:tiny #:line (#:number c #:number d)))))
+   (let ((top (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -2 #:line (#:number c #:number d)))))
      (stack-lines DOWN 0.0 2 (list top bottom))))
 
 #(define-markup-command (fig-five layout props a b c d e)
@@ -434,11 +436,11 @@ a b
  c
 d e"
    (let ((top (interpret-markup layout props
-                                (markup #:tiny #:line (#:number a #:number b))))
+                                (markup #:fontsize -2 #:line (#:number a #:number b))))
          (center (interpret-markup layout props
-                                   (markup #:tiny #:number c)))
+                                   (markup #:fontsize -2 #:number c)))
          (bottom (interpret-markup layout props
-                                   (markup #:tiny #:line (#:number d #:number e)))))
+                                   (markup #:fontsize -2 #:line (#:number d #:number e)))))
      (let* ((top-width (interval-length (ly:stencil-extent top X)))
             (center-width (interval-length (ly:stencil-extent center X)))
             (center-left-padding (/ (- top-width center-width) 2.0)))
@@ -455,28 +457,28 @@ d e"
 #(define-markup-command (figure-sharp layout props) ()
    (interpret-markup
     layout props
-    (markup #:tiny #:concat (#:null #:raise 0.7 #:fontsize -2 #:sharp))))
+    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:sharp))))
 
 #(define-markup-command (figure-flat layout props) ()
    (interpret-markup
     layout props
-    (markup #:tiny #:concat (#:null #:raise 0.7 #:fontsize -2 #:flat))))
+    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:flat))))
 
 #(define-markup-command (figure-natural layout props) ()
    (interpret-markup
     layout props
-    (markup #:tiny #:concat (#:null #:raise 0.7 #:fontsize -2 #:natural))))
+    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:natural))))
 
 #(define-markup-command (paren-sharp layout props num) (markup?)
    (interpret-markup
     layout props
-    (markup #:tiny #:concat (#:null #:raise 0.2 #:line ("(" #:figure-sharp ")")
+    (markup #:fontsize -2 #:concat (#:null #:raise 0.2 #:line ("(" #:figure-sharp ")")
                                     #:number num ))))
 
 #(define-markup-command (paren-flat layout props num) (markup?)
    (interpret-markup
     layout props
-    (markup #:tiny #:concat (#:null #:raise 0.2 #:line ("(" #:figure-flat ")")
+    (markup #:fontsize -2 #:concat (#:null #:raise 0.2 #:line ("(" #:figure-flat ")")
                                     #:number num ))))
 
 %% repeats
