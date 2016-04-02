@@ -309,9 +309,9 @@ altTime =
        \number \line { $time1 $time2 }
      #}))
    
-fractionTime = \once \override Staff.TimeSignature #'style = #'numbered
-cTime = \once \override Staff.TimeSignature #'style = #'C
-digitTime = \once \override Staff.TimeSignature #'style = #'single-digit
+fractionTime = \once\override Score.TimeSignature.style = #'numbered
+cTime = \once\override Score.TimeSignature.style = #'C
+digitTime = \once\override Score.TimeSignature.style = #'single-digit
 
 instrumentName =
 #(define-music-function (parser location name) (markup?)
