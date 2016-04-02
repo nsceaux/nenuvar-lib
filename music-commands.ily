@@ -287,6 +287,7 @@ shiftRest =
 #(define-music-function (parser location amount) (number?)
    #{ \once \override Rest #'X-offset = #amount #})
 
+outside = { \once\override Staff.TextScript.outside-staff-priority = #9999 }
 %%%
 %%% Misc utilities
 %%%
@@ -326,6 +327,9 @@ midiTempo =
    #{ \set Score . tempoWholesPerMinute =
       #(ly:make-moment (/ quater-nb-par-min 4) 1 0 1) #})
 
+%%%
+%%% Figured bass
+%%%
 %% figure extenders
 figExtOn = \bassFigureExtendersOn
 figExtOff = \bassFigureExtendersOff
