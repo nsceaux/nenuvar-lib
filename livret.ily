@@ -99,19 +99,9 @@
     #{ \markup\fontsize #0 \italic\justify { \hspace #4 $text } #}))
 
 #(define-markup-command (livretPers layout props text next) (markup? markup?)
-   #:properties ((line-width)
-                 (gap 9)
-                 (word-space 0))
    (interpret-markup
     layout props
-    (markup #:column
-            (#:fill-line (#:fontsize 1 #:pad-around 2
-                          #:override `(line-width . ,(- line-width
-                                                        (* 2 gap)
-                                                        word-space
-                                                        2))
-                                     text)
-             next))))
+    #{ \markup\column { \fontsize#1 \pad-above#2 $text $next } #}))
 
 #(define-markup-command (livretPersVerse layout props pers verse next)
      (markup? markup? markup?)

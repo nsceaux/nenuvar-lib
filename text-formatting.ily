@@ -243,3 +243,12 @@
     (if (string? text)
         (make-small-caps (string->list text) (list) #f (list))
         text)))
+
+#(define-markup-command (pad-above layout props amount arg)
+  (number? markup?)
+   (let* ((m (interpret-markup layout props arg))
+          (x (ly:stencil-extent m X))
+          (y (let ((extent (ly:stencil-extent m Y)))
+               (cons (car extent) (+ (cdr extent) amount)))))
+     (ly:stencil-add (make-transparent-box-stencil x y)
+                     m)))
