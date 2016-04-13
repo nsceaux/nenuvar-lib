@@ -101,7 +101,15 @@
 #(define-markup-command (livretPers layout props text next) (markup? markup?)
    (interpret-markup
     layout props
-    #{ \markup\column { \fontsize#1 \pad-above#2 $text $next } #}))
+    #{ \markup\column { \fontsize#1 \pad-above#2 \smallCaps $text $next } #}))
+
+#(define-markup-command (livretPersDidas layout props text didas next)
+     (markup? markup? markup?)
+   (interpret-markup
+    layout props
+    #{ \markup\column {
+  \pad-above#2 \line { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
+  $next } #}))
 
 #(define-markup-command (livretPersVerse layout props pers verse next)
      (markup? markup? markup?)
