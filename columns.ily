@@ -137,16 +137,17 @@ supposed not to be full)"
        (define (finish-page)
          "To be called when a page is full"
          (let* ((columns (reverse! current-page-columns))
-                (page (car columns)))
-           (for-each (lambda (column)
-                       (set! page
-                             (ly:stencil-add
-                              page
-                              (ly:stencil-translate-axis
-                               column
-                               (+ column-width column-padding)
-                               X))))
-                     (cdr columns))
+                (page (if (null? columns) empty-stencil (car columns))))
+           (if (not (null? columns))
+               (for-each (lambda (column)
+                           (set! page
+                                 (ly:stencil-add
+                                  page
+                                  (ly:stencil-translate-axis
+                                   column
+                                   (+ column-width column-padding)
+                                   X))))
+                         (cdr columns)))
            (if (and use-title (null? pages))
                (set! page
                      (stack-lines DOWN 0 0

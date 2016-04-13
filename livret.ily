@@ -3,27 +3,28 @@
 #(define-markup-command (livretAct layout props text next) (markup? markup?)
    (interpret-markup
     layout props
-    (markup #:column (#:fill-line (#:fontsize 4 #:pad-around 3 text)
-                      next))))
+    #{ \markup\column { \fill-line { \bold\fontsize#4 \pad-above#3 $text } $next }#}))
 
 #(define-markup-command (livretFinAct layout props text) (markup?)
    (interpret-markup
     layout props
-    (markup #:fill-line (#:fontsize 3 #:pad-around 2 text))))
+    #{ \markup\fill-line { \fontsize#3 \pad-around#2 $text }#}))
 
 #(define-markup-command (livretScene layout props text next)
      (markup? markup?)
-   (stack-lines DOWN 0 0
-                (list (ly:make-stencil "" '(0 . 0) '(0 . 1))
-                      (interpret-markup
-                       layout props
-                       (markup #:column (#:fill-line (#:fontsize 2 #:pad-around 2 text)
-                                         next))))))
+   (stack-lines
+    DOWN 0 0
+    (list (ly:make-stencil "" '(0 . 0) '(0 . 1))
+          (interpret-markup
+           layout props
+           #{\markup\column {
+  \fill-line { \bold\fontsize#2 \pad-above#2 $text }
+  $next }#}))))
 
 #(define-markup-command (livretDesc layout props text) (markup?)
    (interpret-markup
     layout props
-    (markup #:fontsize 1 #:pad-around 2 #:italic text)))
+    #{\markup\fontsize#1 \pad-above#2 \italic $text #}))
 
 #(define-markup-command (livretDescPage layout props text) (markup?)
    #:properties ((line-width)
@@ -33,14 +34,14 @@
     layout props
     (markup #:hspace gap
             #:override `(line-width . ,(- line-width gap word-space 2))
-            #:fontsize 1 #:pad-around 2 #:italic text)))
+            #:fontsize 1 #:pad-above 2 #:italic text)))
 
 #(define-markup-command (livretDescAtt layout props text next)
      (markup? markup?)
    (interpret-markup
     layout props
     (markup #:column
-            (#:line (#:fontsize 1 #:pad-around 2 #:italic text)
+            (#:line (#:fontsize 1 #:pad-above 2 #:italic text)
              next))))
 
 #(define-markup-command (livretDescAttPage layout props text next)
@@ -54,7 +55,7 @@
          \line {
            \hspace #gap
            \override #`(line-width . ,(- line-width gap word-space 2))
-           \fontsize #1 \pad-around #2 \italic #text
+           \fontsize #1 \pad-above #2 \italic #text
          }
          $next } #}))
 
@@ -101,14 +102,14 @@
 #(define-markup-command (livretPers layout props text next) (markup? markup?)
    (interpret-markup
     layout props
-    #{ \markup\column { \fontsize#1 \pad-above#2 \smallCaps $text $next } #}))
+    #{ \markup\column { \fontsize#1 \pad-above#1 \smallCaps $text $next } #}))
 
 #(define-markup-command (livretPersDidas layout props text didas next)
      (markup? markup? markup?)
    (interpret-markup
     layout props
     #{ \markup\column {
-  \pad-above#2 \line { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
+  \pad-above#1 \line { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
   $next } #}))
 
 #(define-markup-command (livretPersVerse layout props pers verse next)
