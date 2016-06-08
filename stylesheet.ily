@@ -36,9 +36,9 @@
   \context {
     \Score
     \name Score
-    \override BarNumber #'padding = #2 
-    \override InstrumentName #'font-size = #1.0
-    \override InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))
+    \override BarNumber.padding = #2 
+    \override InstrumentName.font-size = #1.0
+    \override InstrumentName.space-alist = #'((left-edge extra-space . 2.0))
     \accepts "StaffGroupNoBar"
     skipBars = ##t
   }
@@ -69,7 +69,7 @@
   \context {
     \Staff
     \name Staff
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
+    \override VerticalAxisGroup.minimum-Y-extent = #'(-4 . 4)
     %% ancient-style: no time signature or key signature
     %% at an end of line.
     \override TimeSignature #'break-visibility =
@@ -87,8 +87,8 @@
     %% Figured bass
     ignoreFiguredBassRest = ##f
     figuredBassAlterationDirection = #RIGHT
-    \override BassFigureAlignment #'stacking-dir = #UP
-    \override BassFigureAlignmentPositioning #'direction = #DOWN
+    \override BassFigureAlignment.stacking-dir = #UP
+    \override BassFigureAlignmentPositioning.direction = #DOWN
   }
   \context {
     \FiguredBass
@@ -96,23 +96,23 @@
     %% Give Figured Bass an horizontal extent so that RehearsalMarks
     %% do not ignore it (otherwise, marks would be place between staff
     %% and figured bass)
-    \override BassFigureAlignment #'X-extent = #'(0 . 0)
+    \override BassFigureAlignment.X-extent = #'(0 . 0)
   }
   \context {
     \PianoStaff
     \name PianoStaff
-    \override StaffGrouper #'staff-staff-spacing #'stretchability = #1
+    \override StaffGrouper.staff-staff-spacing.stretchability = #1
   }
   \context {
     \Voice
     \name Voice
-    \override Script #'avoid-slur = #'outside
+    \override Script.avoid-slur = #'outside
     \override NoteHead.style = #'baroque
   }
   \context {
     \CueVoice
     \name CueVoice
-    \override Script #'avoid-slur = #'outside
+    \override Script.avoid-slur = #'outside
   }
 }
 

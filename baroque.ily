@@ -405,6 +405,10 @@ tresfortSug =
              'text (markup #:whiteout #:italic #:general-align X -0.75
                            "[tres fort]"))
 
+pocof =
+#(make-music 'TextScriptEvent
+             'text #{ \markup\whiteout\line { \italic poco \dynamic f } #})
+
 viste =
 #(make-music
   'TextScriptEvent
