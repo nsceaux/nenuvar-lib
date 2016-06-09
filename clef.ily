@@ -74,23 +74,28 @@ for `tessitura'"
 #(set-object-property! 'orig-clef-position
                        'backend-doc "Original clef position")
 
-#(define (original-clef-stencil clef)
+#(define (original-clef-stencil clef font-size)
+   (format #t " ~a" font-size)
    (let ((ancient-glyph
           (ly:font-get-glyph (ly:grob-default-font clef)
                              (string-append (ly:grob-property clef 'orig-glyph)
-                                            "_change"))))
+                                            "_change")))
+         (factor (/ 2.0 (magstep (if (null? font-size) 0 font-size)))))
      (ly:stencil-translate-axis
       (if (eqv? #t (ly:get-option 'parenthesize-ancient-clef))
           (parenthesize-stencil ancient-glyph 0.05 0.25 0.5 0.2)
           ancient-glyph)
       (/ (- (ly:grob-property clef 'orig-clef-position)
             (ly:grob-property clef 'staff-position))
-         2.0)
+         factor)
       Y)))
    
 #(define (print-clef-with-original-clef clef)
    (ly:stencil-combine-at-edge
-    (original-clef-stencil clef)
+    (original-clef-stencil
+     clef
+     ;; FIXME: staff-space is needed here, not font-size
+     (ly:grob-property clef 'font-size))
     X RIGHT
     (ly:clef::print clef)
     ;; padding:
@@ -101,8 +106,10 @@ for `tessitura'"
       (ly:self-alignment-interface::centered-on-x-parent clef-modifier)
       0.25 ;; padding / 2
       (* 0.5 (interval-length
-               (ly:stencil-extent
-                (original-clef-stencil (ly:grob-parent clef-modifier Y))
+              (ly:stencil-extent
+               (original-clef-stencil
+                (ly:grob-parent clef-modifier Y)
+                (ly:grob-property clef-modifier 'font-size))
                 X)))))
 
 %%%
