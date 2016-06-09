@@ -75,7 +75,6 @@ for `tessitura'"
                        'backend-doc "Original clef position")
 
 #(define (original-clef-stencil clef font-size)
-   (format #t " ~a" font-size)
    (let ((ancient-glyph
           (ly:font-get-glyph (ly:grob-default-font clef)
                              (string-append (ly:grob-property clef 'orig-glyph)
