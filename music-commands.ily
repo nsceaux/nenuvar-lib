@@ -314,6 +314,12 @@ fractionTime = \once\override Score.TimeSignature.style = #'numbered
 cTime = \once\override Score.TimeSignature.style = #'C
 digitTime = \once\override Score.TimeSignature.style = #'single-digit
 
+customTime =
+#(define-music-function (parser location time-markup) (markup?)
+   #{
+\once\override Staff.TimeSignature.stencil = #ly:text-interface::print
+\once\override Staff.TimeSignature.text = $time-markup #})
+
 instrumentName =
 #(define-music-function (parser location name) (markup?)
    #{ \set Staff.instrumentName = \markup \large $name #})
