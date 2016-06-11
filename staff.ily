@@ -83,7 +83,7 @@ withLyricsC =
 
 withLyricsD =
 #(define-music-function (parser location music lyrics1 lyrics2 lyrics3 lyrics4)
-     (ly:music? ly:music? ly:music? ly:music?)
+     (ly:music? ly:music? ly:music? ly:music? ly:music?)
    (let ((name (symbol->string (gen-unique-context))))
      #{  << \context Voice = $name \with { autoBeaming = ##f } $music
             \new Lyrics \lyricsto #name { #lyrics1 }
