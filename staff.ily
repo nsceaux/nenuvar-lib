@@ -92,6 +92,18 @@ withLyricsD =
             \new Lyrics \lyricsto #name { #lyrics4 }
             >> #}))
 
+withLyricsE =
+#(define-music-function (parser location music lyrics1 lyrics2 lyrics3 lyrics4 lyrics5)
+     (ly:music? ly:music? ly:music? ly:music? ly:music? ly:music?)
+   (let ((name (symbol->string (gen-unique-context))))
+     #{  << \context Voice = $name \with { autoBeaming = ##f } $music
+            \new Lyrics \lyricsto #name { #lyrics1 }
+            \new Lyrics \lyricsto #name { #lyrics2 }
+            \new Lyrics \lyricsto #name { #lyrics3 }
+            \new Lyrics \lyricsto #name { #lyrics4 }
+            \new Lyrics \lyricsto #name { #lyrics5 }
+            >> #}))
+
 withRecit =
 #(define-music-function (parser location music lyrics) (ly:music? ly:music?)
    (let ((name (symbol->string (gen-unique-context))))
