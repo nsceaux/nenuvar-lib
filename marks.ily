@@ -113,6 +113,13 @@ segnoMark = {
   \once\override Score.RehearsalMark.self-alignment-X = #CENTER
   \mark \markup \musicglyph #"scripts.segno"
 }
+segnoMarkEnd = { 
+  \once\override Score.RehearsalMark.break-visibility =
+  #begin-of-line-invisible
+  \once\override Score.RehearsalMark.direction = #UP
+  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
+  \mark \markup \musicglyph #"scripts.segno"
+}
 
 fineMark = \endMark "Fin."
 dalSegnoMark = \endMark "Dal Segno."
