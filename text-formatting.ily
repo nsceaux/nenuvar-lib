@@ -252,3 +252,29 @@
                (cons (car extent) (+ (cdr extent) amount)))))
      (ly:stencil-add (make-transparent-box-stencil x y)
                      m)))
+
+
+%% Brackets
+#(define (other-axis a)
+   (remainder (+ a 1) 2))
+
+#(define-public (single-bracketify-stencil stil axis direction thick protrusion padding)
+  "Add brackets around @var{stil}, producing a new stencil."
+  (let* ((ext (ly:stencil-extent stil axis))
+         (bracket (ly:bracket axis ext thick (* -1 direction protrusion))))
+    (set! stil
+          (ly:stencil-combine-at-edge
+            stil (other-axis axis) direction bracket padding))
+    stil))
+
+#(define-markup-command (left-bracket layout props arg)
+  (markup?)
+  (let ((th 0.1)
+        (m (interpret-markup layout props arg)))
+    (single-bracketify-stencil m Y LEFT th (* 2.5 th) th)))
+
+#(define-markup-command (right-bracket layout props arg)
+  (markup?)
+  (let ((th 0.1)
+        (m (interpret-markup layout props arg)))
+    (single-bracketify-stencil m Y RIGHT th (* 2.5 th) th)))
