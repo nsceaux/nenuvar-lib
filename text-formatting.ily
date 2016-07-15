@@ -80,6 +80,28 @@
         (map (lambda (arg) (markup #:fill-line (arg)))
              args)))))
 
+#(define-markup-list-command (two-column-lines layout props col1 col2)
+   (markup-list? markup-list?)
+   (interpret-markup-list layout props
+                          (make-column-lines-markup-list
+                           (let ((result '()))
+                             (let map-on-lists ((col1 col1)
+                                                (col2 col2))
+                               (if (and (null? col1) (null? col2))
+                                   (reverse! result)
+                                   (let ((line-col1 (if (null? col1) "" (car col1)))
+                                         (line-col2 (if (null? col2) "" (car col2)))
+                                         (rest-col1 (if (null? col1) '() (cdr col1)))
+                                         (rest-col2 (if (null? col2) '() (cdr col2))))
+                                     (set! result (cons
+                                                   (markup #:fill-line
+                                                           (#:null
+                                                            #:force-line-width-ratio 0.45 line-col1
+                                                            #:null
+                                                            #:force-line-width-ratio 0.45 line-col2
+                                                            #:null))
+                                                   result))
+                                     (map-on-lists rest-col1 rest-col2))))))))
 
 %%%
 %%% line width setting commands
