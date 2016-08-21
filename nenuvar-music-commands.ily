@@ -55,6 +55,16 @@ setMusic =
    (ly:parser-define! sym music)
    (make-music 'Music 'void #t))
 
+%%% Remove rests
+removeRests =
+#(define-music-function (parser location music) (ly:music?)
+   #{ \musicMap #(lambda (music)
+                   (if (memq (ly:music-property music 'name)
+                             '(RestEvent MultiMeasureRestMusic))
+                       (make-music 'SkipEvent
+                                   'duration (ly:music-property music 'duration))
+                       music)) $music #})
+
 %%% Two voices construct
 twoVoices =
 #(define-music-function (parser location tags music)
