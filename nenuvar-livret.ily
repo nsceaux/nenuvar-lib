@@ -182,8 +182,9 @@
     layout props
     #{\markup\fill-line {
   \null
-  \force-line-width-ratio#0.8 {
-    \combine \concat { \draw-hline \draw-line #'(0 . -1) }
+  \override #'(thickness . 0.5)
+  \force-line-width-ratio#1 {
+    \combine \concat { \draw-line #'(0 . -1) \draw-hline \draw-line #'(0 . -1) }
     \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
   } } #}))
 
@@ -192,8 +193,9 @@
     layout props
     #{\markup\fill-line {
   \null
-  \force-line-width-ratio#0.8 {
-    \combine \concat { \draw-hline \raise#-1 \draw-line #'(0 . 2) }
+  \override #'(thickness . 0.5)
+  \force-line-width-ratio#1 {
+    \combine \concat { \raise#-1 \draw-line #'(0 . 2) \draw-hline \raise#-1 \draw-line #'(0 . 2) }
     \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
   } } #}))
 
@@ -202,4 +204,5 @@
     layout props
     #{\markup\fill-line {
   \null
-  \force-line-width-ratio#0.8 { \concat { \draw-hline \draw-line #'(0 . 1) } } } #}))
+  \override #'(thickness . 0.5)
+  \force-line-width-ratio#1 { \concat { \draw-line #'(0 . 1) \draw-hline \draw-line #'(0 . 1) } } } #}))

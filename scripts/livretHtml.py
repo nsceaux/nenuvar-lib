@@ -63,15 +63,16 @@ class LilyLine():
 
     def get_html_text(self):
         text = self._text.replace("\\smallCaps", "")\
-        .replace("\\wordwrap", "")\
         .replace("\\wordwrap-center", "")\
+        .replace("\\wordwrap", "")\
         .replace("\\line", "")\
         .replace("\\column", "")\
         .replace("\\justify", "")\
         .replace("\\smaller", "")\
-        .replace("\\italic", "")\
-        .replace("{", "").strip()
+        .replace("\\italic", "")
         text = re.sub(r'\\hspace#\d+', '', text).strip()
+        text = re.sub(r'\\transparent\s*{([^}]*)}', '<span class="transparent">\\1</span>', text)
+        text = text.replace("{", "").strip()
         match = re.match(r"^\\(\S*)(.*)$", text)
         if match:
             cmd = match.group(1).strip()
@@ -85,10 +86,10 @@ class LilyLine():
                 return """<div class="fin">{}</div>""".format(rest)
             elif cmd == "livretScene":
                 return "<h3>{}</h3>".format(rest)
-            elif cmd == "livretRef":
+            elif re.match("livretRef", cmd):
                 return ""
             elif cmd == "sep":
-                return ""
+                return """<div class="sep">&nbsp;</div>"""
             elif cmd == "livretPers" or cmd == "livretPersDidas" or cmd == "livretPersVerse":
                 if rest == "":
                     return """<div class="perso">"""
@@ -101,10 +102,16 @@ class LilyLine():
                 return """<div class="desc">{}{}""".format(rest, ending)
             elif cmd == "null":
                 return "<div>&nbsp;</div>"
-            elif cmd == "livretDidasPPage":
+            elif cmd == "livretDidasPPage" or  cmd == "livretDidasP":
                 return """<div class="didas">{}{}""".format(
                     rest, ending)
-            if re.match(r"livretVerse", cmd):
+            elif cmd == "livretAlt":
+                return """<div class="alternative"><div class="alternativeTitle">{}</div>""".format(rest)
+            elif cmd == "livretAltB":
+                return """</div><div class="alternative"><div class="alternativeTitle">{}</div>""".format(rest)
+            elif cmd == "livretAltEnd":
+                return "</div>"
+            elif re.match(r"livretVerse", cmd):
                 verse_match = re.match(r'livretVerse#(\d+)', cmd)
                 metric = verse_match.group(1)
                 if rest.strip() == "":
@@ -201,11 +208,13 @@ if __name__ == '__main__':
   <head>
     <meta charset="UTF-8">
     <title>Salieri : Les Horaces</title>
+    <link href="http://fonts.googleapis.com/css?family=Garamond" rel="stylesheet" type="text/css">
     <style>
       .livret {
          width: 30em;
          padding: 5 5 5 5;
          margin: 10 10 10 10;
+         font-family: 'Garamond', serif;
       }
       h1 { text-align: center; }
       h2 { text-align: center; }
@@ -213,19 +222,25 @@ if __name__ == '__main__':
       .desc {
         text-align: center;
         font-style: italic;
-        color: #666666;
+      }
+      .sep {
+        margin: 0 auto;
+        width: 12em;
+        border-bottom: solid 1px black;
       }
       .didas {
         font-style: italic;
-        color: #666666;
+        font-align: justify;
+        font-size: 80%;
       }
       .fin {
+        margin-top: 1ex;
+        font-size: 150%;
         font-weight: bold;
         text-align: center;
       }
       .perso {
         font-variant: small-caps;
-        color: #666666;
       }
       .ver12 { padding-left: 2em; }
       .ver10 { padding-left: 4em; }
@@ -240,6 +255,14 @@ if __name__ == '__main__':
       .ver1 { padding-left: 13em; }
       .ver0 { padding-left: 14em; }
       .transparent { opacity: 0; }
+      .alternative {
+        border: 1px dotted black;
+        margin-bottom: 3px;
+      }
+      .alternativeTitle {
+        font-size: 80%;
+        text-align: right;
+      }
     </style>
   </head>
   <body>
