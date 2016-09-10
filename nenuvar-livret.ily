@@ -176,3 +176,30 @@
 #(define-markup-command (sep layout props) ()
    (interpret-markup layout props
                      (markup #:pad-around 1 #:fill-line (#:draw-line '(50 . 0)))))
+
+#(define-markup-command (livretAlt layout props text) (markup?)
+   (interpret-markup
+    layout props
+    #{\markup\fill-line {
+  \null
+  \force-line-width-ratio#0.8 {
+    \combine \concat { \draw-hline \draw-line #'(0 . -1) }
+    \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
+  } } #}))
+
+#(define-markup-command (livretAltB layout props text) (markup?)
+   (interpret-markup
+    layout props
+    #{\markup\fill-line {
+  \null
+  \force-line-width-ratio#0.8 {
+    \combine \concat { \draw-hline \raise#-1 \draw-line #'(0 . 2) }
+    \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
+  } } #}))
+
+#(define-markup-command (livretAltEnd layout props) ()
+   (interpret-markup
+    layout props
+    #{\markup\fill-line {
+  \null
+  \force-line-width-ratio#0.8 { \concat { \draw-hline \draw-line #'(0 . 1) } } } #}))
