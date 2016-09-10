@@ -3,12 +3,12 @@
 #(define-markup-command (livretAct layout props text next) (markup? markup?)
    (interpret-markup
     layout props
-    #{ \markup\column { \fill-line { \bold\fontsize#4 \pad-above#3 $text } $next }#}))
+    #{ \markup\column { \fill-line { \fontsize#6 \pad-above#3 $text } $next }#}))
 
 #(define-markup-command (livretFinAct layout props text) (markup?)
    (interpret-markup
     layout props
-    #{ \markup\fill-line { \fontsize#3 \pad-around#2 $text }#}))
+    #{ \markup\fill-line { \fontsize#5 \pad-around#2 $text }#}))
 
 #(define-markup-command (livretScene layout props text next)
      (markup? markup?)
@@ -18,7 +18,7 @@
           (interpret-markup
            layout props
            #{\markup\column {
-  \fill-line { \bold\fontsize#2 \pad-above#2 $text }
+  \fill-line { \fontsize#4 \pad-above#2 $text }
   $next }#}))))
 
 #(define-markup-command (livretDesc layout props text) (markup?)
@@ -182,7 +182,7 @@
     layout props
     #{\markup\fill-line {
   \null
-  \override #'(thickness . 0.5)
+  \override #'(thickness . 0.5) \with-color #(x11-color 'grey70)
   \force-line-width-ratio#1 {
     \combine \concat { \draw-line #'(0 . -1) \draw-hline \draw-line #'(0 . -1) }
     \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
@@ -193,7 +193,7 @@
     layout props
     #{\markup\fill-line {
   \null
-  \override #'(thickness . 0.5)
+  \override #'(thickness . 0.5) \with-color #(x11-color 'grey70)
   \force-line-width-ratio#1 {
     \combine \concat { \raise#-1 \draw-line #'(0 . 2) \draw-hline \raise#-1 \draw-line #'(0 . 2) }
     \translate #'(-0.5 . -1.5) \fontsize#-2 \fill-line { \null $text }
@@ -204,5 +204,5 @@
     layout props
     #{\markup\fill-line {
   \null
-  \override #'(thickness . 0.5)
+  \override #'(thickness . 0.5) \with-color #(x11-color 'grey70)
   \force-line-width-ratio#1 { \concat { \draw-line #'(0 . 1) \draw-hline \draw-line #'(0 . 1) } } } #}))
