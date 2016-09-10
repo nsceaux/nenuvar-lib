@@ -116,7 +116,7 @@
      (markup? markup? markup?)
    (let* ((pers-stencil (interpret-markup
                          layout props
-                         (markup #:fontsize 0 #:italic pers)))
+                         (markup #:fontsize 0 #:smallCaps pers)))
           (verse-stencil (interpret-markup layout props verse))
           (line-stencil (ly:stencil-add pers-stencil verse-stencil)))
      (interpret-markup layout props
