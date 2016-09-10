@@ -93,7 +93,10 @@ class LilyLine():
                 if rest == "":
                     return """<div class="perso">"""
                 else:
-                    return """<div class="perso">{}</div>""".format(rest)
+                    extra_ending = ""
+                    if re.match(r'.*{\s*$', self._text):
+                        extra_ending = "<div>"
+                    return """<div class="perso">{}</div>{}""".format(rest, extra_ending)
             elif re.match(r"livretDescAtt.*", cmd):
                 return """<div class="desc">{}{}""".format(rest, ending)
             elif cmd == "null":
@@ -199,11 +202,31 @@ if __name__ == '__main__':
     <meta charset="UTF-8">
     <title>Salieri : Les Horaces</title>
     <style>
-      .desc { font-style: italic; }
-      .didas { font-style: italic; }
-      .fin { font-weight: bold; }
-      .perso { font-variant: small-caps; }
-      .smallcaps { font-variant: small-caps; }
+      .livret {
+         width: 30em;
+         padding: 5 5 5 5;
+         margin: 10 10 10 10;
+      }
+      h1 { text-align: center; }
+      h2 { text-align: center; }
+      h3 { text-align: center; }
+      .desc {
+        text-align: center;
+        font-style: italic;
+        color: #666666;
+      }
+      .didas {
+        font-style: italic;
+        color: #666666;
+      }
+      .fin {
+        font-weight: bold;
+        text-align: center;
+      }
+      .perso {
+        font-variant: small-caps;
+        color: #666666;
+      }
       .ver12 { padding-left: 2em; }
       .ver10 { padding-left: 4em; }
       .ver9 { padding-left: 5em; }
@@ -220,7 +243,8 @@ if __name__ == '__main__':
     </style>
   </head>
   <body>
-    <h1>LIVRET</h1>
+    <div class="livret">
+      <h1>LIVRET</h1>
 """)
     for file in args['files']:
         reader = RawLibrettoReader(args['language'])
@@ -229,6 +253,7 @@ if __name__ == '__main__':
         for line in libretto.get_lines():
             print(line.get_html_text())
     print("""
-</div>
+      </div>
+    </div>
   </body>
 </html>""")
