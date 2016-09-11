@@ -93,7 +93,7 @@ class LilyLine():
                 return ""
             elif cmd == "sep":
                 return """<div class="sep">&nbsp;</div>"""
-            elif cmd == "livretPers" or cmd == "livretPersDidas" or cmd == "livretPersVerse":
+            elif cmd == "livretPers" or cmd == "livretPersVerse":
                 if rest == "":
                     return """<div class="perso">"""
                 else:
@@ -101,6 +101,13 @@ class LilyLine():
                     if re.match(r'.*{\s*$', self._text):
                         extra_ending = "<div>"
                     return """<div class="perso">{}</div>{}""".format(rest, extra_ending)
+            elif cmd == "livretPersDidas":
+                # \livretPersDidas Character didascalies+
+                pers_match = re.match(r'^\s*([\S]+)\s(.*)$', rest)
+                character = pers_match.group(1).strip()
+                didas = pers_match.group(2).strip()
+                return """<div class="perso">{} <span class="didas">{}</span></div>""".format(
+                    character, didas)
             elif re.match(r"livretDescAtt.*", cmd):
                 return """<div class="desc">{}{}""".format(rest, ending)
             elif cmd == "null":
@@ -222,20 +229,8 @@ class RawLibrettoReader():
                 libretto.add_line(LilyLine(line.rstrip()))
         return libretto
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='HTML libretto generation.',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        '--language',
-        default='fr',
-        help='verse language (fr, it)')
-    parser.add_argument(
-        'files', metavar='FILE',
-        type=argparse.FileType('r'),
-        nargs='+',
-        help='input files')
-    args = vars(parser.parse_args())
+def print_header(file = sys.stdout, title = 'LIVRET'):
+    
     print("""
 <html>
   <head>
@@ -265,6 +260,7 @@ if __name__ == '__main__':
         font-style: italic;
         font-align: justify;
         font-size: 80%;
+        font-variant: normal;
       }
       .fin {
         margin-top: 1ex;
@@ -310,15 +306,35 @@ if __name__ == '__main__':
   <body>
     <div class="livret">
       <h1>LIVRET</h1>
-""")
+""", file=file)
+
+def print_footer(file=sys.stdout):
+    print("""
+      </div>
+    </div>
+  </body>
+</html>
+""", file=file)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='HTML libretto generation.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        '--language',
+        default='fr',
+        help='verse language (fr, it)')
+    parser.add_argument(
+        'files', metavar='FILE',
+        type=argparse.FileType('r'),
+        nargs='+',
+        help='input files')
+    args = vars(parser.parse_args())
+    print_header()
     for file in args['files']:
         reader = RawLibrettoReader(args['language'])
         libretto = reader.read(file)
         libretto.syllabify()
         for line in libretto.get_lines():
             print(line.get_html_text())
-    print("""
-      </div>
-    </div>
-  </body>
-</html>""")
+    print_footer()
