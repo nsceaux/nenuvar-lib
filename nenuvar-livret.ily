@@ -110,7 +110,6 @@
                                (eqv? (car didas) line-markup))
                           (cadr didas)
                           didas)))
-     (format #t "~%didascalies: ~s" didascalies)
      (interpret-markup
       layout props
       #{ \markup\column { \pad-above#1 \wordwrap {
