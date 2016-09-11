@@ -71,6 +71,9 @@ class LilyLine():
         .replace("\\smaller", "")\
         .replace("\\italic", "")
         text = re.sub(r'\\hspace#\d+', '', text).strip()
+        text = re.sub(r'\\raise#[\d.]+', '', text).strip()
+        text = re.sub(r'\\left-brace#\d+', '', text).strip()
+        text = re.sub(r'\\right-brace#\d+', '', text).strip()
         text = re.sub(r'\\transparent\s*{([^}]*)}', '<span class="transparent">\\1</span>', text)
         text = text.replace("{", "").strip()
         match = re.match(r"^\\(\S*)(.*)$", text)
@@ -117,8 +120,12 @@ class LilyLine():
                 if rest.strip() == "":
                     return """<div class="ver{}">""".format(metric)
                 else:
-                    return """<div class="ver{}">{}</div>""".format(
-                        metric, rest)
+                    # special case: parallel verses
+                    if re.search(r'\\column', self._text):
+                        return self._get_parallel_verse_html_text(self._text)
+                    else:
+                        return """<div class="ver{}">{}</div>""".format(
+                            metric, rest)
             else:
                 return text
         elif re.match(r"^}", self._text):
@@ -126,6 +133,32 @@ class LilyLine():
         else:
             return text.replace("}", "")
 
+    def _get_parallel_verse_html_text(self, lily_line):
+        # \livretPers#x { xxxxx \column { xx1 xx2 } xxx }
+        # or:
+        # \livretPers#x { xxxxx \column { \line { xx1 } \line {  xx2 } } xxx }
+        match = re.match(r'\\livretVerse#(\d+)\s*{\s*(.*)\s*}\s*$', lily_line)
+        metric = match.group(1)
+        verse = match.group(2)
+        verse = re.sub(r'\\raise#[\d.]+', '', verse).strip()
+        verse = re.sub(r'\\left-brace#\d+', '', verse).strip()
+        verse = re.sub(r'\\right-brace#\d+', '', verse).strip()
+        verse = re.sub(r'^([^{]*){', '\\1', verse, 1).strip()
+        verse = re.sub(r'}([^{]*)$', '\\1', verse, 1).strip()
+        verse_match = re.match(r'^([^\\]*)\\column\s*{(.*)}([^}]*)$', verse)
+        beginning = verse_match.group(1).strip()
+        alternatives = verse_match.group(2).strip()
+        ending = verse_match.group(3).strip()
+        if re.search(r'\\line', alternatives):
+            alt_match = re.match(r'^\s*\\line\s*{(.*)}\s*\\line\s*{(.*)}\s*$', alternatives)
+        else:
+            alt_match = re.match(r'^\s*([^ ]*)\s+([^ ]*)\s*$', alternatives)
+        alt1 = alt_match.group(1).strip()
+        alt2 = alt_match.group(2).strip()
+        html = """<div class="ver{}">{} <div class="altverse"><div>{}</div><div>{}</div></div> {}</div>""".format(
+            metric, beginning, alt1, alt2, ending)
+        return html
+                            
 class Lilybretto():
     def __init__(self, language):
         self._lines = []
@@ -242,6 +275,7 @@ if __name__ == '__main__':
       .perso {
         font-variant: small-caps;
       }
+      .ver13 { padding-left: 2em; }
       .ver12 { padding-left: 2em; }
       .ver10 { padding-left: 4em; }
       .ver9 { padding-left: 5em; }
@@ -255,6 +289,14 @@ if __name__ == '__main__':
       .ver1 { padding-left: 13em; }
       .ver0 { padding-left: 14em; }
       .transparent { opacity: 0; }
+      .altverse {
+        display: inline-block;
+        vertical-align: middle;
+        border-left: 1px dotted black;
+        border-right: 1px dotted black;
+        padding-left: 2px;
+        padding-right: 2px;
+      }
       .alternative {
         border: 1px dotted black;
         margin-bottom: 3px;
