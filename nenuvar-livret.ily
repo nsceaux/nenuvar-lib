@@ -106,11 +106,16 @@
 
 #(define-markup-command (livretPersDidas layout props text didas next)
      (markup? markup? markup?)
-   (interpret-markup
-    layout props
-    #{ \markup\column {
-  \pad-above#1 \wordwrap { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
-  $next } #}))
+   (let ((didascalies (if (and (list? didas)
+                               (eqv? (car didas) line-markup))
+                          (cadr didas)
+                          didas)))
+     (format #t "~%didascalies: ~s" didascalies)
+     (interpret-markup
+      layout props
+      #{ \markup\column { \pad-above#1 \wordwrap {
+    \fontsize#1 \smallCaps $text \italic\fontsize#0 $didascalies }
+  $next } #})))
 
 #(define-markup-command (livretPersVerse layout props pers verse next)
      (markup? markup? markup?)

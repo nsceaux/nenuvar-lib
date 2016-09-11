@@ -103,6 +103,7 @@ class LilyLine():
                     return """<div class="perso">{}</div>{}""".format(rest, extra_ending)
             elif cmd == "livretPersDidas":
                 # \livretPersDidas Character didascalies+
+                rest = rest.replace(' ', '&nbsp;')
                 pers_match = re.match(r'^\s*([\S]+)\s(.*)$', rest)
                 character = pers_match.group(1).strip()
                 didas = pers_match.group(2).strip()
