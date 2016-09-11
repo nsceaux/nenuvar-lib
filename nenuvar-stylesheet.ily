@@ -4,6 +4,7 @@
 \paper {
   #(define fonts (set-global-fonts
                   #:music "scorlatti"
+                  ;#:roman "EB Garamond"
                   #:factor (/ staff-height pt 20)))
 }
 \layout {
