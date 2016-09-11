@@ -109,7 +109,7 @@
    (interpret-markup
     layout props
     #{ \markup\column {
-  \pad-above#1 \line { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
+  \pad-above#1 \wordwrap { \fontsize#1 \smallCaps $text \italic\fontsize#0 $didas }
   $next } #}))
 
 #(define-markup-command (livretPersVerse layout props pers verse next)
