@@ -230,13 +230,13 @@ class RawLibrettoReader():
                 libretto.add_line(LilyLine(line.rstrip()))
         return libretto
 
-def print_header(file = sys.stdout, title = 'LIVRET'):
+def print_header(file = sys.stdout, title = 'LIVRET', subtitle = ''):
     
     print("""
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Salieri : Les Horaces</title>
+    <title>@@Title@@ @@Subtitle@@ — Livret</title>
     <link href="http://fonts.googleapis.com/css?family=Garamond" rel="stylesheet" type="text/css">
     <style>
       .livret {
@@ -306,8 +306,12 @@ def print_header(file = sys.stdout, title = 'LIVRET'):
   </head>
   <body>
     <div class="livret">
-      <h1>LIVRET</h1>
-""", file=file)
+      <h1>@@TITLE@@<br>@@SUBTITLE@@</h1>
+"""\
+          .replace('@@Title@@', title)\
+          .replace('@@TITLE@@', title.upper())
+          .replace('@@Subtitle@@', subtitle)\
+          .replace('@@SUBTITLE@@', subtitle.upper()), file=file)
 
 def print_footer(file=sys.stdout):
     print("""
@@ -326,12 +330,20 @@ if __name__ == '__main__':
         default='fr',
         help='verse language (fr, it)')
     parser.add_argument(
+        '--title',
+        default='LIVRET',
+        help='Title')
+    parser.add_argument(
+        '--subtitle',
+        default='',
+        help='Subtitle')
+    parser.add_argument(
         'files', metavar='FILE',
         type=argparse.FileType('r'),
         nargs='+',
         help='input files')
     args = vars(parser.parse_args())
-    print_header()
+    print_header(title=args['title'], subtitle=args['subtitle'])
     for file in args['files']:
         reader = RawLibrettoReader(args['language'])
         libretto = reader.read(file)
