@@ -32,5 +32,10 @@
     } #})
      (interpret-markup
       layout props
-      #{ \markup { \hspace #10 Tacet
-          \with-dimensions #'(-1 . 1) #'(-1 . 2) $(make-score-markup score) } #})))
+      #{ \markup\column {
+          \line {
+            \hspace #10 Tacet
+            \with-dimensions #'(-1 . 1) #'(-1 . 2) $(make-score-markup score)
+          }
+          \null
+        } #})))
