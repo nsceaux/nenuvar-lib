@@ -22,6 +22,7 @@
     >>
   >>
   \layout {
+    system-count = #(or (*system-count*) #f)
     indent = #(if (*instrument-name*)
                   largeindent
                   (or (*score-indent*) smallindent))
