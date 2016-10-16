@@ -468,7 +468,7 @@ partBlankPageBreak =
   (if (memq (ly:get-option 'part) parts)
       (begin
        (add-page-break parser)
-       (add-toplevel-markup parser (markup #:null))
+       (add-toplevel-markup parser (markup #:italic "Tournez"))
        (add-page-break parser)))
   (make-music 'Music 'void #t))
 
