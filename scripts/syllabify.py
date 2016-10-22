@@ -428,6 +428,8 @@ class SyllableTokenizer():
             else:
                 self._add_sign(signs[i])
                 i += 1
+        if self._first_syllable:
+            self._syllables.append(self._first_syllable)
         return self.get_syllables()
 
 class SyllableTokenizerIt(SyllableTokenizer):
