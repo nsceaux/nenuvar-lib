@@ -18,3 +18,4 @@
 \include "nenuvar-urtext-modern.ily"
 \include "nenuvar-stylesheet.ily"
 \include "nenuvar-parts.ily"
+\include "nenuvar-side-ornementations.ily"
