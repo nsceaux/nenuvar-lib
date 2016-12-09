@@ -44,7 +44,7 @@ for `tessitura'"
                     (quinte petrucci-c3 . alto)
                     (basse petrucci-f . bass)
                     ;; voix
-                    (vdessus treble . treble)
+                    (vdessus petrucci-g . treble)
                     (vbas-dessus petrucci-c1 . treble)
                     (vpetite-haute-contre petrucci-c2 . G_8)
                     (vhaute-contre petrucci-c3 . G_8)
