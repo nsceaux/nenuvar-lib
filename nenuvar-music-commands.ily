@@ -343,6 +343,10 @@ midiTempo =
    #{ \set Score . tempoWholesPerMinute =
       #(ly:make-moment (/ quater-nb-par-min 4) 1 0 1) #})
 
+measure =
+#(define-music-function (parser location fraction) (fraction?)
+   #{ \set Score.measureLength = $(ly:make-moment (/ (car fraction) (cdr fraction))) #})
+
 %%%
 %%% Figured bass
 %%%

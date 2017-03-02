@@ -179,7 +179,10 @@ class SignTokenizer():
                 i += 1
             # ignored characters
             elif c in self.ignored_characters:
-                self._add_text(c)
+                if word_start:
+                    self._add_sign(c)
+                else:
+                    self._add_text(c)
                 i += 1
             # consonant or vowel
             else:
