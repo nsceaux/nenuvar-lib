@@ -6,7 +6,7 @@
       \haraKiriFirst
     } \withLyrics <<
       \global \keepWithTag #'basse \includeNotes "voix"
-    >> \keepWithTag #'basse \includeLyrics "paroles"
+    >> \keepWithTag #'basse { \set fontSize = #-1 \includeLyrics "paroles" }
     \new Staff <<
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #(*tag-notes*) \includeNotes #(*note-filename*)
