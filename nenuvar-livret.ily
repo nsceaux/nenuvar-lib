@@ -164,6 +164,18 @@
     layout props
     #{ \markup\justify $args #}))
 
+#(define-markup-command (livretProse layout props args) (markup-list?)
+   #:properties ((gap 9))
+   (let* ((new-line-width (- (chain-assoc-get 'line-width props) gap))
+         
+         (prose (interpret-markup layout
+                 (cons `((line-width . ,new-line-width)) props)
+                                  (make-justify-markup args))))
+     (stack-stencil-line
+      0
+      (list (ly:make-stencil "" (cons 0 gap) empty-interval)
+            prose))))
+
 #(define-markup-command (livretParagraph layout props args) (markup-list?)
    (interpret-markup
     layout props
