@@ -392,6 +392,14 @@ includeFigures =
   (let ((include-file (include-pathname pathname)))
      #{ \new FiguredBass \figuremode { \include $include-file } #})))
 
+includeFiguresInStaff = 
+#(define-music-function (parser this-location pathname) (string?)
+   ;; use locations from the included file,
+   ;; and not from where \includeNotes is called
+   (with-location #f
+  (let ((include-file (include-pathname pathname)))
+    #{ \figuremode { \include $include-file } #})))
+
 setPath =
 #(define-music-function (parser location path) (string?)
    (*path* path)

@@ -164,6 +164,11 @@
     layout props
     #{ \markup\justify $args #}))
 
+#(define-markup-command (livretCentre layout props args) (markup-list?)
+   (interpret-markup
+    layout props
+    #{ \markup\fill-line { $(make-line-markup args) } #}))
+
 #(define-markup-command (livretProse layout props args) (markup-list?)
    #:properties ((gap 9))
    (let* ((new-line-width (- (chain-assoc-get 'line-width props) gap))

@@ -13,6 +13,11 @@
     \override BassFigure.font-name = #"Cochin Bold" 
     \override BassFigure.font-size = #2
   }
+  \context {
+    \Staff
+    \override BassFigure.font-name = #"Cochin Bold" 
+    \override BassFigure.font-size = #2
+  }
 }
 %% Paper size
 #(set-default-paper-size "a4")
@@ -88,7 +93,6 @@
     %% Figured bass
     ignoreFiguredBassRest = ##f
     figuredBassAlterationDirection = #RIGHT
-    \override BassFigureAlignment.stacking-dir = #UP
     \override BassFigureAlignmentPositioning.direction = #DOWN
   }
   \context {
