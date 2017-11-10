@@ -334,6 +334,15 @@ act =
   (add-no-page-break parser)
   (make-music 'Music 'void #t))
 
+actToc =
+#(define-music-function (parser location act-title) (string?)
+  (increase-rehearsal-major-number)
+  (add-toc-item parser 'tocActMarkup act-title)
+  (add-even-page-header-text parser (string-upper-case (*opus-title*)) #f)
+  (*act-title* act-title)
+  (add-odd-page-header-text parser (string-upper-case (*act-title*)) #f)
+  (make-music 'Music 'void #t))
+
 actn =
 #(define-music-function (parser location act-title) (string?)
   (add-toc-item parser 'tocActMarkup act-title)
@@ -342,6 +351,14 @@ actn =
   (add-odd-page-header-text parser (string-upper-case (*act-title*)) #f)
   (add-toplevel-markup parser #{\markup\act $(string-upper-case act-title)#})
   (add-no-page-break parser)
+  (make-music 'Music 'void #t))
+
+actnToc =
+#(define-music-function (parser location act-title) (string?)
+  (add-toc-item parser 'tocActMarkup act-title)
+  (add-even-page-header-text parser (string-upper-case (*opus-title*)) #f)
+  (*act-title* act-title)
+  (add-odd-page-header-text parser (string-upper-case (*act-title*)) #f)
   (make-music 'Music 'void #t))
 
 actEnd =
