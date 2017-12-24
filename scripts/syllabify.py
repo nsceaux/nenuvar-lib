@@ -503,10 +503,11 @@ class Verse():
       => ["Un ", "ve", "r a", "vec ", "des ", "dé", "co", "ra", "tions"]
       
     """
-    def __init__(self, text, lineno = None):
+    def __init__(self, text, lineno = None, complete = True):
         self._text = text
         self._syllables = []
         self._lineno = lineno
+        self._complete = complete
 
     def get_syllables(self):
         return [syll.get_text() for syll in self._syllables]
@@ -525,7 +526,9 @@ class Verse():
         if not self._syllables:
             return 1
         else:
-            return len(self._syllables) - (1 if self._syllables[-1].is_feminine() else 0)
+            return len(self._syllables) - (1 if (self._complete
+                                                 and self._syllables[-1].is_feminine())
+                                           else 0)
 
     def hyphenate(self, hyphen = "-", add_space = False):
         syllables = []

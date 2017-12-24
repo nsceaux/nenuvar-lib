@@ -22,6 +22,7 @@ class VersePart(LilyVerse):
         LilyVerse.__init__(self, text)
         self._prev_part = []
         self._last_part = None
+        self._complete = False
 
     def set_last_part(self, last_part):
         self._last_part = last_part
@@ -47,6 +48,7 @@ class VersePart(LilyVerse):
 class VerseLastPart(VersePart):
     def __init__(self, text):
         VersePart.__init__(self, text)
+        self._complete = True
 
     def get_metric(self):
         metric = Verse.get_metric(self)
