@@ -676,3 +676,8 @@ sug =
    arg)
 
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
+
+%% MultiMeasureRest direction commands
+mmRestUp = \override Staff.MultiMeasureRest.direction = #UP
+mmRestCenter = \override Staff.MultiMeasureRest.direction = #CENTER
+mmRestDown = \override Staff.MultiMeasureRest.direction = #DOWN

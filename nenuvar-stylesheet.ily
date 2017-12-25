@@ -121,6 +121,13 @@
   }
 }
 
+greyNotes = {
+  \override Stem.color = #(x11-color 'grey30)
+  \override Beam.color = #(x11-color 'grey30)
+  \override NoteHead.color = #(x11-color 'grey30)
+  \override Accidental.color = #(x11-color 'grey30)
+}
+
 %% override beaming behavior
 %% in 2/2, group 16th notes by 4 (not by 8)
 #(define-public (add-beam-exception time-signature beam-exception settings)
