@@ -141,6 +141,33 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
+
+       ("dotFour"
+        (script-stencil
+         . (markup . ,#{\markup\center-align {
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato" }#}))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,DOWN))
+
+       ("dotEight"
+        (script-stencil
+         . (markup . ,#{\markup\center-align {
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato" }#}))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,DOWN))       
+       
        ("dotPrall"
         ; Articulation used Charpentier: a dot, followed by a prall sign
         (script-stencil . (markup . , #{
@@ -198,6 +225,8 @@ arcDot = #(make-articulation "arcDot")
 arcArc = #(make-articulation "arcArc")
 arcArcDot = #(make-articulation "arcArcDot")
 dotDot = #(make-articulation "dotDot")
+dotFour = #(make-articulation "dotFour")
+dotEight = #(make-articulation "dotEight")
 dotPrall = #(make-articulation "dotPrall")
 dotDoublePrallDoublePrall = #(make-articulation "dotDoublePrallDoublePrall")
 doublePrall = #(make-articulation "doublePrall")
