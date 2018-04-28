@@ -14,4 +14,8 @@ quoteLayout = \layout {
     \override StaffGrouper.staff-staff-spacing.basic-distance = #1
     \override BarNumber.break-visibility = #'#(#f #f #t)
   }
+  \context {
+    \Lyrics
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.basic-distance = #0
+  }
 }
