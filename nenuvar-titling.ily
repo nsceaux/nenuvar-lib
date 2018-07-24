@@ -489,6 +489,12 @@ partBlankPageBreak =
        (add-page-break parser)))
   (make-music 'Music 'void #t))
 
+pageBreakCond =
+#(define-music-function (parser location condition) (boolean?)
+  (if condition
+      (add-page-break parser))
+  (make-music 'Music 'void #t))
+
 partAllowPageTurn =
 #(define-music-function (parser location parts) (list?)
   (if (memq (ly:get-option 'part) parts)

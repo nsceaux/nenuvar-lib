@@ -70,17 +70,19 @@ class LilyLine():
         .replace("\\justify", "")\
         .replace("\\smaller", "")\
         .replace("\\italic", "")
+        text = re.sub(r'%.*', '', text)
         text = re.sub(r'\\hspace#\d+', '', text).strip()
         text = re.sub(r'\\raise#[\d.]+', '', text).strip()
         text = re.sub(r'\\left-brace#\d+', '', text).strip()
         text = re.sub(r'\\right-brace#\d+', '', text).strip()
         text = re.sub(r'\\transparent\s*{([^}]*)}', '<span class="transparent">\\1</span>', text)
+        match_with_brace = re.match(r"^\\(\S*)\s*{(.*)$", text)
         text = text.replace("{", "").strip()
         match = re.match(r"^\\(\S*)(.*)$", text)
         if match:
             cmd = match.group(1).strip()
             rest = match.group(2).replace("}", "").strip()
-            ended = re.match(r".*}\s*$", match.group(2))
+            ended = not not re.match(r".*}\s*$", match.group(2)) or not match_with_brace
             ending = ""
             if ended: ending = "</div>"
             if cmd == "livretAct":
@@ -239,6 +241,10 @@ def print_header(file = sys.stdout, title = 'LIVRET', subtitle = ''):
     <title>@@Title@@ @@Subtitle@@ — Livret</title>
     <link href="http://fonts.googleapis.com/css?family=Garamond" rel="stylesheet" type="text/css">
     <style>
+      body {
+        justify-content: center;
+        display: flex;
+      }
       .livret {
          width: 30em;
          padding: 5 5 5 5;
