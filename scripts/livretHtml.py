@@ -115,7 +115,7 @@ class LilyLine():
                 return """<div class="desc">{}{}""".format(rest, ending)
             elif cmd == "null":
                 return "<div>&nbsp;</div>"
-            elif cmd == "livretDidasPPage" or  cmd == "livretDidasP":
+            elif cmd == "livretDidasPPage" or  cmd == "livretDidasP" or cmd == "livretDidas" or cmd == "livretDidasPage":
                 return """<div class="didas">{}{}""".format(
                     rest, ending)
             elif cmd == "livretAlt":
