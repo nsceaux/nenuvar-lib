@@ -35,7 +35,7 @@ for `tessitura'"
    #f)
 
 #(let ((clef-maps '(;; instruments
-                    (dessus petrucci-g1 . treble)
+                    (dessus french . treble)
                     (dessus2 petrucci-c1 . treble)
                     (haute-contre petrucci-c1 . alto)
                     (haute-contre2 petrucci-c2 . alto)
@@ -50,7 +50,7 @@ for `tessitura'"
                     (vhaute-contre petrucci-c3 . G_8)
                     (vhaute-contre2 petrucci-c3 . G_8)
                     (vtaille petrucci-c4 . G_8)
-                    (vbasse-taille petrucci-f3 . bass)
+                    (vbasse-taille varbaritone . bass)
                     (vbasse petrucci-f . bass)
                     (vtenor tenor . G_8)
                     (valto  alto . treble))))
