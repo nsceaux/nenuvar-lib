@@ -638,7 +638,6 @@ ratureMmRest = {
 }
 
 %%% Suggested dynamics
-
 sug =
 #(define-music-function (parser loc arg) (ly:music?)
    (cond ((eqv? (ly:music-property arg 'name) 'AbsoluteDynamicEvent)
@@ -675,6 +674,27 @@ sug =
                        (ly:music-property arg 'tweaks)))))
    arg)
 
+%%% Suggested rythme
+sugRythme =
+#(define-music-function (parser location music) (ly:music?)
+   #{ <>^\markup\score {
+       \notemode { \forceStemLength #2 { $music } }
+       \layout {
+         \context {
+           \Staff
+           \remove "Staff_symbol_engraver"
+           \remove "Time_signature_engraver"
+           \remove "Clef_engraver"
+           \override StaffSymbol.line-count = 1
+           \magnifyStaff #1/2
+           \override Beam.direction = #UP
+           \override Stem.direction = #UP
+         }
+         indent = 0
+         ragged-right = ##t
+       }
+     } #})
+                   
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
 
 %% MultiMeasureRest direction commands
