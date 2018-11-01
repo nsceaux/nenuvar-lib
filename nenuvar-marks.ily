@@ -120,7 +120,12 @@ segnoMarkEnd = {
   \once\override Score.RehearsalMark.self-alignment-X = #CENTER
   \mark \markup \musicglyph #"scripts.segno"
 }
-
+fermataMark = {
+  \once\override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
+  \once\override Score.RehearsalMark.direction = #UP
+  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
+  \mark\markup\larger\musicglyph#"scripts.ufermata"
+}
 fineMark = \endMark "Fin."
 dalSegnoMark = \endMark "Dal Segno."
 dacapoMark = \endMark "Da Capo."
