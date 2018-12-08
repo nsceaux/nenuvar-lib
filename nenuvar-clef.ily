@@ -52,8 +52,9 @@ for `tessitura'"
                     (vtaille petrucci-c4 . G_8)
                     (vbasse-taille varbaritone . bass)
                     (vbasse petrucci-f . bass)
-                    (vtenor tenor . G_8)
-                    (valto  alto . treble))))
+                    (vtenor petrucci-c4 . G_8)
+                    (valto  petrucci-c3 . treble)
+                    (vsoprano petrucci-c1 . treble))))
    ;; getter
    (define (clef-map-ref tessitura)
      (or (assoc tessitura clef-maps) #f))

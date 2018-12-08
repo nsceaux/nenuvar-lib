@@ -701,3 +701,5 @@ rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
 mmRestUp = \override Staff.MultiMeasureRest.direction = #UP
 mmRestCenter = \override Staff.MultiMeasureRest.direction = #CENTER
 mmRestDown = \override Staff.MultiMeasureRest.direction = #DOWN
+
+outsideSlur = \override Script.avoid-slur = #'outside
