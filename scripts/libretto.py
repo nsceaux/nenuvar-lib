@@ -23,7 +23,7 @@ class LilyVerse(Verse):
 
 class LilyShortVerse(Verse):
     def __init__(self, text):
-        Verse.__init__(self, text, 8)
+        Verse.__init__(self, text, 10)
 
 class VersePart(LilyVerse):
     def __init__(self, text):
