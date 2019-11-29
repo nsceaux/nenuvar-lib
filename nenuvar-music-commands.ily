@@ -95,20 +95,20 @@ Then, use:
 "
    (let ((tag1 (car tags))
          (tag2 (cadr tags))
-         (tag-all (caddr tags))
+         (tags-all (cddr tags))
          (music1 (car (ly:music-property music 'elements)))
          (music2 (cadr (ly:music-property music 'elements)))
          (rest-music (make-music
                       'SimultaneousMusic
                       'elements (cddr (ly:music-property music 'elements)))))
      #{ <<
-  \tag #(list tag1 tag-all) \new Voice {
-    \tag #tag-all \voiceOne $music1
+  \tag #(cons tag1 tags-all) \new Voice {
+    \tag #tags-all \voiceOne $music1
   }
-  \tag #(list tag2 tag-all) \new Voice {
-    \tag #tag-all \voiceTwo $music2
+  \tag #(cons tag2 tags-all) \new Voice {
+    \tag #tags-all \voiceTwo $music2
   }
-  \tag #(list tag1 tag2 tag-all) $rest-music
+  \tag #(cons tag1 (cons tag2 tags-all)) $rest-music
 >> #}))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
