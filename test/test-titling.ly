@@ -1,9 +1,9 @@
 \version "2.11.39"
-\include "../fancy-headers.ily"
-\include "../includes.ily"
-\include "../toc-columns.ily"
-\include "../titling.ily"
-\include "../text-formatting.ily"
+\include "../nenuvar-fancy-headers.ily"
+\include "../nenuvar-includes.ily"
+\include "../nenuvar-toc-columns.ily"
+\include "../nenuvar-titling.ily"
+\include "../nenuvar-text-formatting.ily"
 
 #(format #t "~%~s" (rehearsal-number))
 

@@ -1,6 +1,6 @@
 \version "2.13.54"
 
-\include "../toc-columns.ily"
+\include "../nenuvar-toc-columns.ily"
 
 %%% Rehearsal numbers
 #(define-public rehearsal-number #f)
@@ -11,25 +11,25 @@
         (lambda ()
           (set! major-number (1+ major-number))
           (set! minor-number 0)))
-  (set! rehearsal-number 
+  (set! rehearsal-number
         (lambda ()
           (set! minor-number (1+ minor-number))
           (format #f "~a-~a" major-number minor-number))))
 
-tocItem = 
+tocItem =
 #(define-music-function (parser location text) (markup?)
    "Add a line to the table of content, using the @code{tocItemMarkup} paper
 variable markup"
   (let ((rehearsal (rehearsal-number)))
    (add-toc-item! 'tocPieceMarkup text rehearsal)))
 
-tocSceneItem = 
+tocSceneItem =
 #(define-music-function (parser location text) (markup?)
    "Add a line to the table of content, using the @code{tocItemMarkup} paper
 variable markup"
    (add-toc-item! 'tocSceneMarkup text))
 
-tocActItem = 
+tocActItem =
 #(define-music-function (parser location text) (markup?)
    "Add a line to the table of content, using the @code{tocItemMarkup} paper
 variable markup"

@@ -1,5 +1,5 @@
 \version "2.15.20"
-\include "../baroque.ily"
+\include "../nenuvar-baroque.ily"
 
 {
   c'' \cesure c'' \cesureCenter c'' \cesureDown c'' \cesureInstr
