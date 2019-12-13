@@ -1,8 +1,8 @@
 \version "2.19.37"
 
-\include "../text-formatting.ily"
-\include "../columns.ily"
-\include "../livret.ily"
+\include "../nenuvar-text-formatting.ily"
+\include "../nenuvar-columns.ily"
+\include "../nenuvar-livret.ily"
 
 #(set-global-staff-size 16)
 
