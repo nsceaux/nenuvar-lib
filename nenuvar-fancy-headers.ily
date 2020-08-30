@@ -55,7 +55,7 @@
        (if (null? table)
            ""
            (let* ((elment (car table))
-                  (p (car elment))
+                  (p (or (car elment) -1))
                   (text (cadr elment))
                   (display-1st (caddr elment)))
              (cond ((and (= page-number p) (not display-1st)) #f)
