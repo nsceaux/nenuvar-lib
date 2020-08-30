@@ -95,6 +95,8 @@ class LilyLine():
                 return ""
             elif cmd == "sep":
                 return """<div class="sep">&nbsp;</div>"""
+            elif cmd == "livretPiece":
+                return """<div class="piece">{}</div>""".format(rest)
             elif cmd == "livretPers" or cmd == "livretPersVerse":
                 if rest == "":
                     return """<div class="perso">"""
@@ -280,6 +282,7 @@ def print_header(file = sys.stdout, title = 'LIVRET', subtitle = ''):
       }
       .ver13 { padding-left: 2em; }
       .ver12 { padding-left: 2em; }
+      .ver11 { padding-left: 2em; }
       .ver10 { padding-left: 4em; }
       .ver9 { padding-left: 5em; }
       .ver8 { padding-left: 6em; }
