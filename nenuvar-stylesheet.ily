@@ -46,6 +46,7 @@
     \override InstrumentName.font-size = #1.0
     \override InstrumentName.space-alist = #'((left-edge extra-space . 2.0))
     \accepts "StaffGroupNoBar"
+    \accepts "StaffGroupNoBracket"
     skipBars = ##t
   }
   \context {
