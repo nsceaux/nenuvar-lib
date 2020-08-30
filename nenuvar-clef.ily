@@ -35,14 +35,14 @@ for `tessitura'"
    #f)
 
 #(let ((clef-maps '(;; instruments
-                    (dessus french . treble)
+                    (dessus petrucci-g1 . treble)
                     (dessus2 petrucci-c1 . treble)
                     (haute-contre petrucci-c1 . alto)
                     (haute-contre2 petrucci-c2 . alto)
                     (taille petrucci-c2 . alto)
                     (taille2 petrucci-c3 . alto)
                     (quinte petrucci-c3 . alto)
-                    (basse petrucci-f . bass)
+                    (basse petrucci-f4 . bass)
                     ;; voix
                     (vdessus petrucci-g . treble)
                     (vbas-dessus petrucci-c1 . treble)
@@ -50,8 +50,8 @@ for `tessitura'"
                     (vhaute-contre petrucci-c3 . G_8)
                     (vhaute-contre2 petrucci-c3 . G_8)
                     (vtaille petrucci-c4 . G_8)
-                    (vbasse-taille varbaritone . bass)
-                    (vbasse petrucci-f . bass)
+                    (vbasse-taille petrucci-f3 . bass)
+                    (vbasse petrucci-f4 . bass)
                     (vtenor petrucci-c4 . G_8)
                     (valto  petrucci-c3 . treble)
                     (vsoprano petrucci-c1 . treble))))
