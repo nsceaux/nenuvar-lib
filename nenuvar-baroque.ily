@@ -100,6 +100,15 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
+      ("arcPrall"
+       (script-stencil . (markup . , #{
+     \markup\rotate#-90 \concat {
+       \musicglyph#"accidentals.leftparen"
+       \rotate#90 \musicglyph#"scripts.prall"
+     }#}))
+       (padding . 0.20)
+       (avoid-slur . around)
+       (direction . ,UP))
       ("arcDot"
        (script-stencil . (markup . , #{
      \markup\rotate#-90 \concat {
@@ -221,6 +230,7 @@ tr = #(make-articulation "t")
 trillSug = #(make-articulation "trillSug")
 prallSug = #(make-articulation "prallSug")
 arcTrill = #(make-articulation "arcTrill")
+arcPrall = #(make-articulation "arcPrall")
 arcDot = #(make-articulation "arcDot")
 arcArc = #(make-articulation "arcArc")
 arcArcDot = #(make-articulation "arcArcDot")
