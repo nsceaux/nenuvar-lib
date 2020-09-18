@@ -92,7 +92,10 @@
                                lines))))
      (let ((pages '())
            (current-page-columns '())
-           (current-column #f))
+           (current-column #f)
+           (last-page-lines '())
+           (break-on-last-page #f))
+
        (define (current-column-full? next-line)
          "The current columnn is full when we cannot add the next line"
          (and current-column
@@ -105,6 +108,7 @@
        (define (add-line line)
          "Add a line at the bottom of the current column (which is
 supposed not to be full)"
+         (set! last-page-lines (cons line last-page-lines))
          (set! current-column
                (if (not current-column)
                    (stack-lines DOWN 0 0
@@ -156,6 +160,8 @@ supposed not to be full)"
                                                          (cons 0 0)
                                                          (cons 0 top-padding))
                                         page))))
+           (set! break-on-last-page #f)
+           (set! last-page-lines '())
            (set! current-page-columns '())
            (set! pages (cons page pages))))
        ;; main loop starts here
@@ -168,6 +174,7 @@ supposed not to be full)"
                                 expr)))
                      (cond (break-command
                             ;; a column or page break
+                            (set! break-on-last-page #t)
                             (finish-column
                              (eqv? break-command page-break-command)))
                            ((current-column-full? line)
@@ -176,6 +183,42 @@ supposed not to be full)"
                            (else
                             (add-line line)))))
                  line-stencils)
+       ;; Special filling for last page
+       ;; if last page columns are un-evenly filled, and there is no manual column break
+       ;; then try to evenly fill the columns
+       (if current-column
+             (begin
+               (set! current-page-columns
+                     (cons current-column current-page-columns))
+               (set! current-column #f)))
+       (let* ((column-heights (map (lambda (column)
+                                     (interval-length (ly:stencil-extent column Y)))
+                                   current-page-columns))
+              (column-average-height (* (apply + column-heights)
+                                        (/ 1.0 column-number))))
+         (if (and (not break-on-last-page)
+                  (or (not (current-page-full?))
+                      (> (apply max column-heights)
+                         (* 2.0 (apply min column-heights))))) ;; TODO: parameterize this factor
+           (begin
+             ;; compute this page anew
+             (set! line-stencils (reverse! last-page-lines))
+             (set! current-page-columns '())
+             (set! last-page-lines '())
+             (set! first-page-column-max-height column-max-height)
+             ;; redo the last loop
+             (for-each (lambda (line)
+                         (if (and current-column
+                                  (or (> (interval-length (ly:stencil-extent current-column Y))
+                                         column-average-height)
+                                      (> (+ (interval-length (ly:stencil-extent current-column Y))
+                                            (interval-length (ly:stencil-extent line Y)))
+                                         (if (and use-title (null? pages))
+                                             first-page-column-max-height
+                                             column-max-height))))
+                             (finish-column #f))
+                         (add-line line))
+                       line-stencils))))
        (finish-column #t)
        (reverse! pages))))
 
