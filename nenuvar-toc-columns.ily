@@ -181,7 +181,8 @@ with dots in property @code{fill-with-dots} is true."
     \fontsize #2 \fill-line { \fromproperty #'toc:text }
     \vspace #1
   }
-  tocSceneMarkup = \markup {
+  tocSceneMarkup = \markup\override #'(baseline-skip . 0) \column {
+    \vspace#0.3
     \override #'(fill-line-with-dots . #f) \toc-filled-line
     "" \larger\fromproperty #'toc:text ""
   }

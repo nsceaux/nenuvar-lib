@@ -293,6 +293,16 @@ shiftNote =
       \once \override Stem #'X-offset = #amount
       \once \override Beam #'X-offset = #amount #})
 
+shiftNotes =
+#(define-music-function (parser location amount music) (number? ly:music?)
+   #{ \override NoteHead.X-offset = #amount
+      \override Stem.X-offset = #amount
+      \override Beam.X-offset = #amount
+      $music
+      \revert NoteHead.X-offset
+      \revert Stem.X-offset
+      \revert Beam.X-offset #})
+
 shiftRest =
 #(define-music-function (parser location amount) (number?)
    #{ \once \override Rest #'X-offset = #amount #})
@@ -696,6 +706,7 @@ sugRythme =
      } #})
                    
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
+ffz = #(make-dynamic-script "ffz")
 
 %% MultiMeasureRest direction commands
 mmRestUp = \override Staff.MultiMeasureRest.direction = #UP

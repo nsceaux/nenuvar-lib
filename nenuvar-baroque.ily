@@ -10,6 +10,7 @@
 \defineBarLine " .|:" #'("" ".|:" ".| ")
 \defineBarLine "|.|:" #'("|." ".|:" "|.| ")
 \defineBarLine "||.!:" #'("||" ".!:" ".! ")
+\defineBarLine "||.|:" #'("||" ".|:" ".| ")
 
 %% Breathing signs from Hippolyte et Aricie
 cesure = {
@@ -49,7 +50,14 @@ dotSign=\markup\vcenter "╸"
 %% New baroque scripts (Charpentier, Rameau...)
 #(define-public baroque-script-alist
    (append!
-    `(("t"
+    `(("accinv"
+         ; accent inversé
+         (script-stencil
+          . (markup . ,#{ \markup\rotate#180 \musicglyph#"scripts.sforzato" #}))
+         (padding . 0.20)
+         (avoid-slur . around)
+         (direction . ,UP))
+      ("t"
        (script-stencil
         . (markup . ,(markup #:center-align #:sans #:fontsize -2 #:bold "t")))
        (padding . 0.20)
@@ -81,7 +89,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-       ("prallSug"
+      ("prallSug"
        (script-stencil
         . (markup . , #{ \markup\center-align\concat {
      \smaller\smaller\musicglyph #"accidentals.leftparen"
@@ -162,6 +170,35 @@ dotSign=\markup\vcenter "╸"
         (avoid-slur . around)
         (direction . ,DOWN))
 
+       ("dotFourLig"
+        (script-stencil
+         . (markup . ,#{ \markup\rotate#-90 \concat {
+       \musicglyph#"accidentals.leftparen"
+       \rotate#90 \center-align\override #'(word-space . 0.1) \line {
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         }
+       }#}))
+        (padding . 0.40)
+        (avoid-slur . around)
+        (direction . ,UP))
+       ("dotFourLigDown"
+        (script-stencil
+         . (markup . ,#{ \markup\rotate#90 \concat {
+       \musicglyph#"accidentals.leftparen"
+       \rotate#90 \center-align\override #'(word-space . 0.1) \line {
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         \musicglyph#"scripts.staccato"
+         }
+       }#}))
+        (padding . 0.40)
+        (avoid-slur . around)
+        (direction . ,DOWN))
+
        ("dotEight"
         (script-stencil
          . (markup . ,#{\markup\center-align {
@@ -175,7 +212,7 @@ dotSign=\markup\vcenter "╸"
                    \musicglyph#"scripts.staccato" }#}))
         (padding . 0.20)
         (avoid-slur . around)
-        (direction . ,DOWN))       
+        (direction . ,DOWN))      
        
        ("dotPrall"
         ; Articulation used Charpentier: a dot, followed by a prall sign
@@ -223,6 +260,7 @@ dotSign=\markup\vcenter "╸"
     \override Script #'stencil = #baroque-script-interface::print
   }
 }
+accinv = #(make-articulation "accinv")
 trill = #(make-articulation "stopped")
 trillSharp = #(make-articulation "trillSharp")
 trillNatural = #(make-articulation "trillNatural")
@@ -236,6 +274,8 @@ arcArc = #(make-articulation "arcArc")
 arcArcDot = #(make-articulation "arcArcDot")
 dotDot = #(make-articulation "dotDot")
 dotFour = #(make-articulation "dotFour")
+dotFourLig = #(make-articulation "dotFourLig")
+dotFourLigDown = #(make-articulation "dotFourLigDown")
 dotEight = #(make-articulation "dotEight")
 dotPrall = #(make-articulation "dotPrall")
 dotDoublePrallDoublePrall = #(make-articulation "dotDoublePrallDoublePrall")
