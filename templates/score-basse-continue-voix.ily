@@ -4,7 +4,7 @@
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #'basse \includeNotes "voix"
     >> \keepWithTag #'basse { \set fontSize = #-1 \includeLyrics "paroles" }
-    \new Staff <<
+    \new Staff \with { \haraKiriFirst } <<
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #(*tag-notes*) \includeNotes #(*note-filename*)
       \clef #(*clef*)

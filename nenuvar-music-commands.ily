@@ -707,6 +707,10 @@ sugRythme =
                    
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
 ffz = #(make-dynamic-script "ffz")
+fpp = #(make-dynamic-script "fpp")
+ffp = #(make-dynamic-script "ffp")
+mfp = #(make-dynamic-script "mfp")
+fzp = #(make-dynamic-script "fzp")
 
 %% MultiMeasureRest direction commands
 mmRestUp = \override Staff.MultiMeasureRest.direction = #UP

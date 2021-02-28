@@ -83,7 +83,7 @@ class SignTokenizer():
                  language = "fr",
                  word_separators = " -",
                  word_separator_markers = "°",
-                 simple_punctuations = ".,",
+                 simple_punctuations = ".,…",
                  double_punctuations = ":;?!",
                  apostrophes = "'’",
                  forced_syllable_end_marker = "=",
