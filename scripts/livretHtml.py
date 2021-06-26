@@ -115,6 +115,10 @@ class LilyLine():
                     character, didas)
             elif re.match(r"livretDescAtt.*", cmd):
                 return """<div class="desc">{}{}""".format(rest, ending)
+            elif re.match(r"livretText.*", cmd):
+                return """<div class="text">{}{}""".format(rest, ending)
+            elif re.match(r"livretTitre.*", cmd):
+                return """<div class="titre">{}{}""".format(rest, ending)
             elif cmd == "null":
                 return "<div>&nbsp;</div>"
             elif cmd == "livretDidasPPage" or  cmd == "livretDidasP" or cmd == "livretDidas" or cmd == "livretDidasPage":
@@ -270,6 +274,16 @@ def print_header(file = sys.stdout, title = 'LIVRET', subtitle = ''):
         font-align: justify;
         font-size: 80%;
         font-variant: normal;
+      }
+      .text {
+        font-align: justify;
+        font-variant: normal;
+      }
+      .titre {
+        font-align: justify;
+        font-weight: bold;
+        font-variant: normal;
+        margin-top: 10px;
       }
       .fin {
         margin-top: 1ex;
