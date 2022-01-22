@@ -59,6 +59,12 @@
          }
          $next } #}))
 
+#(define-markup-command (livretTitre layout props text next)
+     (markup-list? markup?)
+   (interpret-markup
+    layout props
+    #{ \markup\column { \pad-above#1 \livretText\bold { $text } $next } #}))
+
 #(define-markup-command (livretDidas layout props text) (markup?)
    (interpret-markup
     layout props

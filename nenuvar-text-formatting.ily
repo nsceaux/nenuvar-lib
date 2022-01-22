@@ -301,3 +301,7 @@
   (let ((th 0.1)
         (m (interpret-markup layout props arg)))
     (single-bracketify-stencil m Y RIGHT th (* 2.5 th) th)))
+
+%% Lyrics commands
+italicLyrics = \override Lyrics.LyricText.font-shape = #'italic
+normalLyrics = \revert Lyrics.LyricText.font-shape

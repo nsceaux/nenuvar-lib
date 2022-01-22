@@ -34,18 +34,15 @@ footnoteHere =
      (number-pair? markup?)
    "If `print-footnotes' option is true, then print adds a footnote at
 that point."
-   (with-location
-    #f
-    (if (eqv? #t (ly:get-option 'print-footnotes))
-        #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
+   (if (eqv? #t (ly:get-option 'print-footnotes))
+       #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
            ^\markup\transparent\box "1" #}
-        (make-music 'Music 'void #t))))
+       (make-music 'Music 'void #t)))
 
 footnoteHereNoSpace =
 #(define-music-function (parser this-location offset note)
      (number-pair? markup?)
-   (with-location #f
-     (if (eqv? #t (ly:get-option 'print-footnotes))
-         #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
-             ^\markup\null #}
-         (make-music 'Music 'void #t))))
+   (if (eqv? #t (ly:get-option 'print-footnotes))
+       #{ <>-\tweak footnote-music #(make-footnote-here-music offset note)
+          ^\markup\null #}
+       (make-music 'Music 'void #t)))

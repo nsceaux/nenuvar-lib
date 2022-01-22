@@ -1,18 +1,18 @@
 from syllabify import *
+import math
+
+def make_centered(text):
+    padding = max(0, math.floor((72 - len(text)) / 2))
+    return """{}{}""".format(' ' * padding, text)
 
 class LilyVerse(Verse):
     def __init__(self, text):
         Verse.__init__(self, text)
 
-    def get_html_text(self):
-        return """<div class="ver12">{}</div>""".format(self.get_text())
-
-class LilyShortVerse(Verse):
-    def __init__(self, text):
-        Verse.__init__(self, text)
-
-    def get_html_text(self):
-        return """<div class="ver10">{}</div>""".format(self.get_text())
+    def get_txt_text(self):
+        return """    {}{}""".format(
+            ' ' * max(0, 12 - self.get_metric()),
+            self.get_text())
 
 class EludedVerse(LilyVerse):
     def __init__(self, text, forced_metric):
@@ -44,8 +44,8 @@ class VersePart(LilyVerse):
         if self._prev_parts == []:
             return Verse.get_text(self)
         else:
-            return """<span class="transparent">{}</span>{}""".format(
-                " ".join([Verse.get_text(part) for part in self._prev_parts]),
+            return """{}{}""".format(
+                " " * len(' '.join([Verse.get_text(part) for part in self._prev_parts])),
                 Verse.get_text(self))
 
 
@@ -65,24 +65,22 @@ class LilyLine():
 
     def syllabify(self, sign_tokenizer = None, syllable_tokenizer = None ):
         pass
-
-    def get_html_text(self):
+    
+    def get_txt_text(self):
         text = self._text.replace("\\smallCaps", "")\
         .replace("\\wordwrap-center", "")\
         .replace("\\wordwrap", "")\
         .replace("\\line", "")\
-        .replace("\\column-break", "")\
         .replace("\\column", "")\
         .replace("\\justify", "")\
         .replace("\\smaller", "")\
-        .replace("\\italic", "")\
-        .replace("\\two-column-lines", "")
+        .replace("\\italic", "")
         text = re.sub(r'%.*', '', text)
         text = re.sub(r'\\hspace#\d+', '', text).strip()
         text = re.sub(r'\\raise#[\d.]+', '', text).strip()
         text = re.sub(r'\\left-brace#\d+', '', text).strip()
         text = re.sub(r'\\right-brace#\d+', '', text).strip()
-        text = re.sub(r'\\transparent\s*{([^}]*)}', '<span class="transparent">\\1</span>', text)
+        text = re.sub(r'\\transparent\s*{([^}]*)}', '', text)
         match_with_brace = re.match(r"^\\(\S*)\s*{(.*)$", text)
         text = text.replace("{", "").strip()
         match = re.match(r"^\\(\S*)(.*)$", text)
@@ -91,68 +89,66 @@ class LilyLine():
             rest = match.group(2).replace("}", "").strip()
             ended = not not re.match(r".*}\s*$", match.group(2)) or not match_with_brace
             ending = ""
-            if ended: ending = "</div>"
+            if ended: ending = ""
             if cmd == "livretAct":
-                return "<h2>{}</h2>".format(rest)
+                return make_centered(rest.upper())
             if cmd == "livretFinAct":
-                return """<div class="fin">{}</div>""".format(rest)
+                return make_centered(rest.upper())
             elif cmd == "livretScene":
-                return "<h3>{}</h3>".format(rest)
+                return make_centered(rest.upper())
             elif re.match("livretRef", cmd):
-                return ""
+                return None
             elif cmd == "sep":
-                return """<div class="sep">&nbsp;</div>"""
+                return """                          --------------------"""
             elif cmd == "livretPiece":
-                return """<div class="piece">{}</div>""".format(rest)
+                return rest
             elif cmd == "livretPers" or cmd == "livretPersVerse":
                 if rest == "":
-                    return """<div class="perso">"""
+                    return None
                 else:
-                    extra_ending = ""
-                    if re.match(r'.*{\s*$', self._text):
-                        extra_ending = "<div>"
-                    return """<div class="perso">{}</div>{}""".format(rest, extra_ending)
+                    return """{} :""".format(rest)
             elif cmd == "livretPersDidas":
                 # \livretPersDidas Character didascalies+
-                rest = rest.replace(' ', '&nbsp;')
                 pers_match = re.match(r'^\s*([\S]+)\s(.*)$', rest)
                 character = pers_match.group(1).strip()
                 didas = pers_match.group(2).strip()
-                return """<div class="perso">{} <span class="didas">{}</span></div>""".format(
-                    character, didas)
+                return """{} {} :""".format (character, didas)
             elif re.match(r"livretDescAtt.*", cmd):
-                return """<div class="desc">{}{}""".format(rest, ending)
+                if (rest != '' and ending != ''):
+                    return """{}{}""".format(rest, ending)
+                else:
+                    return None
             elif re.match(r"livretText.*", cmd):
-                return """<div class="text">{}{}""".format(rest, ending)
+                return """{}{}""".format(rest, ending)
             elif re.match(r"livretTitre.*", cmd):
-                return """<div class="titre">{}{}""".format(rest, ending)
+                return """{}{}""".format(rest, ending)
             elif cmd == "null":
-                return "<div>&nbsp;</div>"
+                return ""
             elif cmd == "livretDidasPPage" or  cmd == "livretDidasP" or cmd == "livretDidas" or cmd == "livretDidasPage":
-                return """<div class="didas">{}{}""".format(
+                return """{}{}""".format(
                     rest, ending)
             elif cmd == "livretAlt":
-                return """<div class="alternative"><div class="alternativeTitle">{}</div>""".format(rest)
+                return rest
             elif cmd == "livretAltB":
-                return """</div><div class="alternative"><div class="alternativeTitle">{}</div>""".format(rest)
+                return rest
             elif cmd == "livretAltEnd":
-                return "</div>"
+                return None
             elif re.match(r"livretVerse", cmd):
                 verse_match = re.match(r'livretVerse#(\d+)', cmd)
                 metric = verse_match.group(1)
                 if rest.strip() == "":
-                    return """<div class="ver{}">""".format(metric)
+                    return ' ' * max(0, 12 - metric)
                 else:
                     # special case: parallel verses
                     if re.search(r'\\column', self._text):
                         return self._get_parallel_verse_html_text(self._text)
                     else:
-                        return """<div class="ver{}">{}</div>""".format(
-                            metric, rest)
+                        return """{}{}""".format(
+                            ' ' * max(0, 12 - metric), rest)
             else:
                 return text
         elif re.match(r"^}", self._text):
-            return "</div>"
+            return None
         else:
             return text.replace("}", "")
 
@@ -178,8 +174,10 @@ class LilyLine():
             alt_match = re.match(r'^\s*([^ ]*)\s+([^ ]*)\s*$', alternatives)
         alt1 = alt_match.group(1).strip()
         alt2 = alt_match.group(2).strip()
-        html = """<div class="ver{}">{} <div class="altverse"><div>{}</div><div>{}</div></div> {}</div>""".format(
-            metric, beginning, alt1, alt2, ending)
+        html = """{}{} {} {}
+{} {}""".format(
+            ' ' * max(0, 12 - metric), beginning, alt1, ending,
+            ' ' * (max(0, 12 - metric) + len(beginning)), alt2)
         return html
                             
 class Lilybretto():
@@ -219,12 +217,9 @@ class RawLibrettoReader():
                 # a verse
                 cmd = verse_match.group(1)
                 verse = verse_match.group(2).strip()
-                if cmd == "":
+                if cmd == "" or cmd == "~":
                     # a regular full verse
                     libretto.add_line(LilyVerse(verse))
-                elif cmd == "~":
-                    # a regular full verse
-                    libretto.add_line(LilyShortVerse(verse))
                 elif cmd == "-":
                     # a split verse
                     verse_part = VersePart(verse)
@@ -250,106 +245,18 @@ class RawLibrettoReader():
 
 def print_header(file = sys.stdout, title = 'LIVRET', subtitle = ''):
     
-    print("""
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>@@Title@@ @@Subtitle@@ — Livret</title>
-    <link href="http://fonts.googleapis.com/css?family=Garamond" rel="stylesheet" type="text/css">
-    <style>
-      body {
-        justify-content: center;
-        display: flex;
-      }
-      .livret {
-         width: 30em;
-         padding: 5 5 5 5;
-         margin: 10 10 10 10;
-         font-family: 'Garamond', serif;
-      }
-      h1 { text-align: center; }
-      h2 { text-align: center; }
-      h3 { text-align: center; }
-      .desc {
-        text-align: center;
-        font-style: italic;
-      }
-      .sep {
-        margin: 0 auto;
-        width: 12em;
-        border-bottom: solid 1px black;
-      }
-      .didas {
-        font-style: italic;
-        font-align: justify;
-        font-size: 80%;
-        font-variant: normal;
-      }
-      .piece {
-        margin-top: 2ex;
-        font-weight: bold;
-      }
-      .fin {
-        margin-top: 1ex;
-        font-size: 150%;
-        font-weight: bold;
-        text-align: center;
-      }
-      .perso {
-        font-variant: small-caps;
-      }
-      .ver13 { padding-left: 2em; }
-      .ver12 { padding-left: 2em; }
-      .ver10 { padding-left: 4em; }
-      .ver9 { padding-left: 5em; }
-      .ver8 { padding-left: 6em; }
-      .ver7 { padding-left: 7em; }
-      .ver6 { padding-left: 8em; }
-      .ver5 { padding-left: 9em; }
-      .ver4 { padding-left: 10em; }
-      .ver3 { padding-left: 11em; }
-      .ver2 { padding-left: 12em; }
-      .ver1 { padding-left: 13em; }
-      .ver0 { padding-left: 14em; }
-      .transparent { opacity: 0; }
-      .altverse {
-        display: inline-block;
-        vertical-align: middle;
-        border-left: 1px dotted black;
-        border-right: 1px dotted black;
-        padding-left: 2px;
-        padding-right: 2px;
-      }
-      .alternative {
-        border: 1px dotted black;
-        margin-bottom: 3px;
-      }
-      .alternativeTitle {
-        font-size: 80%;
-        text-align: right;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="livret">
-      <h1>@@TITLE@@<br>@@SUBTITLE@@</h1>
+    print("""@@TITLE@@
+@@SUBTITLE@@
 """\
-          .replace('@@Title@@', title)\
-          .replace('@@TITLE@@', title.upper())
-          .replace('@@Subtitle@@', subtitle)\
-          .replace('@@SUBTITLE@@', subtitle.upper()), file=file)
+          .replace('@@TITLE@@', make_centered(title.upper()))
+          .replace('@@SUBTITLE@@', make_centered(subtitle.upper())), file=file)
 
 def print_footer(file=sys.stdout):
-    print("""
-      </div>
-    </div>
-  </body>
-</html>
-""", file=file)
+    print("", file=file)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='HTML libretto generation.',
+        description='TXT libretto generation.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         '--language',
@@ -375,5 +282,7 @@ if __name__ == '__main__':
         libretto = reader.read(file)
         libretto.syllabify()
         for line in libretto.get_lines():
-            print(line.get_html_text())
+            txt = line.get_txt_text()
+            if (txt != None):
+                print(txt)
     print_footer()

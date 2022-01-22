@@ -198,6 +198,14 @@ dotSign=\markup\vcenter "╸"
         (padding . 0.40)
         (avoid-slur . around)
         (direction . ,DOWN))
+       ("prallLig"
+        (script-stencil
+         . (markup . ,#{ \markup\rotate#-90 \concat {
+                   \larger\musicglyph#"accidentals.leftparen"
+                   \rotate#90 \center-align \musicglyph#"scripts.prallprall" }#}))
+        (padding . 0.40)
+        (avoid-slur . around)
+        (direction . ,UP))
 
        ("dotEight"
         (script-stencil
@@ -280,6 +288,7 @@ dotEight = #(make-articulation "dotEight")
 dotPrall = #(make-articulation "dotPrall")
 dotDoublePrallDoublePrall = #(make-articulation "dotDoublePrallDoublePrall")
 doublePrall = #(make-articulation "doublePrall")
+prallLig = #(make-articulation "prallLig")
 
 \layout {
   \context {
