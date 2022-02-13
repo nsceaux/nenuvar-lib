@@ -56,6 +56,7 @@
   }
   \context {
     \StaffGroup
+    \type "Engraver_group"
     \name StaffGroupNoBar
     \description "Like StaffGroup, but without spanbar"
     \remove "Span_bar_engraver"
@@ -65,6 +66,7 @@
   }
   \context {
     \StaffGroup
+    \type "Engraver_group"
     \name StaffGroupNoBracket
     \description "Like StaffGroup, but without brackets"
     \remove "System_start_delimiter_engraver"
@@ -122,6 +124,24 @@
   }
 }
 
+\midi {
+  \context {
+    \type "Performer_group"
+    \name StaffGroup
+    \accepts StaffGroupNoBar
+  }
+  \context {
+    \StaffGroup
+    \name StaffGroupNoBar
+    \accepts StaffGroupNoBracket
+  }
+  \context {
+    \StaffGroup
+    \name StaffGroupNoBracket
+  }
+}
+
+
 greyNotes = {
   \override Stem.color = #(x11-color 'grey30)
   \override Beam.color = #(x11-color 'grey30)
@@ -154,7 +174,7 @@ greyNotes = {
 \header {
   maintainer = "Nicolas Sceaux"
   maintainerEmail = "nicolas.sceaux@gmail.com"
-  maintainerWeb = "http://nicolas.sceaux.free.fr"
+  maintainerWeb = "https://editions-nicolas-sceaux.fr"
   copyright = \markup\copyright
   license = "Creative Commons Attribution-ShareAlike 4.0 License"
   shortcopyright = \markup { \copyright — \license }
@@ -166,7 +186,7 @@ greyNotes = {
   
   tagline = \markup\sans\abs-fontsize #8 \override #'(baseline-skip . 0) {
     \right-column\bold {
-      \with-url #"http://nicolas.sceaux.free.fr" {
+      \with-url #"https://editions-nicolas-sceaux.fr" {
         \concat { Éditions \tagline-vspacer }
         \concat { Nicolas \tagline-vspacer }
         \concat { Sceaux \tagline-vspacer }
@@ -178,8 +198,8 @@ greyNotes = {
       \smaller\line {
         \tagline-vspacer
         Sheet music from
-        \with-url #"http://nicolas.sceaux.free.fr"
-        http://nicolas.sceaux.free.fr
+        \with-url #"https://editions-nicolas-sceaux.fr"
+        https://editions-nicolas-sceaux.fr
         typeset using \with-url #"http://lilypond.org" LilyPond
         on \concat { \today . }
       }
