@@ -7,6 +7,7 @@ ambitusLayout = \layout {
     \override Clef #'full-size-change = ##t
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
+    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #0
   }
   \context {
     \Voice
@@ -39,7 +40,7 @@ ambitusLayout = \layout {
      #{\new Staff { \clef $clef $chord }#}))
 %%
 
-#(define-markup-command (character-ambitus layout props clef ambitus)
+#(define-markup-command (ambitus layout props clef ambitus)
      (string? ly:music?)
    (let* ((low-pitch (ly:music-property
                       (car (ly:music-property ambitus 'elements))
@@ -66,23 +67,47 @@ ambitusLayout = \layout {
                            (ly:stencil-extent score-stencil X)
                            '(-2.5 . 4.5))))
 
-#(define-markup-command (choir-ambitus layout props clefs ambiti)
+#(define-markup-command (ambiti layout props clefs ambiti)
      (list? ly:music?)
    (let* ((choir-staff
-           (make-music 'ContextSpeccedMusic
-                       'create-new #t
-                       'property-operations '()
-                       'context-type 'ChoirStaff
-                       'element
-                       (make-music
-                        'SimultaneousMusic
-                        'elements
-                        (map (lambda (clef ambitus)
-                               (make-ambitus-staff clef ambitus))
-                             clefs
-                             (ly:music-property ambiti 'elements)))))
+           (make-music
+            'SimultaneousMusic
+            'elements
+            (map (lambda (clef ambitus)
+                   (make-ambitus-staff clef ambitus))
+                 clefs
+                 (ly:music-property ambiti 'elements))))
           (score #{ \markup\vcenter\score {
     $choir-staff
-    \layout { \ambitusLayout }
+  \layout { \ambitusLayout }
   }#}))
           (interpret-markup layout props score)))
+%%
+
+#(define-markup-command (character-ambitus layout props name clef ambitus)
+     (markup? string? ly:music?)
+   "Example: \\character-ambitus \\smallCaps Atys \"vhaute-contre\" { mi la' }"
+   (interpret-markup layout props #{
+\markup\column {
+  \fill-line {
+    \override #`(line-width . ,(- (chain-assoc-get 'line-width props)
+                                 14))
+    \vcenter $name \ambitus $clef $ambitus
+  }
+  \vspace#1
+}#}))
+
+%%
+#(define-markup-command (choir-ambitus layout props name clefs ambiti)
+(markup? list? ly:music?)
+(format #t "line-width: ~a~%" (chain-assoc-get 'line-width props))
+   (interpret-markup layout props #{
+\markup\column {
+   \fill-line {
+     \override #`(line-width . ,(- (chain-assoc-get 'line-width props)
+                                   14))
+     \vcenter $name \ambiti $clefs $ambiti
+  }
+  \vspace#1
+}#}))
+%%
