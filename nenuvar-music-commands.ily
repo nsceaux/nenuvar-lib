@@ -718,3 +718,5 @@ mmRestCenter = \override Staff.MultiMeasureRest.direction = #CENTER
 mmRestDown = \override Staff.MultiMeasureRest.direction = #DOWN
 
 outsideSlur = \override Script.avoid-slur = #'outside
+insideSlur = \override Script.avoid-slur = #'inside
+trillOutside = \override Script.avoid-slur = #'outside
