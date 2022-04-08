@@ -1,0 +1,23 @@
+--- font.scm.orig	2022-04-08 14:52:52.000000000 +0200
++++ font.scm	2022-04-08 14:53:17.000000000 +0200
+@@ -42,7 +42,7 @@
+ (define (make-font-tree-leaf size size-font-vector)
+   (make <Font-tree-leaf> #:default-size size #:size-vector size-font-vector))
+ 
+-(define (make-font-tree-node
++(define-public (make-font-tree-node
+          qualifier default)
+   (make <Font-tree-node>
+     #:qualifier qualifier
+--- lily.scm.orig	2022-04-08 14:52:43.000000000 +0200
++++ lily.scm	2021-11-21 20:21:20.000000000 +0100
+@@ -70,6 +70,9 @@
+ ;; No public setters: should not get overwritten in action
+ (define-public (*parser*) (fluid-ref %parser))
+ (define-public (*location*) (fluid-ref %location))
++;; patch NS : Reintroduce the `with-location' macro which used to be there
++(defmacro-public with-location (loc . body)
++  `(with-fluids ((,%location ,loc)) ,@body))
+ 
+ (define-public _ gettext)
+ 
