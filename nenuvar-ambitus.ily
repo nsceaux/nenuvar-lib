@@ -100,7 +100,6 @@ ambitusLayout = \layout {
 %%
 #(define-markup-command (choir-ambitus layout props name clefs ambiti)
 (markup? list? ly:music?)
-(format #t "line-width: ~a~%" (chain-assoc-get 'line-width props))
    (interpret-markup layout props #{
 \markup\column {
    \fill-line {

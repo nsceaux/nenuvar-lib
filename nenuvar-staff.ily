@@ -56,6 +56,14 @@ smallStaff = \with {
   fontSize = #-1
 }
 
+withTinyLyrics =
+#(define-music-function (parser location music lyrics) (ly:music? ly:music?)
+   (let ((name (symbol->string (gen-unique-context))))
+     #{  << \context Voice = $name \with { autoBeaming = ##f } $music
+            \new Lyrics \with { fontSize = -2 } \lyricsto #name { #lyrics }
+            >> #}))
+
+
 withLyrics =
 #(define-music-function (parser location music lyrics) (ly:music? ly:music?)
    (let ((name (symbol->string (gen-unique-context))))
