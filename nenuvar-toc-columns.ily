@@ -188,7 +188,7 @@ with dots in property @code{fill-with-dots} is true."
   }
   tocPieceMarkup = \markup {
     \toc-filled-line
-    \fromproperty #'toc:rehearsal-number
+    \sans\fromproperty #'toc:rehearsal-number
     \fromproperty #'toc:text
     \fromproperty #'toc:page
   }

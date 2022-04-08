@@ -222,18 +222,18 @@ greyNotes = {
                           (chain-assoc-get 'page:is-last-bookpart
                                            props #f))))
            ;; Book first page
-           #{ \markup\fill-line { \fromproperty #'header:tagline } #})
+           #{ \markup\sans\fill-line { \fromproperty #'header:tagline } #})
           ((and (chain-assoc-get 'page:is-bookpart-last-page props #f)
                 (chain-assoc-get 'page:is-last-bookpart props #f))
            ;; book last page
-           #{ \markup\fill-line { \fromproperty #'header:tagline } #})
+           #{ \markup\sans\fill-line { \fromproperty #'header:tagline } #})
           ((= side LEFT)
            ;; even pages
-           #{ \markup\fill-line {
+           #{ \markup\sans\fill-line {
   \null \abs-fontsize #6 \fromproperty #'header:shortcopyright } #})
           (else
            ;; odd pages
-           #{ \markup\fill-line {
+           #{ \markup\sans\fill-line {
   \abs-fontsize #6 \fromproperty #'header:shortcopyright \null } #}))))
 
 \paper {

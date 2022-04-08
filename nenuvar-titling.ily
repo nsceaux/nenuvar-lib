@@ -171,7 +171,7 @@
 #(define-markup-command (rehearsal-number layout props text) (string?)
    (interpret-markup
     layout props
-    #{ \markup\huge\bold $text #}))
+    #{ \markup\sans\huge\bold $text #}))
 
 #(define-markup-command (act layout props arg) (markup?)
    (interpret-markup

@@ -14,12 +14,10 @@
     n))
 
 \paper {
-  #(define fonts
-     (use-garamond-font (/ staff-height pt 20))
-     ;(set-global-fonts #:roman "EB Garamond" #:factor (/ staff-height pt 20))
-     )
+  #(define fonts (use-garamond-font (/ staff-height pt 20)))
 }
 
+%% EB Garamond has a small caps feature => use it
 #(define-markup-command (smallCaps layout props text) (markup?)
    (interpret-markup
     layout props

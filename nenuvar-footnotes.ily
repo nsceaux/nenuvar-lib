@@ -6,7 +6,7 @@
   footnote-auto-numbering = ##t
   footnote-numbering-function =
   #(lambda (num)
-     (markup #:small #:box (number->string (+ 1 num))))
+     #{ \markup\sans\small\box $(number->string (+ 1 num)) #})
   footnote-separator-markup = \markup\override #'(span-factor . 1/4) \draw-hline
   footnote-padding = 2\mm
   footnote-footer-padding = 1\mm
