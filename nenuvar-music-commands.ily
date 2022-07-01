@@ -378,8 +378,8 @@ figPosOff = {
 %% geometric figures
 
 #(define-markup-command (triangle-up layout props a b c) (markup? markup? markup?)
-   (let ((base (interpret-markup layout props (markup #:fontsize -2 #:line (#:number b #:number c))))
-         (top (interpret-markup layout props (markup #:fontsize -2 #:number a))))
+   (let ((base (interpret-markup layout props (markup #:fontsize -4 #:line (#:number b #:number c))))
+         (top (interpret-markup layout props (markup #:fontsize -4 #:number a))))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (top-width (interval-length (ly:stencil-extent top X)))
             (top-left-padding (/ (- base-width top-width) 2.0)))
@@ -391,9 +391,9 @@ figPosOff = {
 
 #(define-markup-command (triangle-down layout props a b c) (markup? markup? markup?)
    (let ((base (interpret-markup
-                layout props #{\markup\fontsize#-2 { \number $a \number $b } #}))
+                layout props #{\markup\fontsize#-4 { \number $a \number $b } #}))
          (bottom (interpret-markup
-                  layout props #{\markup\fontsize#-2 \number $c #})))
+                  layout props #{\markup\fontsize#-4 \number $c #})))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (bottom-width (interval-length (ly:stencil-extent bottom X)))
             (bottom-left-padding (/ (- base-width bottom-width) 2.0)))
@@ -407,9 +407,9 @@ figPosOff = {
                               bottom)))))))
 
 #(define-markup-command (triangle-down-down layout props a b c d) (markup? markup? markup? markup?)
-   (let ((base (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:fontsize -2 #:number c)))
-         (bottom2 (interpret-markup layout props (markup #:fontsize -2 #:number d))))
+   (let ((base (interpret-markup layout props (markup #:fontsize -4 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -4 #:number c)))
+         (bottom2 (interpret-markup layout props (markup #:fontsize -4 #:number d))))
      (let* ((base-width (interval-length (ly:stencil-extent base X)))
             (bottom-width (interval-length (ly:stencil-extent bottom X)))
             (bottom-left-padding (/ (- base-width bottom-width) 2.0))
@@ -433,8 +433,8 @@ figPosOff = {
    "figure:
 a b
  c d"
-   (let ((top (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:fontsize -2 #:line (#:number c #:number d)))))
+   (let ((top (interpret-markup layout props (markup #:fontsize -4 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -4 #:line (#:number c #:number d)))))
      (let* ((top-width (interval-length (ly:stencil-extent top X)))
             (bottom-left-padding (/ (- top-width
                                        (interval-length
@@ -455,8 +455,8 @@ a b
    "figure:
 a b
 c d"
-   (let ((top (interpret-markup layout props (markup #:fontsize -2 #:line (#:number a #:number b))))
-         (bottom (interpret-markup layout props (markup #:fontsize -2 #:line (#:number c #:number d)))))
+   (let ((top (interpret-markup layout props (markup #:fontsize -4 #:line (#:number a #:number b))))
+         (bottom (interpret-markup layout props (markup #:fontsize -4 #:line (#:number c #:number d)))))
      (stack-lines DOWN 0.0 2 (list top bottom))))
 
 #(define-markup-command (fig-five layout props a b c d e)
@@ -466,11 +466,11 @@ a b
  c
 d e"
    (let ((top (interpret-markup layout props
-                                (markup #:fontsize -2 #:line (#:number a #:number b))))
+                                (markup #:fontsize -4 #:line (#:number a #:number b))))
          (center (interpret-markup layout props
-                                   (markup #:fontsize -2 #:number c)))
+                                   (markup #:fontsize -4 #:number c)))
          (bottom (interpret-markup layout props
-                                   (markup #:fontsize -2 #:line (#:number d #:number e)))))
+                                   (markup #:fontsize -4 #:line (#:number d #:number e)))))
      (let* ((top-width (interval-length (ly:stencil-extent top X)))
             (center-width (interval-length (ly:stencil-extent center X)))
             (center-left-padding (/ (- top-width center-width) 2.0)))
@@ -720,3 +720,5 @@ mmRestDown = \override Staff.MultiMeasureRest.direction = #DOWN
 outsideSlur = \override Script.avoid-slur = #'outside
 insideSlur = \override Script.avoid-slur = #'inside
 trillOutside = \override Script.avoid-slur = #'outside
+
+textUp = \override Staff.TextScript.direction = #UP

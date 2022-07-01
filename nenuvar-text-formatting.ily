@@ -43,6 +43,37 @@
     (make-wordwrap-center-lines-markup-list args))))
 
 %%%
+%%% line width setting commands
+%%%
+
+%% \force-line-width-ratio number markup
+#(define-markup-command (force-line-width-ratio layout props ratio arg)
+     (number? markup?)
+   (let* ((new-line-width (* ratio (chain-assoc-get 'line-width props)))
+          (line-stencil (interpret-markup
+                         layout props
+                         (markup #:override (cons 'line-width new-line-width)
+                                 arg)))
+          (gap (max 0
+                    (- new-line-width
+                       (interval-length (ly:stencil-extent line-stencil X))))))
+     (interpret-markup layout props (markup #:concat (#:stencil line-stencil #:hspace gap)))))
+
+%% \with-line-width-ratio number { markups }
+#(define-markup-list-command (with-line-width-ratio layout props width-ratio args)
+  (number? markup-list?)
+  (let* ((line-width (chain-assoc-get 'line-width props))
+         (new-line-width (* width-ratio line-width))
+         (indent (* 0.5 (- line-width new-line-width)))
+         (stencils (interpret-markup-list layout
+                     (cons `((line-width . ,new-line-width)) props)
+                     args)))
+    (interpret-markup-list layout props
+      (map (lambda (stencil)
+             (markup #:hspace indent #:stencil stencil))
+           stencils))))
+
+%%%
 %%% markup-list commands
 %%%
 
@@ -103,37 +134,6 @@
                                       #:null))
                              result))
                (map-on-lists rest-col1 rest-col2))))))))
-
-%%%
-%%% line width setting commands
-%%%
-
-%% \force-line-width-ratio number markup
-#(define-markup-command (force-line-width-ratio layout props ratio arg)
-     (number? markup?)
-   (let* ((new-line-width (* ratio (chain-assoc-get 'line-width props)))
-          (line-stencil (interpret-markup
-                         layout props
-                         (markup #:override (cons 'line-width new-line-width)
-                                 arg)))
-          (gap (max 0
-                    (- new-line-width
-                       (interval-length (ly:stencil-extent line-stencil X))))))
-     (interpret-markup layout props (markup #:concat (#:stencil line-stencil #:hspace gap)))))
-
-%% \with-line-width-ratio number { markups }
-#(define-markup-list-command (with-line-width-ratio layout props width-ratio args)
-  (number? markup-list?)
-  (let* ((line-width (chain-assoc-get 'line-width props))
-         (new-line-width (* width-ratio line-width))
-         (indent (* 0.5 (- line-width new-line-width)))
-         (stencils (interpret-markup-list layout
-                     (cons `((line-width . ,new-line-width)) props)
-                     args)))
-    (interpret-markup-list layout props
-      (map (lambda (stencil)
-             (markup #:hspace indent #:stencil stencil))
-           stencils))))
 
 %%%
 %%% Font size markup list commands

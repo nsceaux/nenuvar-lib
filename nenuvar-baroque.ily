@@ -50,20 +50,20 @@ dotSign=\markup\vcenter "╸"
 %% New baroque scripts (Charpentier, Rameau...)
 #(define-public baroque-script-alist
    (append!
-    `(("accinv"
+    `((accinv
          ; accent inversé
          (script-stencil
           . (markup . ,#{ \markup\rotate#180 \musicglyph#"scripts.sforzato" #}))
          (padding . 0.20)
          (avoid-slur . around)
          (direction . ,UP))
-      ("t"
+      (t
        (script-stencil
         . (markup . ,(markup #:center-align #:sans #:fontsize -2 #:bold "t")))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("trillSharp"
+      (trillSharp
        (script-stencil
         . (markup . , #{ \markup\center-align\concat\vcenter {
                            \smaller\smaller\sharp
@@ -71,7 +71,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("trillNatural"
+      (trillNatural
        (script-stencil
         . (markup . , #{ \markup\center-align\concat\vcenter {
                            \smaller\smaller\natural
@@ -79,7 +79,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("trillSug"
+      (trillSug
        (script-stencil
         . (markup . , #{ \markup\center-align\concat {
      \smaller\smaller\musicglyph #"accidentals.leftparen"
@@ -89,7 +89,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("prallSug"
+      (prallSug
        (script-stencil
         . (markup . , #{ \markup\center-align\concat {
      \smaller\smaller\musicglyph #"accidentals.leftparen"
@@ -99,7 +99,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("arcTrill" ; + with an arc above (like a formata with a + signe instead of dot)
+      (arcTrill ; + with an arc above (like a formata with a + signe instead of dot)
        (script-stencil . (markup . , #{
      \markup\rotate#-90 \concat {
        \musicglyph#"accidentals.leftparen"
@@ -108,7 +108,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("arcPrall"
+      (arcPrall
        (script-stencil . (markup . , #{
      \markup\rotate#-90 \concat {
        \musicglyph#"accidentals.leftparen"
@@ -117,7 +117,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("arcDot"
+      (arcDot
        (script-stencil . (markup . , #{
      \markup\rotate#-90 \concat {
        \musicglyph#"accidentals.leftparen"
@@ -126,7 +126,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.40)
        (avoid-slur . around)
        (direction . ,UP))
-      ("arcArc"
+      (arcArc
        (script-stencil
         . (markup
            . , #{
@@ -140,7 +140,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.40)
        (avoid-slur . around)
        (direction . ,UP))
-      ("arcArcDot"
+      (arcArcDot
        (script-stencil
         . (markup
            . , #{
@@ -152,14 +152,14 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.40)
        (avoid-slur . around)
        (direction . ,UP))
-      ("dotDot"
+      (dotDot
        (script-stencil
         . (markup . ,(markup #:center-align #:line (#:musicglyph "period" #:musicglyph "period"))))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
 
-       ("dotFour"
+       (dotFour
         (script-stencil
          . (markup . ,#{\markup\center-align {
                    \musicglyph#"scripts.staccato"
@@ -170,7 +170,7 @@ dotSign=\markup\vcenter "╸"
         (avoid-slur . around)
         (direction . ,DOWN))
 
-       ("dotFourLig"
+       (dotFourLig
         (script-stencil
          . (markup . ,#{ \markup\rotate#-90 \concat {
        \musicglyph#"accidentals.leftparen"
@@ -184,7 +184,7 @@ dotSign=\markup\vcenter "╸"
         (padding . 0.40)
         (avoid-slur . around)
         (direction . ,UP))
-       ("dotFourLigDown"
+       (dotFourLigDown
         (script-stencil
          . (markup . ,#{ \markup\rotate#90 \concat {
        \musicglyph#"accidentals.leftparen"
@@ -198,7 +198,7 @@ dotSign=\markup\vcenter "╸"
         (padding . 0.40)
         (avoid-slur . around)
         (direction . ,DOWN))
-       ("prallLig"
+       (prallLig
         (script-stencil
          . (markup . ,#{ \markup\rotate#-90 \concat {
                    \larger\musicglyph#"accidentals.leftparen"
@@ -207,7 +207,7 @@ dotSign=\markup\vcenter "╸"
         (avoid-slur . around)
         (direction . ,UP))
 
-       ("dotEight"
+       (dotEight
         (script-stencil
          . (markup . ,#{\markup\center-align {
                    \musicglyph#"scripts.staccato"
@@ -222,14 +222,14 @@ dotSign=\markup\vcenter "╸"
         (avoid-slur . around)
         (direction . ,DOWN))      
        
-       ("dotPrall"
+       (dotPrall
         ; Articulation used Charpentier: a dot, followed by a prall sign
         (script-stencil . (markup . , #{
      \markup\concat\vcenter { "╸" \musicglyph#"scripts.prall" }#}))
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("dotDoublePrallDoublePrall"
+      (dotDoublePrallDoublePrall
         (script-stencil . (markup . , #{
      \markup\override #'(baseline-skip . 0) \column {
        \concat\vcenter { "╸" \musicglyph#"scripts.prallprall" }
@@ -238,7 +238,7 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
-      ("doublePrall"
+      (doublePrall
        (script-stencil
         . (markup . ,(markup #:override '(baseline-skip . 0)
                              #:center-align #:column (#:musicglyph "scripts.prall"
@@ -268,27 +268,27 @@ dotSign=\markup\vcenter "╸"
     \override Script #'stencil = #baroque-script-interface::print
   }
 }
-accinv = #(make-articulation "accinv")
-trill = #(make-articulation "stopped")
-trillSharp = #(make-articulation "trillSharp")
-trillNatural = #(make-articulation "trillNatural")
-tr = #(make-articulation "t")
-trillSug = #(make-articulation "trillSug")
-prallSug = #(make-articulation "prallSug")
-arcTrill = #(make-articulation "arcTrill")
-arcPrall = #(make-articulation "arcPrall")
-arcDot = #(make-articulation "arcDot")
-arcArc = #(make-articulation "arcArc")
-arcArcDot = #(make-articulation "arcArcDot")
-dotDot = #(make-articulation "dotDot")
-dotFour = #(make-articulation "dotFour")
-dotFourLig = #(make-articulation "dotFourLig")
-dotFourLigDown = #(make-articulation "dotFourLigDown")
-dotEight = #(make-articulation "dotEight")
-dotPrall = #(make-articulation "dotPrall")
-dotDoublePrallDoublePrall = #(make-articulation "dotDoublePrallDoublePrall")
-doublePrall = #(make-articulation "doublePrall")
-prallLig = #(make-articulation "prallLig")
+accinv = #(make-articulation 'accinv)
+trill = #(make-articulation 'stopped)
+trillSharp = #(make-articulation 'trillSharp)
+trillNatural = #(make-articulation 'trillNatural)
+tr = #(make-articulation 't)
+trillSug = #(make-articulation 'trillSug)
+prallSug = #(make-articulation 'prallSug)
+arcTrill = #(make-articulation 'arcTrill)
+arcPrall = #(make-articulation 'arcPrall)
+arcDot = #(make-articulation 'arcDot)
+arcArc = #(make-articulation 'arcArc)
+arcArcDot = #(make-articulation 'arcArcDot)
+dotDot = #(make-articulation 'dotDot)
+dotFour = #(make-articulation 'dotFour)
+dotFourLig = #(make-articulation 'dotFourLig)
+dotFourLigDown = #(make-articulation 'dotFourLigDown)
+dotEight = #(make-articulation 'dotEight)
+dotPrall = #(make-articulation 'dotPrall)
+dotDoublePrallDoublePrall = #(make-articulation 'dotDoublePrallDoublePrall)
+doublePrall = #(make-articulation 'doublePrall)
+prallLig = #(make-articulation 'prallLig)
 
 \layout {
   \context {

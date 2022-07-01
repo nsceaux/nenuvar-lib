@@ -151,7 +151,8 @@ clef =
 ffclef =
 #(define-music-function (parser location clef-name) (string?)
    #{ \set Staff.forceClef = ##t
-\once\override Staff.Clef #'full-size-change = ##t
+\once\override Staff.Clef.full-size-change = ##t
+\once\set Staff.explicitClefVisibility = #end-of-line-invisible
 \clef $clef-name #})
 
 fclef =

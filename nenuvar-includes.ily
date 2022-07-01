@@ -360,7 +360,7 @@ global =
 #(define-music-function (parser this-location) ()
    (with-location #f
   (let* ((global-symbol
-          (string->symbol (format "global~a~a" (*path*) (*piece*))))
+          (string->symbol (format #f "global~a~a" (*path*) (*piece*))))
          (global-music (ly:parser-lookup global-symbol)))
    (if (not (ly:music? global-music))
        (let* ((global-file (include-pathname "global")))

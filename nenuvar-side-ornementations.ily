@@ -108,7 +108,9 @@ the note head is on a staff line.")
     (shift-when-on-line . #f)
     (stencil . ,head-ornementation::print)
     (meta . ((class . Item)
-             (interfaces . (font-interface))))))
+             (classes . (Item))
+             (interfaces . (font-interface))
+             (description . "An articulation on note head side (left or right)")))))
 
 \layout {
   \context {

@@ -11,12 +11,12 @@
   \context {
     \FiguredBass
     \override BassFigure.font-name = #"Cochin Bold" 
-    \override BassFigure.font-size = #2
+    \override BassFigure.font-size = #4
   }
   \context {
     \Staff
     \override BassFigure.font-name = #"Cochin Bold" 
-    \override BassFigure.font-size = #2
+    \override BassFigure.font-size = #4
   }
 }
 %% Paper size
@@ -163,7 +163,7 @@ greyNotes = {
 #(set! default-time-signature-settings
        (add-beam-exception
         '(2 . 2) '(end ((1 . 16) 4 4 4 4))
-        default-time-signature-settings))
+        (copy-tree default-time-signature-settings)))
 
 %%% Title page, headers and footers
 
@@ -244,10 +244,14 @@ greyNotes = {
     \fill-line { \fontsize #6 \italic \fromproperty #'header:poet }
     \null \null \null \null \null \null
     \fontsize #12 \fill-line {
-      \apply-fromproperty #make-smallCaps-markup #'header:title }
-    \null \null \null \null \null \null
+      \apply-fromproperty #make-smallCaps-markup #'header:title
+    }
+    \null
+    \when-property #'header:subtitle \fontsize#6 \fill-line { \fromproperty #'header:subtitle }
+    \null \null \null \null \null
     \separation-line#0.2
     \null \null \null \null \null \null
+    \fill-line { \fontsize #4 \fromproperty #'header:opus }
     \fill-line { \fontsize #4 \fromproperty #'header:date }
     \null
     \on-the-fly #(lambda (layout props arg)
@@ -261,12 +265,15 @@ greyNotes = {
     \fill-line { \fontsize #2 \fromproperty #'header:arrangement }
   }
   bookTitleMarkup = \nenuvarBookTitleMarkup
-  shortBookTitleMarkup =  \markup {
+  shortBookTitleMarkup =  \markup\abs-fontsize #12 {
     \override #'(baseline-skip . 3.5) \column {
-      \huge \larger \bold \fill-line { \larger \fromproperty #'header:title }
-      \huge \fill-line { \fromproperty #'header:subtitle }
+      \fontsize#3 \bold \fill-line { \larger \fromproperty #'header:title }
+      \fontsize#2 \fill-line { \fromproperty #'header:subtitle }
       \fill-line {
-        \fromproperty #'header:poet
+        \column {
+          \fromproperty #'header:poet
+          \fromproperty #'header:opus
+        }
         \on-the-fly #(lambda (layout props arg)
                       (if (*part*)
                        (interpret-markup layout props (markup (*part-name*)))

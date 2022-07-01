@@ -318,9 +318,7 @@ notesSection =
 
 opusTitle =
 #(define-music-function (parser location title) (string?)
-   (*opus-title* (if (symbol? (ly:get-option 'part))
-                     (string-append title ", " (*part-name*))
-                     title))
+   (*opus-title* title)
    (make-music 'Music 'void #t))
 
 act =
@@ -518,4 +516,14 @@ markupCond =
 #(define-music-function (parser location condition markp) (boolean? markup?)
    (if condition
        (add-toplevel-markup parser markp))
+   (make-music 'Music 'void #t))
+
+tacet =
+#(define-music-function (parser location) ()
+   (add-toplevel-markup parser #{
+\markup\column {
+  \line { \hspace#10 \smallCaps Tacet }
+  \null
+}#})
+   (add-no-page-break parser)
    (make-music 'Music 'void #t))
