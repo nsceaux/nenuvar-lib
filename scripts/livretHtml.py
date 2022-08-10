@@ -150,17 +150,17 @@ class LilyLine():
             return text.replace("}", "")
 
     def _get_parallel_verse_html_text(self, lily_line):
-        # \livretPers#x { xxxxx \column { xx1 xx2 } xxx }
+        # \livretVerse#x { xxxxx \column { xx1 xx2 } xxx }
         # or:
-        # \livretPers#x { xxxxx \column { \line { xx1 } \line {  xx2 } } xxx }
+        # \livretVerse#x { xxxxx \column { \line { xx1 } \line {  xx2 } } xxx }
         match = re.match(r'\\livretVerse#(\d+)\s*{\s*(.*)\s*}\s*$', lily_line)
         metric = match.group(1)
         verse = match.group(2)
+        # on retire les trucs dont on ne se sert pas ici
         verse = re.sub(r'\\raise#[\d.]+', '', verse).strip()
         verse = re.sub(r'\\left-brace#\d+', '', verse).strip()
         verse = re.sub(r'\\right-brace#\d+', '', verse).strip()
-        verse = re.sub(r'^([^{]*){', '\\1', verse, 1).strip()
-        verse = re.sub(r'}([^{]*)$', '\\1', verse, 1).strip()
+        # <début> \column { <alternatives...> } <fin>
         verse_match = re.match(r'^([^\\]*)\\column\s*{(.*)}([^}]*)$', verse)
         beginning = verse_match.group(1).strip()
         alternatives = verse_match.group(2).strip()
