@@ -17,7 +17,7 @@
                        (page-number (and label-page (cdr label-page)))
                        (page-markup (if page-number
                                         (markup #:page-link page-number
-                                            #:concat ((format "~a" page-number)
+                                            #:concat ((format #f "~a" page-number)
                                                       next))
                                         (markup #:concat ("?" next))))
                        (page-stencil (interpret-markup layout props page-markup))

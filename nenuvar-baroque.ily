@@ -411,11 +411,11 @@ ficta = { \once\set suggestAccidentals = ##t }
 tresdoux =
 #(make-music 'TextScriptEvent
              'text (markup #:whiteout #:italic #:general-align X -0.75
-                           "tres doux"))
+                           "très doux"))
 tresdouxSug =
 #(make-music 'TextScriptEvent
              'text (markup #:whiteout #:italic #:general-align X -0.75
-                           "[tres doux]"))
+                           "[très doux]"))
 
 doux =
 #(make-music 'TextScriptEvent
@@ -488,11 +488,11 @@ fortSug =
 tresfort =
 #(make-music 'TextScriptEvent
              'text (markup #:whiteout #:italic #:general-align X -0.75
-                           "tres fort"))
+                           "très fort"))
 tresfortSug =
 #(make-music 'TextScriptEvent
              'text (markup #:whiteout #:italic #:general-align X -0.75
-                           "[tres fort]"))
+                           "[très fort]"))
 
 pocof =
 #(make-music 'TextScriptEvent
