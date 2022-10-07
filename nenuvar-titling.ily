@@ -264,6 +264,13 @@ pieceTocCond =
        (add-piece-toc-and-title parser #f title title))
    (make-music 'Music 'void #t))
 
+pieceTocFootnote =
+#(define-music-function (parser location title footnote) (markup? markup?)
+   (add-piece-toc-and-title
+    parser #f
+    #{ \markup\auto-footnote $title \fontsize#-2 $footnote #} title)
+   (make-music 'Music 'void #t))
+
 pieceTocNb =
 #(define-music-function (parser location number title) (string? markup?)
    (add-piece-toc-and-title parser number title title)
@@ -428,7 +435,7 @@ inMusicSceneDescCond =
        (make-music 'Music 'void #t)))
 
 inMusicSceneDesc =
-#(define-music-function (parser location title description) (string? markup?)
+#(define-music-function (parser location title toc-title description) (string? markup? markup?)
    (let ((label-music
           (make-music
            'SimultaneousMusic
@@ -437,7 +444,7 @@ inMusicSceneDesc =
                                     (string-upper-case (*act-title*))
                                     (string-upper-case title))
                             #t)
-                           (add-toc-item! 'tocSceneMarkup title ""))))
+                           (add-toc-item! 'tocSceneMarkup toc-title ""))))
          (description-markup (if (symbol? (ly:get-option 'part))
                                  empty-markup
                                  (markup #:fontsize 2 description))))
