@@ -14,34 +14,34 @@
 
 %% Breathing signs from Hippolyte et Aricie
 cesure = {
-  \once\override BreathingSign #'text = \markup \fontsize #2 "|"
-  \once\override BreathingSign #'Y-offset = #0
+  \once\override BreathingSign.text = \markup \fontsize #2 "|"
+  \once\override BreathingSign.Y-offset = #0
   \breathe
 }
 cesureCenter = {
-  \once\override BreathingSign #'text = \markup \fontsize #2 "|"
-  \once\override BreathingSign #'Y-offset = #-1
+  \once\override BreathingSign.text = \markup \fontsize #2 "|"
+  \once\override BreathingSign.Y-offset = #-1
   \breathe
 }
 cesureDown = {
-  \once\override BreathingSign #'text = \markup \fontsize #2 "|"
-  \once\override BreathingSign #'Y-offset = #-2
+  \once\override BreathingSign.text = \markup \fontsize #2 "|"
+  \once\override BreathingSign.Y-offset = #-2
   \breathe
 }
 
 cesureInstr = {
-  \once\override BreathingSign #'text = \markup \musicglyph #"scripts.caesura.straight"
+  \once\override BreathingSign.text = \markup \musicglyph #"scripts.caesura.straight"
   \breathe
 }
 
 cesureInstrCenter = {
-  \once\override BreathingSign #'text = \markup \musicglyph #"scripts.caesura.straight"
-  \once\override BreathingSign #'Y-offset = #-1
+  \once\override BreathingSign.text = \markup \musicglyph #"scripts.caesura.straight"
+  \once\override BreathingSign.Y-offset = #-1
   \breathe
 }
 cesureInstrDown = {
-  \once\override BreathingSign #'text = \markup \musicglyph #"scripts.caesura.straight"
-  \once\override BreathingSign #'Y-offset = #-2
+  \once\override BreathingSign.text = \markup \musicglyph #"scripts.caesura.straight"
+  \once\override BreathingSign.Y-offset = #-2
   \breathe
 }
 
@@ -265,7 +265,7 @@ dotSign=\markup\vcenter "╸"
   }
   \context {
     \Voice
-    \override Script #'stencil = #baroque-script-interface::print
+    \override Script.stencil = #baroque-script-interface::print
   }
 }
 accinv = #(make-articulation 'accinv)
@@ -294,20 +294,20 @@ prallLig = #(make-articulation 'prallLig)
   \context {
     \Voice
     \name "Voice"
-    \override Script #'avoid-slur = #'outside
+    \override Script.avoid-slur = #'outside
   }
   \context {
     \CueVoice
     \name "CueVoice"
-    \override Script #'avoid-slur = #'outside
+    \override Script.avoid-slur = #'outside
   }
 }
 
 %% A slur and a prall, both joined on their right ends
 slurPrall = {
-  \once\override Slur #'direction = #UP
-  \once\override Slur #'text = \markup\musicglyph #"scripts.prall"
-  \once\override Slur #'stencil =
+  \once\override Slur.direction = #UP
+  \once\override Slur.text = \markup\musicglyph #"scripts.prall"
+  \once\override Slur.stencil =
   #(lambda (grob)
      (let* ((slur-stencil (ly:slur::print grob))
             (coords (ly:slur::calc-control-points grob))
@@ -324,7 +324,7 @@ slurPrall = {
                                      (- (cdr (list-ref coords 3)) 0.15)))))
             (combo-stencil (ly:stencil-add slur-stencil prall-stencil)))
        (ly:stencil-translate combo-stencil (cons 0 0))))
-  \once\override Slur #'control-points =
+  \once\override Slur.control-points =
   #(lambda (grob)
      (let* ((coords (ly:slur::calc-control-points grob))
             (point-0 (list-ref coords 0))
@@ -351,12 +351,12 @@ slurPrall = {
      (select-head-glyph style duration-log)))
 
 whiteNoteHeadsOn = {
-  \override Staff.NoteHead #'style = #'baroque
-  \override Staff.NoteHead #'glyph-name = #calc-white-note-head-glyph
+  \override Staff.NoteHead.style = #'baroque
+  \override Staff.NoteHead.glyph-name = #calc-white-note-head-glyph
 }
 whiteNoteHeadsOff = {
-  \revert Staff.NoteHead #'style
-  \revert Staff.NoteHead #'glyph-name
+  \revert Staff.NoteHead.style
+  \revert Staff.NoteHead.glyph-name
 }
 
 %% Black notation, for breve and whole notes
@@ -397,13 +397,13 @@ whiteNoteHeadsOff = {
 
 blackNotation =
 #(define-music-function (parser location music) (ly:music?)
-   #{ \override NoteHead #'stencil = #ly:note-head::print-black
-      \override NoteHead #'Y-extent =
+   #{ \override NoteHead.stencil = #ly:note-head::print-black
+      \override NoteHead.Y-extent =
       #(ly:make-unpure-pure-container
         ly:grob::stencil-height
         (lambda (grob b e) (ly:grob::stencil-height grob)))
       $music
-      \revert NoteHead #'stencil #})
+      \revert NoteHead.stencil #})
 
 ficta = { \once\set suggestAccidentals = ##t }
 

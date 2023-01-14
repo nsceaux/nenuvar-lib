@@ -1,5 +1,3 @@
-\version "2.17.24"
-
 %%%
 %%% Utilities for defining new grobs, grob properties and music event types
 %%% (there should be built-in commands to do that in LilyPond)

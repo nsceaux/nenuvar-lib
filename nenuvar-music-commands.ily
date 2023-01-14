@@ -1,5 +1,3 @@
-\version "2.11.57"
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
 %%% Tagging commands
@@ -117,7 +115,7 @@ Then, use:
 %%%
 
 forceCloseVoltaBracket = {
-  \once \override Score.VoltaBracket #'stencil =
+  \once \override Score.VoltaBracket.stencil =
   #(lambda (grob)
      (let* ((volta (ly:volta-bracket-interface::print grob))
             (edge-heights (ly:grob-property grob 'edge-height))
@@ -130,7 +128,7 @@ forceCloseVoltaBracket = {
         volta X RIGHT
         (make-line-stencil thickness 0 0 0 (- height))
         0)))
-  \once \override Score.VoltaBracket #'edge-height = #'(1.5 . 1.5)
+  \once \override Score.VoltaBracket.edge-height = #'(1.5 . 1.5)
 }
 
 alternatives =
@@ -144,24 +142,24 @@ $second
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 hideVoice = {
   \hideNotes
-  \override Script #'transparent = ##t
-  \override TextScript #'transparent = ##t
-  \override Tie #'transparent = ##t
-  \override Slur #'transparent = ##t
-  \override MultiMeasureRest #'transparent = ##t
-  \override AccidentalCautionary #'transparent = ##t
-  \override AccidentalSuggestion #'transparent = ##t
+  \override Script.transparent = ##t
+  \override TextScript.transparent = ##t
+  \override Tie.transparent = ##t
+  \override Slur.transparent = ##t
+  \override MultiMeasureRest.transparent = ##t
+  \override AccidentalCautionary.transparent = ##t
+  \override AccidentalSuggestion.transparent = ##t
 }
 
 unHideVoice = {
   \unHideNotes
-  \revert Script #'transparent
-  \revert TextScript #'transparent
-  \revert Tie #'transparent
-  \revert Slur #'transparent
-  \revert MultiMeasureRest #'transparent
-  \revert AccidentalCautionary #'transparent
-  \revert AccidentalSuggestion #'transparent
+  \revert Script.transparent
+  \revert TextScript.transparent
+  \revert Tie.transparent
+  \revert Slur.transparent
+  \revert MultiMeasureRest.transparent
+  \revert AccidentalCautionary.transparent
+  \revert AccidentalSuggestion.transparent
 }
 
 %%%
@@ -262,11 +260,11 @@ custosNote =
 #(define-music-function (parser location note) (ly:music?)
   (make-music 'SequentialMusic
    'elements (list #{ 
-              \once \override Voice.NoteHead #'stencil = #ly:text-interface::print
-              \once \override Voice.NoteHead #'text =
+              \once \override Voice.NoteHead.stencil = #ly:text-interface::print
+              \once \override Voice.NoteHead.text =
               #(markup #:null #:raise 0.0 #:musicglyph "custodes.mensural.u0")
-              \once \override Voice.Flag #'stencil = ##f
-              \once \override Voice.Stem #'stencil = ##f #}
+              \once \override Voice.Flag.stencil = ##f
+              \once \override Voice.Stem.stencil = ##f #}
               note)))
 
 %%%
@@ -276,22 +274,22 @@ custosNote =
 forceStemLength = 
 #(define-music-function (parser location length music) (number? ly:music?)
   #{
-  \override Voice.Stem #'details = #`((lengths . (,length))
+  \override Voice.Stem.details = #`((lengths . (,length))
                                       (beamed-lengths . (,(- length 1.0)))
                                       (beamed-minimum-free-lengths . (,(- length 1.0)))
                                       (beamed-extreme-minimum-free-lengths . (,(- length 1.0)))
                                       (stem-shorten . (1.0 0.5)))
   $music
-  \revert Voice.Stem #'details
+  \revert Voice.Stem.details
   #})
 
-shiftOnce = { \once \override NoteColumn #'horizontal-shift = #1 }
+shiftOnce = { \once \override NoteColumn.horizontal-shift = #1 }
 
 shiftNote =
 #(define-music-function (parser location amount) (number?)
-   #{ \once \override NoteHead #'X-offset = #amount
-      \once \override Stem #'X-offset = #amount
-      \once \override Beam #'X-offset = #amount #})
+   #{ \once \override NoteHead.X-offset = #amount
+      \once \override Stem.X-offset = #amount
+      \once \override Beam.X-offset = #amount #})
 
 shiftNotes =
 #(define-music-function (parser location amount music) (number? ly:music?)
@@ -305,7 +303,7 @@ shiftNotes =
 
 shiftRest =
 #(define-music-function (parser location amount) (number?)
-   #{ \once \override Rest #'X-offset = #amount #})
+   #{ \once \override Rest.X-offset = #amount #})
 
 outside = { \once\override Staff.TextScript.outside-staff-priority = #9999 }
 %%%
@@ -324,8 +322,8 @@ altTime =
    (let ((time1 (apply make-time-sig-markup fractions))
          (time2 (apply make-time-sig-markup (cddr fractions))))
      #{
-       \once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
-       \once \override Staff.TimeSignature #'text =
+       \once \override Staff.TimeSignature.stencil = #ly:text-interface::print
+       \once \override Staff.TimeSignature.text =
        \markup \override #'(baseline-skip . 0)
        \number \line { $time1 $time2 }
      #}))
@@ -366,13 +364,13 @@ figExtOff = \bassFigureExtendersOff
 
 figPosOn = {
   \bassFigureExtendersOn
-  \override BassFigureContinuation #'stencil = ##f
-  \override Staff.BassFigureContinuation #'stencil = ##f
+  \override BassFigureContinuation.stencil = ##f
+  \override Staff.BassFigureContinuation.stencil = ##f
 }
 figPosOff = {
   \bassFigureExtendersOff
-  \revert BassFigureContinuation #'stencil
-  \revert Staff.BassFigureContinuation #'stencil
+  \revert BassFigureContinuation.stencil
+  \revert Staff.BassFigureContinuation.stencil
 }
 
 %% geometric figures
@@ -621,9 +619,9 @@ unless =
           '(0 . 0)))))))
 
 ratureNote = {
-  \once\override NoteHead #'stencil =
+  \once\override NoteHead.stencil =
   #(make-erased-note-print ly:note-head::print)
-  \once\override Rest #'stencil =
+  \once\override Rest.stencil =
   #(make-erased-note-print ly:rest::print)
 }
 
@@ -664,7 +662,7 @@ ratureNote = {
          )))))
 
 ratureMmRest = {
-  \once\override MultiMeasureRest #'stencil =
+  \once\override MultiMeasureRest.stencil =
   #(make-erased-mmrest-print ly:multi-measure-rest::print)
 }
 

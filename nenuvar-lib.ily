@@ -1,3 +1,4 @@
+\version "2.24.0"
 \include "nenuvar-ambitus.ily"
 \include "nenuvar-baroque.ily"
 \include "nenuvar-clef.ily"

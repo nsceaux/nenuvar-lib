@@ -38,11 +38,11 @@ origLayout =
 \layout {
   \context {
     \Score
-    \override NonMusicalPaperColumn #'line-break-permission =
+    \override NonMusicalPaperColumn.line-break-permission =
     #(if (eqv? #t (ly:get-option 'original-layout))
          #f
          'allow)
-    \override NonMusicalPaperColumn #'page-break-permission =
+    \override NonMusicalPaperColumn.page-break-permission =
     #(if (eqv? #t (ly:get-option 'original-layout))
          #f
          'allow)

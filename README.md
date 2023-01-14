@@ -12,6 +12,10 @@ add this directory to LilyPond include path, then use:
 
 See `lilypond-scm.patch`
 
+## Scorlatti font
+
+Place scorlatti-*.otf in /path/to/share/lilypond/<version>/fonts/otf/
+
 ## Font installation
 
 In file `~/.config/fontconfig/conf.d/10-lilypond-fonts.conf`

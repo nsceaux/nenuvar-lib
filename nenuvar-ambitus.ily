@@ -4,7 +4,7 @@ ambitusLayout = \layout {
   ragged-right = ##f
   \context {
     \Staff
-    \override Clef #'full-size-change = ##t
+    \override Clef.full-size-change = ##t
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
     \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #0
@@ -15,9 +15,9 @@ ambitusLayout = \layout {
   }
   \context {
     \Score
-    \override StaffSymbol #'staff-space = #(magstep -2)
+    \override StaffSymbol.staff-space = #(magstep -2)
     fontSize = #-2
-    \override NonMusicalPaperColumn #'line-break-permission = ##f
+    \override NonMusicalPaperColumn.line-break-permission = ##f
   }
 }
 

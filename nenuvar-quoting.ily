@@ -8,7 +8,7 @@ quoteLayout = \layout {
   indent = 0
   ragged-right = ##t
   \context { \Staff \remove "Time_signature_engraver" }
-  \context { \Voice \override Script #'avoid-slur = #'outside }
+  \context { \Voice \override Script.avoid-slur = #'outside }
   \context {
     \Score
     \override StaffGrouper.staff-staff-spacing.basic-distance = #1

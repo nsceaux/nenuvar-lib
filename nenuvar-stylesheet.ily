@@ -81,7 +81,7 @@
     \override VerticalAxisGroup.minimum-Y-extent = #'(-4 . 4)
     %% ancient-style: no time signature or key signature
     %% at an end of line.
-    \override TimeSignature #'break-visibility =
+    \override TimeSignature.break-visibility =
     #(if (eqv? #t (ly:get-option 'urtext))
          end-of-line-invisible
          all-visible)

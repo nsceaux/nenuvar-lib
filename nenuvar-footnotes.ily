@@ -17,7 +17,7 @@
     \Score
     \name Score
     %% By default, no annotation line for footnotes
-    \override FootnoteItem #'annotation-line = ##f
+    \override FootnoteItem.annotation-line = ##f
   }
 }
 
