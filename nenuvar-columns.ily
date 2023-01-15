@@ -35,19 +35,54 @@
 %%% These commands *must* be used on an empty page.
 %%% They won't work with footnotes.
 
+%%% This is taken and adapted from scm/lily/titling.scm
+#(define-public ((marked-up-headfoot2 what-odd what-even) layout page-number)
+  "Read variables @var{what-odd} and @var{what-even} from the page's
+layout.  Interpret either of them as markup, with properties
+reflecting the variables in the page's layout and header modules."
+  (let* ((even-mkup (ly:output-def-lookup layout what-even))
+         (odd-mkup (ly:output-def-lookup layout what-odd))
+         ;; what-even default to what-odd if not defined.
+         (header-mkup (cond
+                       ((and (even? page-number)
+                             (markup? even-mkup))
+                        even-mkup)
+                       ((markup? odd-mkup)
+                        odd-mkup)
+                       (else #f))))
+    (if header-mkup
+        (let* ((scopes '())
+               (is-last-bookpart #f)
+               (is-bookpart-last-page #f)
+               (number-type (ly:output-def-lookup layout 'page-number-type))
+               ;; Support tagline in \paper
+               (tagline (ly:modules-lookup scopes
+                                           'tagline
+                                           (ly:output-def-lookup layout 'tagline)))
+               (basic-props (layout-extract-page-properties layout))
+               (header-props (headers-property-alist-chain scopes))
+               (extra-properties
+                `((page:is-last-bookpart . ,is-last-bookpart)
+                  (page:is-bookpart-last-page . ,is-bookpart-last-page)
+                  (page:page-number . ,page-number)
+                  (page:page-number-string . ,(number-format number-type page-number))
+                  (header:tagline . ,tagline)))
+               (props (cons extra-properties (append header-props basic-props))))
+          (interpret-markup layout props header-mkup))
+        empty-stencil)))
+
 #(define-public (paper-usable-height layout estimated-page-number)
-   (define (head-foot-height proc-name)
+   (define (head-foot-height proc)
      (interval-length (ly:stencil-extent
-                       ((ly:output-def-lookup layout proc-name)
-                        layout '() estimated-page-number #f #f)
+                       (proc layout estimated-page-number)
                        Y)))
    (define (markup-padding sym)
      (assoc-ref (ly:output-def-lookup layout sym) 'padding))
    (let ((paper-height (ly:output-def-lookup layout 'paper-height))
          (top-margin (ly:output-def-lookup layout 'top-margin))
          (bottom-margin (ly:output-def-lookup layout 'top-margin))
-         (header-height (head-foot-height 'make-header))
-         (footer-height (head-foot-height 'make-footer))
+         (header-height (head-foot-height (marked-up-headfoot2 'oddHeaderMarkup 'evenHeaderMarkup)))
+         (footer-height (head-foot-height (marked-up-headfoot2 'oddFooterMarkup 'evenFooterMarkup)))
          (top-padding (markup-padding 'top-markup-spacing))
          (bottom-padding (markup-padding 'last-bottom-spacing)))
      (- paper-height
