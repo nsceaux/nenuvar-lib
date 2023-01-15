@@ -54,77 +54,70 @@
 endMark =
 #(define-music-function (parser location text) (markup?)
    #{
-  \once\override Score.RehearsalMark.break-visibility =
-  #begin-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #DOWN
-  \once\override Score.RehearsalMark.self-alignment-X = #RIGHT
-  \once\override Score.RehearsalMark.padding = #2
-  \once\override Score.RehearsalMark.font-size = #1
-  \mark\markup\right-align\italic $text #})
+\tweak TextMark.break-visibility #begin-of-line-invisible
+\tweak TextMark.direction #DOWN
+\tweak TextMark.self-alignment-X #RIGHT
+\tweak TextMark.padding #2
+\tweak TextMark.font-size #1
+  \textEndMark\markup\italic $text #})
 
 endMarkSmall =
 #(define-music-function (parser location text) (markup?)
    #{
-  \once\override Score.RehearsalMark.break-visibility =
-  #begin-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #DOWN
-  \once\override Score.RehearsalMark.self-alignment-X = #RIGHT
-  \once\override Score.RehearsalMark.padding = #2
-  \once\override Score.RehearsalMark.font-size = #0
-  \mark\markup\right-align\italic $text #})
+\tweak TextMark.break-visibility #begin-of-line-invisible
+\tweak TextMark.direction #DOWN
+\tweak TextMark.self-alignment-X #RIGHT
+\tweak TextMark.padding #2
+\tweak TextMark.font-size #0
+  \textEndMark\markup\italic $text #})
 
 beginMark =
 #(define-music-function (parser location text) (markup?)
    #{
-  \once\override Score.RehearsalMark.break-visibility =
-  #end-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #UP
-  \once\override Score.RehearsalMark.self-alignment-X = #LEFT
-  \once\override Score.RehearsalMark.padding = #2
-  \once\override Score.RehearsalMark.font-size = #1
-  \mark\markup $text #})
+  \tweak TextMark.break-visibility #end-of-line-invisible
+  \tweak TextMark.direction #UP
+  \tweak TextMark.self-alignment-X #LEFT
+  \tweak TextMark.padding #2
+  \tweak TextMark.font-size #1
+  \textMark\markup $text #})
 
 beginMarkSmall =
 #(define-music-function (parser location text) (markup?)
    #{
-  \once\override Score.RehearsalMark.break-visibility =
-  #end-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #UP
-  \once\override Score.RehearsalMark.self-alignment-X = #LEFT
-  \once\override Score.RehearsalMark.padding = #2
-  \once\override Score.RehearsalMark.font-size = #0
-  \mark\markup\italic $text #})
+  \tweak TextMark.break-visibility #end-of-line-invisible
+  \tweak TextMark.direction #UP
+  \tweak TextMark.self-alignment-X #LEFT
+  \tweak TextMark.padding #2
+  \tweak TextMark.font-size #0
+  \textMark\markup\italic $text #})
 
 beginMarkDown =
 #(define-music-function (parser location text) (markup?)
    #{ 
-\once\override Score.RehearsalMark.break-visibility =
-#end-of-line-invisible
-\once\override Score.RehearsalMark.direction = #DOWN
-\once\override Score.RehearsalMark.self-alignment-X = #LEFT
-\once\override Score.RehearsalMark.font-size = #1
-\mark\markup $text #})
+\tweak TextMark.break-visibility #end-of-line-invisible
+\tweak TextMark.direction #DOWN
+\tweak TextMark.self-alignment-X #LEFT
+\tweak TextMark.font-size #1
+\textMark\markup $text #})
 
 %% Dacapo, segno...
 segnoMark = { 
-  \once\override Score.RehearsalMark.break-visibility =
-  #end-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #UP
-  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
-  \mark \markup \musicglyph #"scripts.segno"
+  \tweak TextMark.break-visibility #end-of-line-invisible
+  \tweak TextMark.direction #UP
+  \tweak TextMark.self-alignment-X #CENTER
+  \textMark \markup \musicglyph #"scripts.segno"
 }
 segnoMarkEnd = { 
-  \once\override Score.RehearsalMark.break-visibility =
-  #begin-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #UP
-  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
-  \mark \markup \musicglyph #"scripts.segno"
+  \tweak TextMark.break-visibility #begin-of-line-invisible
+  \tweak TextMark.direction #UP
+  \tweak TextMark.self-alignment-X #CENTER
+  \textMark \markup \musicglyph #"scripts.segno"
 }
 fermataMark = {
-  \once\override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
-  \once\override Score.RehearsalMark.direction = #UP
-  \once\override Score.RehearsalMark.self-alignment-X = #CENTER
-  \mark\markup\larger\musicglyph#"scripts.ufermata"
+  \tweak TextMark.break-visibility #begin-of-line-invisible
+  \tweak TextMark.direction #UP
+  \tweak TextMark.self-alignment-X #CENTER
+  \textMark\markup\larger\musicglyph#"scripts.ufermata"
 }
 fineMark = \endMark "Fin."
 dalSegnoMark = \endMark "Dal Segno."
