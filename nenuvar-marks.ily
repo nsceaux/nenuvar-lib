@@ -49,8 +49,54 @@
              <> ^\markup\character-text-col $name $text >> #}))
 
 %%%
+%%% Text mark engraver and commands
 %%%
-%%%
+
+%% this is taken and adapted from scm/lily/scheme-engravers.scm
+#(define (Text_mark_engraver context)
+   (let ((evs '())
+         (grobs '()))
+     (make-engraver
+      (listeners
+       ((text-mark-event engraver event)
+        (unless (member event evs)
+           (set! evs (cons event evs)))))
+      ((process-music engraver)
+       (let ((i 0))
+         (for-each
+          (lambda (ev)
+            (let* ((grob (ly:engraver-make-grob engraver 'TextMark ev))
+                   ;; FIXME: this is not the only place where we sneakily modify
+                   ;; values of outside-staff-priority to enforce a deterministic
+                   ;; order.  Improve.
+                   (osp (ly:grob-property grob 'outside-staff-priority #f)))
+              (when osp ; if unset, leave it unset
+                    (ly:grob-set-property! grob 'outside-staff-priority (+ osp i))
+                    (set! i (1+ i)))
+              (set! grobs (cons grob grobs))))
+          ;; The default order has the first mark heard closest to the staff.
+          (reverse evs))))
+      ((stop-translation-timestep engraver)
+       (let ((staves (ly:context-property context 'stavesFound)))
+         (for-each
+          (lambda (grob)
+            (ly:grob-set-object!
+             grob
+             'side-support-elements
+             (ly:grob-list->grob-array staves)))
+          grobs))
+       (set! evs '())
+       (set! grobs '())))))
+
+#(ly:register-translator
+ Text_mark_engraver 'Text_mark_engraver
+ '((events-accepted . (text-mark-event))
+   (grobs-created . (TextMark))
+   (properties-read . (stavesFound))
+   (properties-written . ())
+   (description . "Engraves arbitrary textual marks.")))
+
+
 endMark =
 #(define-music-function (parser location text) (markup?)
    #{
