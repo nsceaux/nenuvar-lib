@@ -10,13 +10,11 @@
 \layout {
   \context {
     \FiguredBass
-    \override BassFigure.font-name = #"Cochin Bold" 
-    \override BassFigure.font-size = #4
+    \override BassFigure.font-size = #2
   }
   \context {
     \Staff
-    \override BassFigure.font-name = #"Cochin Bold" 
-    \override BassFigure.font-size = #4
+    \override BassFigure.font-size = #2
   }
 }
 %% Paper size
