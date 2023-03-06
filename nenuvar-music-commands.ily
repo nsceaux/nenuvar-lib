@@ -518,6 +518,10 @@ d e"
     layout props
     (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:natural))))
 
+#(define-markup-command (figure-empty layout props) ()
+   (interpret-markup layout props
+                     #{\markup\general-align #X #-0.9 \bold\fontsize#-6 ∅ #}))
+
 #(define-markup-command (paren-sharp layout props num) (markup?)
    (interpret-markup
     layout props
@@ -554,8 +558,8 @@ tweakArticulation =
 found inside @var{music}."
    (if (equal? (object-property property 'backend-type?) #f)
        (begin
-	 (ly:warning (_ "cannot find property type-check for ~a") property)
-	 (ly:warning (_ "doing assignment anyway"))))
+	 (ly:warning (G_ "cannot find property type-check for ~a") property)
+	 (ly:warning (G_ "doing assignment anyway"))))
    (for-each (lambda (event)
                (set! (ly:music-property event 'tweaks)
                      (acons property value (ly:music-property event 'tweaks))))
