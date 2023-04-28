@@ -675,12 +675,10 @@ sug =
 #(define-music-function (parser loc arg) (ly:music?)
    (cond ((eqv? (ly:music-property arg 'name) 'AbsoluteDynamicEvent)
           (set! (ly:music-property arg 'text)
-                #{ \markup\smaller\smaller
-                   #(ly:music-property arg 'text) #}))
+                #{ \markup\bracket\pad-markup#0.1 #(ly:music-property arg 'text) #}))
           ((eqv? (ly:music-property arg 'name) 'CrescendoEvent)
            (set! (ly:music-property arg 'span-text)
-                 #{ \markup\smaller\smaller
-                   #(ly:music-property arg 'span-text) #}))
+                 #{ \markup\bracket\pad-markup#0.1 #(ly:music-property arg 'span-text) #}))
           ((eqv? (ly:music-property arg 'name) 'SlurEvent)
            (set! (ly:music-property arg 'tweaks)
                  (cons '((Slur . dash-definition) (0 1 0.4 0.75))

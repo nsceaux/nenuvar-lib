@@ -63,7 +63,7 @@
      (markup-list? markup?)
    (interpret-markup
     layout props
-    #{ \markup\column { \pad-above#1 \livretText\bold { $text } $next } #}))
+    #{ \markup\column { \pad-above#1 \fontsize#2 \bold \wordwrap { $text } $next } #}))
 
 #(define-markup-command (livretDidas layout props text) (markup?)
    (interpret-markup

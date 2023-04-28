@@ -134,7 +134,7 @@
 
 #(define-public (add-allow-page-turn parser)
   (add-music
-   (make-music 'Music
+   (make-music 'EventChord
 	       'page-marker #t
 	       'page-turn-permission 'allow
                'elements (list (make-music 'PageTurnEvent
@@ -478,6 +478,12 @@ partPageBreak =
   (if (memq (ly:get-option 'part) parts)
       (add-page-break parser))
   (make-music 'Music 'void #t))
+
+ifPart =
+#(define-music-function (parser location parts music) (list? ly:music?)
+  (if (memq (ly:get-option 'part) parts)
+      music
+      (make-music 'Music 'void #t)))
 
 partNoPageBreak =
 #(define-music-function (parser location parts) (list?)
