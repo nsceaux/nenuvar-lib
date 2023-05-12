@@ -506,17 +506,17 @@ d e"
 #(define-markup-command (figure-sharp layout props) ()
    (interpret-markup
     layout props
-    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:sharp))))
+    (markup #:concat (#:null #:raise 0.7 #:sharp))))
 
 #(define-markup-command (figure-flat layout props) ()
    (interpret-markup
     layout props
-    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:flat))))
+    (markup #:concat (#:null #:raise 0.7 #:flat))))
 
 #(define-markup-command (figure-natural layout props) ()
    (interpret-markup
     layout props
-    (markup #:fontsize -2 #:concat (#:null #:raise 0.7 #:fontsize -2 #:natural))))
+    (markup #:concat (#:null #:raise 0.7 #:natural))))
 
 #(define-markup-command (figure-empty layout props) ()
    (interpret-markup layout props

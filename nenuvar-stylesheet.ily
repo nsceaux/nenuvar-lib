@@ -250,6 +250,7 @@ greyNotes = {
     \separation-line#0.2
     \null \null \null \null \null \null
     \fill-line { \fontsize #4 \fromproperty #'header:opus }
+    \null
     \fill-line { \fontsize #4 \fromproperty #'header:date }
     \null
     \on-the-fly #(lambda (layout props arg)
