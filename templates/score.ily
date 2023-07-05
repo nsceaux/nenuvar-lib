@@ -1,5 +1,9 @@
 \score {
-  \new Staff <<
+  \new Staff \with {
+    instrumentName = $(if (*instrument-name*)
+                          (make-large-markup (*instrument-name*))
+                          #f)
+  } <<
     \keepWithTag #(*tag-global*) \global
     \keepWithTag #(*tag-notes*) \includeNotes #(*note-filename*)
     \clef #(*clef*)
