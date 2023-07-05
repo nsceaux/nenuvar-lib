@@ -160,6 +160,15 @@ dotSign=\markup\vcenter "╸"
        (avoid-slur . around)
        (direction . ,UP))
 
+       (dotThree
+        (script-stencil
+         . (markup . ,#{\markup\center-align {
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato"
+                   \musicglyph#"scripts.staccato" }#}))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,DOWN))
        (dotFour
         (script-stencil
          . (markup . ,#{\markup\center-align {
@@ -282,6 +291,7 @@ arcDot = #(make-articulation 'arcDot)
 arcArc = #(make-articulation 'arcArc)
 arcArcDot = #(make-articulation 'arcArcDot)
 dotDot = #(make-articulation 'dotDot)
+dotThree = #(make-articulation 'dotThree)
 dotFour = #(make-articulation 'dotFour)
 dotFourLig = #(make-articulation 'dotFourLig)
 dotFourLigDown = #(make-articulation 'dotFourLigDown)
