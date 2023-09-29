@@ -743,3 +743,5 @@ insideSlur = \override Script.avoid-slur = #'inside
 trillOutside = \override Script.avoid-slur = #'outside
 
 textUp = \override Staff.TextScript.direction = #UP
+
+forceHyphen = \once\override LyricHyphen.minimum-distance = #0.6

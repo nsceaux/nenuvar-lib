@@ -198,6 +198,7 @@ with dots in property @code{fill-with-dots} is true."
     \bold\fromproperty #'toc:text
     \fromproperty #'toc:page
   }
+  tocBreakMarkup = \markup\column-break
 }
 
 #(define-markup-command (toc-item layout props toc-item) (list?)

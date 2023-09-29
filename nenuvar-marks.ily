@@ -169,3 +169,4 @@ fineMark = \endMark "Fin."
 dalSegnoMark = \endMark "Dal Segno."
 dacapoMark = \endMark "Da Capo."
 
+textMarkTop = \once\override Score.TextMark.outside-staff-priority = 99999

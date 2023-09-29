@@ -328,6 +328,11 @@ opusTitle =
    (*opus-title* title)
    (make-music 'Music 'void #t))
 
+tocBreak =
+#(define-music-function (parser location) ()
+   (add-toc-item parser 'tocBreakMarkup #f)
+   (make-music 'Music 'void #t))
+
 act =
 #(define-music-function (parser location act-title) (string?)
   (increase-rehearsal-major-number)
