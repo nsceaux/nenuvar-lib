@@ -124,6 +124,8 @@ class LilyLine():
                 return """<div class="desc">{}{}""".format(rest, ending)
             elif re.match(r"livretText.*", cmd):
                 return """<div class="text">{}{}""".format(rest, ending)
+            elif re.match(r"livretTitreRef", cmd):
+                return """<div class="titre">{}{}""".format(re.sub(r'"', '', re.sub(r"#'.*", "", rest)), ending)
             elif re.match(r"livretTitre.*", cmd):
                 return """<div class="titre">{}{}""".format(rest, ending)
             elif cmd == "null":

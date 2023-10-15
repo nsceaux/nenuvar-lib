@@ -200,6 +200,18 @@
             #:with-link ref #:line ("[p." #:page-refIII ref "]")
             next)))
 
+#(define-markup-command (livretTitreRef layout props num text ref next)
+     (markup? markup? symbol? markup?)
+   (interpret-markup
+    layout props
+    #{ \markup\column {
+  \override #'(use-rehearsal-numbers . #t)
+  \override #'(rehearsal-number-gauge . "")
+  \override #'(fill-line-with-dots . #t)
+  \pad-above#1 \fontsize#2 \toc-filled-line $num \line { $text } \with-link $ref \page-refIII $ref ""
+  $next
+}#}))
+
 #(define-markup-command (sep layout props) ()
    (interpret-markup layout props
                      (markup #:pad-around 1 #:fill-line (#:draw-line '(50 . 0)))))

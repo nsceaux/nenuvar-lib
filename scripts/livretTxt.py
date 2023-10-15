@@ -120,6 +120,8 @@ class LilyLine():
                     return None
             elif re.match(r"livretText.*", cmd):
                 return """{}{}""".format(rest, ending)
+            elif re.match(r"livretTitreRef", cmd):
+                return """{}{}""".format(re.sub(r'"', '', re.sub(r"#'.*", "", rest)), ending)
             elif re.match(r"livretTitre.*", cmd):
                 return """{}{}""".format(rest, ending)
             elif cmd == "null":

@@ -513,6 +513,14 @@ tresfortSug =
 #(make-music 'TextScriptEvent
              'text (markup #:whiteout #:italic #:general-align X -0.75
                            "[très fort]"))
+dolce =
+#(make-music 'TextScriptEvent
+             'text (markup #:whiteout #:italic #:general-align X -0.75
+                           "dolce"))
+dolceSug =
+#(make-music 'TextScriptEvent
+             'text (markup #:whiteout #:italic #:general-align X -0.75
+                           "[dolce]"))
 
 pocof =
 #(make-music 'TextScriptEvent
