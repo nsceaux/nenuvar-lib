@@ -18,7 +18,23 @@
 }
 
 %% EB Garamond has a small caps feature => use it
+%% Exception: æ small capsis not supported. Use hack
+
 #(define-markup-command (smallCaps layout props text) (markup?)
    (interpret-markup
     layout props
-    #{\markup\override #'(font-features . ("smcp")) $text #}))
+    (if (string? text)
+        (let ((parts (string-split text (integer->char 230))))
+          (if (null? (cdr parts))
+              (make-override-markup '(font-features . ("smcp")) text)
+              (make-concat-markup
+               (cons (make-override-markup '(font-features . ("smcp")) (car parts))
+                     (reverse!
+                      (fold (lambda (next-part prev-parts)
+                              (cons (make-override-markup '(font-features . ("smcp")) next-part)
+                                    (cons (make-fontsize-markup -2 "Æ")
+                                          prev-parts)))
+                            '()
+                            (cdr parts)))))))
+        (make-override-markup '(font-features . ("smcp")) text))))
+
