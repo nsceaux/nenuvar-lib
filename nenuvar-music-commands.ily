@@ -511,7 +511,7 @@ d e"
 #(define-markup-command (figure-flat layout props) ()
    (interpret-markup
     layout props
-    (markup #:concat (#:null #:raise 0.7 #:flat))))
+    (markup #:concat (#:null #:raise 0.4 #:flat))))
 
 #(define-markup-command (figure-natural layout props) ()
    (interpret-markup

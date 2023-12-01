@@ -99,6 +99,7 @@
   \context {
     \FiguredBass
     \name FiguredBass
+    figuredBassAlterationDirection = #RIGHT
     %% Give Figured Bass an horizontal extent so that RehearsalMarks
     %% do not ignore it (otherwise, marks would be place between staff
     %% and figured bass)

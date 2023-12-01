@@ -3,11 +3,17 @@ tinyQuote = {
   \set Score.fontSize = #-3
   \override BassFigure.font-size = #-1
 }
+teenyQuote = {
+  \override Score.StaffSymbol.staff-space = #(magstep -8)
+  \set Score.fontSize = #-8
+  \override BassFigure.font-size = #-5
+}
 
 quoteLayout = \layout {
   indent = 0
   ragged-right = ##t
   \context { \Staff \remove "Time_signature_engraver" }
+  \context { \RhythmicStaff \remove "Time_signature_engraver" }
   \context { \Voice \override Script.avoid-slur = #'outside }
   \context {
     \Score

@@ -126,9 +126,9 @@ toplevel bookparts."
 
 #(define*-public (include-score parser name #:optional label)
    (add-music
-              (make-music 'Music
-                          'page-marker #t
-                          'page-label (string->symbol (or label name))))
+    (make-music 'Music
+                'page-marker #t
+                'page-label (string->symbol (or label name))))
    (parameterize ((*piece* name))
      (ly:parser-parse-string
       (ly:parser-clone)

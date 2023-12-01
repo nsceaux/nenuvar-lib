@@ -271,6 +271,13 @@ pieceTocFootnote =
     #{ \markup\auto-footnote $title \fontsize#-2 $footnote #} title)
    (make-music 'Music 'void #t))
 
+pieceTocFootnoteNb =
+#(define-music-function (parser location number title footnote) (string? markup? markup?)
+   (add-piece-toc-and-title
+    parser number
+    #{ \markup\auto-footnote $title \fontsize#-2 $footnote #} title)
+   (make-music 'Music 'void #t))
+
 pieceTocNb =
 #(define-music-function (parser location number title) (string? markup?)
    (add-piece-toc-and-title parser number title title)
@@ -332,6 +339,12 @@ tocBreak =
 #(define-music-function (parser location) ()
    (add-toc-item parser 'tocBreakMarkup #f)
    (make-music 'Music 'void #t))
+
+tocFiller =
+#(define-music-function (parser location filler-height) (number?)
+   (add-toc-item parser 'tocFillerMarkup #{ \markup\vspace #filler-height #})
+   (make-music 'Music 'void #t))
+
 
 act =
 #(define-music-function (parser location act-title) (string?)
