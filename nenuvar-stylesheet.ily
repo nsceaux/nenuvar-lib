@@ -141,6 +141,7 @@
   }
 }
 
+forceGroupBracket = \override SystemStartBracket.collapse-height = #4
 
 greyNotes = {
   \override Stem.color = #(x11-color 'grey30)

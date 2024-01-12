@@ -27,7 +27,7 @@
         \remove "Clef_engraver"
         \override StaffSymbol.line-count = #1
         \override StaffSymbol.transparent = ##t
-        \override MultiMeasureRest #'expand-limit = #2
+        \override MultiMeasureRest.expand-limit = #2
       }
     } #})
      (interpret-markup
