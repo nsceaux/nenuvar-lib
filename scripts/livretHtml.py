@@ -97,14 +97,18 @@ class LilyLine():
                 return """<div class="sep">&nbsp;</div>"""
             elif cmd == "livretPiece":
                 return """<div class="piece">{}</div>""".format(rest)
-            elif cmd == "livretPers" or cmd == "livretPersVerse":
+            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal"]:
+                if cmd == "livretPersNormal":
+                    style = "didas"
+                else:
+                    style = "perso"
                 if rest == "":
-                    return """<div class="perso">"""
+                    return f"""<div class="{style}">"""
                 else:
                     extra_ending = ""
                     if re.match(r'.*{\s*$', self._text):
                         extra_ending = "<div>"
-                    return """<div class="perso">{}</div>{}""".format(rest, extra_ending)
+                    return f"""<div class="{style}">{rest}</div>{extra_ending}"""
             elif cmd == "livretPersDidas":
                 # \livretPersDidas Character didascalies+
                 rest = rest.replace(' ', '&nbsp;')

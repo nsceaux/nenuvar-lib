@@ -102,11 +102,11 @@ class LilyLine():
                 return """                          --------------------"""
             elif cmd == "livretPiece":
                 return rest
-            elif cmd == "livretPers" or cmd == "livretPersVerse":
+            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal"]:
                 if rest == "":
                     return None
                 else:
-                    return """{} :""".format(rest)
+                    return f"""{rest} :"""
             elif cmd == "livretPersDidas":
                 # \livretPersDidas Character didascalies+
                 pers_match = re.match(r'^\s*([\S]+)\s(.*)$', rest)
