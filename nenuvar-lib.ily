@@ -20,3 +20,4 @@
 \include "nenuvar-parts.ily"
 \include "nenuvar-side-ornementations.ily"
 \include "nenuvar-livret.ily"
+\include "nenuvar-nomenclature.ily"

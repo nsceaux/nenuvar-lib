@@ -33,6 +33,7 @@
   \context {
     \Score
     \name Score
+    barNumberVisibility = #first-bar-number-invisible-save-broken-bars
     \override BarNumber.padding = #2 
     \override InstrumentName.font-size = #1.0
     \override InstrumentName.space-alist = #'((left-edge extra-space . 2.0))

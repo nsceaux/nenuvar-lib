@@ -64,6 +64,16 @@ dotSign=\markup\vcenter "╸"
        (padding . 0.20)
        (avoid-slur . around)
        (direction . ,UP))
+      (trillBaroque
+        (script-stencil . (feta . ("stopped" . "stopped")))
+        (side-relative-direction . ,DOWN)
+        (quantize-position . #t)
+        (avoid-slur . inside)
+        (toward-stem-shift . 1.0)
+        (toward-stem-shift-in-column . 0.0)
+        (padding . 0.20)
+        (skyline-horizontal-padding . 0.10)
+        (script-priority . -100))
       (trillFlat
        (script-stencil
         . (markup . , #{ \markup\center-align\concat\vcenter {
@@ -287,7 +297,7 @@ dotSign=\markup\vcenter "╸"
   }
 }
 accinv = #(make-articulation 'accinv)
-trill = #(make-articulation 'stopped)
+trill = #(make-articulation 'trillBaroque)
 trillFlat = #(make-articulation 'trillFlat)
 trillSharp = #(make-articulation 'trillSharp)
 trillNatural = #(make-articulation 'trillNatural)
