@@ -273,11 +273,10 @@ greyNotes = {
                       (if (*part*)
                        (interpret-markup layout props (markup (*part-name*)))
                        empty-stencil)) \null
-        \fromproperty #'header:composer
-      }
-      \fill-line {
-        \null
-        \fromproperty #'header:date
+        \right-column {
+          \fromproperty #'header:composer
+          \fromproperty #'header:date
+        }
       }
     }
   }
