@@ -213,7 +213,7 @@
   \override #'(use-rehearsal-numbers . #t)
   \override #'(rehearsal-number-gauge . "")
   \override #'(fill-line-with-dots . #t)
-  \pad-above#1 \toc-filled-line $num \line { $title } \with-link $ref \page-refIII $ref ""
+  \pad-above#0.5 \toc-filled-line\box\sans $num \line { $title } \with-link $ref \page-refIII $ref ""
   $next
 }#}))
 

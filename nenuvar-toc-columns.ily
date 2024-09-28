@@ -147,7 +147,8 @@ with dots in property @code{fill-with-dots} is true."
                   (space-stencil right-padding)
                   ; margin
                   (space-stencil rehearsal-number-margin)))
-           (set! num-width (+ gauge-width rehearsal-number-margin))))
+           (set! num-width (interval-length
+                            (ly:stencil-extent num-stencil X)))))
      ;; compute text width and stencil
      (let* ((text-max-width (- line-width page-number-width num-width))
             (text-stencil (interpret-markup

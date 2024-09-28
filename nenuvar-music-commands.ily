@@ -670,6 +670,17 @@ ratureMmRest = {
   #(make-erased-mmrest-print ly:multi-measure-rest::print)
 }
 
+%%% Suggested tremolo
+sugTremolo =
+#(define-music-function (parser loc arg) (ly:music?)
+   #{
+\override StemTremolo.stencil = #(lambda (grob)
+                                   (parenthesize-stencil (ly:stem-tremolo::print grob)
+                                                         0.1 0.3 1 0.1))
+$arg
+\revert StemTremolo.stencil
+     #})
+
 %%% Suggested dynamics
 sug =
 #(define-music-function (parser loc arg) (ly:music?)
@@ -706,24 +717,25 @@ sug =
    arg)
 
 %%% Suggested rythme
+rythmeLayout = \layout {
+  \context {
+    \Staff
+    \remove "Staff_symbol_engraver"
+    \remove "Time_signature_engraver"
+    \remove "Clef_engraver"
+    \override StaffSymbol.line-count = 1
+    \magnifyStaff #1/2
+    \override Beam.direction = #UP
+    \override Stem.direction = #UP
+  }
+  indent = 0
+  ragged-right = ##t
+}
 sugRythme =
 #(define-music-function (parser location music) (ly:music?)
    #{ <>^\markup\score {
        \notemode { \forceStemLength #2 { $music } }
-       \layout {
-         \context {
-           \Staff
-           \remove "Staff_symbol_engraver"
-           \remove "Time_signature_engraver"
-           \remove "Clef_engraver"
-           \override StaffSymbol.line-count = 1
-           \magnifyStaff #1/2
-           \override Beam.direction = #UP
-           \override Stem.direction = #UP
-         }
-         indent = 0
-         ragged-right = ##t
-       }
+       \layout { \rythmeLayout }
      } #})
                    
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})

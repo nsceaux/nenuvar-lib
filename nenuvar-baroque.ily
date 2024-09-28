@@ -105,9 +105,14 @@ dotSign=\markup\vcenter "╸"
      \musicglyph #"scripts.stopped"
      \translate #'(-0.6 . 0) \smaller\smaller\musicglyph #"accidentals.rightparen"
    } #}))
-       (padding . 0.20)
-       (avoid-slur . around)
-       (direction . ,UP))
+        (side-relative-direction . ,DOWN)
+        (quantize-position . #t)
+        (avoid-slur . inside)
+        (toward-stem-shift . 1.0)
+        (toward-stem-shift-in-column . 0.0)
+        (padding . 0.20)
+        (skyline-horizontal-padding . 0.10)
+        (script-priority . -100))
       (prallSug
        (script-stencil
         . (markup . , #{ \markup\center-align\concat {
@@ -535,6 +540,14 @@ dolceSug =
 pocof =
 #(make-music 'TextScriptEvent
              'text #{ \markup\whiteout\line { \italic poco \dynamic f } #})
+
+d = #(make-music 'AbsoluteDynamicEvent
+                 'text
+                 #{
+\markup\combine \rotate#180 \musicglyph#"p"
+\combine
+\with-color#white \filled-box #'(0.9 . 1.17) #'(0.9 . 1.2) #0
+\with-color#white \filled-box #'(1.63 . 2.0) #'(0.9 . 1.2) #0 #})
 
 viste =
 #(make-music
