@@ -26,6 +26,8 @@
 #(make-instrument-variables "bvbc" #{\markup\center-column { BVn Bc }#} #{\markup\center-column { BVn Bc }#})
 % Chœur
 #(make-instrument-variables "dchant" "D" "D")
+#(make-instrument-variables "dIchant" "D1" "D1")
+#(make-instrument-variables "dIIchant" "D2" "D2")
 #(make-instrument-variables "bdchant" "BD" "BD")
 #(make-instrument-variables "hcchant" "HC" "HC")
 #(make-instrument-variables "tchant" "T" "T")

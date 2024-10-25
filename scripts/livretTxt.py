@@ -96,7 +96,9 @@ class LilyLine():
                 return make_centered(rest.upper())
             elif cmd == "livretScene":
                 return make_centered(rest.upper())
-            elif re.match("livret(Toc)Ref", cmd):
+            elif re.match("livretTocRef", cmd):
+                return rest.replace('"', '')
+            elif re.match("livretRef", cmd):
                 return None
             elif cmd == "sep":
                 return """                          --------------------"""
