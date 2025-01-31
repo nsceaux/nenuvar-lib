@@ -170,3 +170,10 @@ dalSegnoMark = \endMark "Dal Segno."
 dacapoMark = \endMark "Da Capo."
 
 textMarkTop = \once\override Score.TextMark.outside-staff-priority = 99999
+%% en fait on veut tout le temps que les TextMark soient au dessus
+\layout {
+  \context {
+    \Score
+    \override TextMark.outside-staff-priority = 9999
+  }
+}

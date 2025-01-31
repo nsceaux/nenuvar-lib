@@ -46,6 +46,37 @@ property of @var{arg}."
              (append tags (ly:music-property arg 'tags))))
    arg)
 
+%%% Part specific conditions
+whenPart =
+#(define-music-function (parser location parts music)
+     (symbol-or-symbols? ly:music?)
+   (if (and (symbol? (ly:get-option 'part))
+            (or (and (symbol? parts) (eqv? parts (ly:get-option 'part)))
+                (and (list? parts) (memq (ly:get-option 'part) parts))))
+       music
+       (make-music 'Music 'void #t)))
+
+markupWhenPart =
+#(define-music-function (parser location parts markp)
+     (symbol-or-symbols? markup?)
+   (if (and (symbol? (ly:get-option 'part))
+            (or (and (symbol? parts) (eqv? parts (ly:get-option 'part)))
+                (and (list? parts) (memq (ly:get-option 'part) parts))))
+       (add-toplevel-markup parser markp))
+   (make-music 'Music 'void #t))
+
+tournezPart =
+#(define-music-function (parser location parts)
+     (symbol-or-symbols?)
+   (if (and (symbol? (ly:get-option 'part))
+            (or (and (symbol? parts) (eqv? parts (ly:get-option 'part)))
+                (and (list? parts) (memq (ly:get-option 'part) parts))))
+       (begin
+         (add-page-break parser)
+         (add-toplevel-markup parser #{\markup\italic Tournez. #})
+         (add-page-turn parser)))
+       (make-music 'Music 'void #t))
+
 %%% Music binding construct
 
 setMusic =
@@ -93,20 +124,20 @@ Then, use:
 "
    (let ((tag1 (car tags))
          (tag2 (cadr tags))
-         (tags-all (cddr tags))
+         (tags-all (caddr tags))
          (music1 (car (ly:music-property music 'elements)))
          (music2 (cadr (ly:music-property music 'elements)))
          (rest-music (make-music
                       'SimultaneousMusic
                       'elements (cddr (ly:music-property music 'elements)))))
      #{ <<
-  \tag #(cons tag1 tags-all) \new Voice {
-    \tag #tags-all \voiceOne $music1
-  }
-  \tag #(cons tag2 tags-all) \new Voice {
-    \tag #tags-all \voiceTwo $music2
-  }
-  \tag #(cons tag1 (cons tag2 tags-all)) $rest-music
+  \tag #tag1 << $music1 $rest-music >>
+  \tag #tag2 << $music2 $rest-music >>
+  \tag #tags-all <<
+    \new Voice { \voiceOne $music1 }
+    \new Voice { \voiceTwo $music2 }
+    $rest-music
+  >>
 >> #}))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -538,9 +569,7 @@ d e"
 
 ru =
 #(define-music-function (parser location times music) (number? ly:music?)
-   (if (eqv? #t (ly:get-option 'use-tremolo-repeat))
-       (make-repeat "tremolo" times music '())
-       (make-repeat "unfold" times music '())))
+   (make-repeat "unfold" times music '()))
 rt =
 #(define-music-function (parser location times music) (number? ly:music?)
    (make-repeat "tremolo" times music '()))
@@ -731,13 +760,32 @@ rythmeLayout = \layout {
   indent = 0
   ragged-right = ##t
 }
+
+sugRythmeStaff =
+#(define-music-function (parser location staff-name music) (string? ly:music?)
+   #{ \new Staff \with {
+  \remove "Staff_symbol_engraver"
+  \remove "Time_signature_engraver"
+  \remove "Clef_engraver"
+  \override StaffSymbol.line-count = 1
+  \magnifyStaff #1/2
+  \override Beam.direction = #UP
+  \override Stem.direction = #UP
+  alignAboveContext = $staff-name
+  fontSize = #-4
+  \override VerticalAxisGroup.staff-staff-spacing =
+  #'((basic-distance . 0)
+     (minimum-distance . 0)
+     (padding . 1))
+} { \forceStemLength #2 { $music } }#})
+
 sugRythme =
 #(define-music-function (parser location music) (ly:music?)
    #{ <>^\markup\score {
        \notemode { \forceStemLength #2 { $music } }
        \layout { \rythmeLayout }
      } #})
-                   
+         
 rinf = #(make-dynamic-script #{\markup\normal-text\italic rinf #})
 ffz = #(make-dynamic-script "ffz")
 fpp = #(make-dynamic-script "fpp")

@@ -107,14 +107,8 @@
   \context {
     \Voice
     \name Voice
-    \override Script.avoid-slur = #'outside
     \override AccidentalSuggestion.avoid-slur = #'outside
     \override NoteHead.style = #'baroque
-  }
-  \context {
-    \CueVoice
-    \name CueVoice
-    \override Script.avoid-slur = #'outside
   }
 }
 

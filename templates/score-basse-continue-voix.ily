@@ -1,9 +1,9 @@
 \score {
   \new StaffGroupNoBar <<
-    \new Staff \with { \haraKiriFirst \tinyStaff } \withLyrics <<
+    \new Staff \with { \haraKiriFirst \tinyStaff } \withTinyLyrics <<
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #'basse \includeNotes "voix"
-    >> \keepWithTag #'basse { \set fontSize = #-1 \includeLyrics "paroles" }
+    >> \keepWithTag #'basse \includeLyrics "paroles"
     \new Staff \with { \haraKiriFirst } <<
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #(*tag-notes*) \includeNotes #(*note-filename*)

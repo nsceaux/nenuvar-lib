@@ -71,9 +71,11 @@ class LilyLine():
         .replace("\\wordwrap-center", "")\
         .replace("\\wordwrap", "")\
         .replace("\\line", "")\
+        .replace("\\column-break", "")\
         .replace("\\column", "")\
         .replace("\\justify", "")\
         .replace("\\smaller", "")\
+        .replace("\\vcenter", "")\
         .replace("\\italic", "")
         text = re.sub(r'%.*', '', text)
         text = re.sub(r'\\hspace#\d+', '', text).strip()
@@ -104,7 +106,7 @@ class LilyLine():
                 return """                          --------------------"""
             elif cmd == "livretPiece":
                 return rest
-            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal"]:
+            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal", "livretPersIndent", "livretPersNormalIndent"]:
                 if rest == "":
                     return None
                 else:

@@ -66,9 +66,11 @@ class LilyLine():
         .replace("\\wordwrap-center", "")\
         .replace("\\wordwrap", "")\
         .replace("\\line", "")\
+        .replace("\\column-break", "")\
         .replace("\\column", "")\
         .replace("\\justify", "")\
         .replace("\\smaller", "")\
+        .replace("\\vcenter", "")\
         .replace("\\italic", "")
         text = re.sub(r'%.*', '', text)
         text = re.sub(r'\\hspace#\d+', '', text).strip()
@@ -99,7 +101,7 @@ class LilyLine():
                 return """<div class="sep">&nbsp;</div>"""
             elif cmd == "livretPiece":
                 return """<div class="piece">{}</div>""".format(rest)
-            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal"]:
+            elif cmd in ["livretPers", "livretPersVerse", "livretPersNormal", "livretPersIndent", "livretPersNormalIndent"]:
                 if cmd == "livretPersNormal":
                     style = "didas"
                 else:

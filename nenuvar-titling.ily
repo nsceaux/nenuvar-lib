@@ -124,6 +124,14 @@
 	       'page-marker #t
 	       'page-turn-permission 'forbid)))
 
+#(define-public (add-page-break-no-turn parser)
+  (add-music
+   (make-music 'Music
+	       'page-marker #t
+               'line-break-permission 'force
+               'page-break-permission 'force
+	       'page-turn-permission 'forbid)))
+
 #(define-public (add-page-turn parser)
   (add-music
    (make-music 'Music
@@ -541,6 +549,12 @@ partPageTurn =
 #(define-music-function (parser location parts) (list?)
   (if (memq (ly:get-option 'part) parts)
       (add-page-turn parser))
+  (make-music 'Music 'void #t))
+
+partPageBreakNoTurn =
+#(define-music-function (parser location parts) (list?)
+  (if (memq (ly:get-option 'part) parts)
+      (add-page-break-no-turn parser))
   (make-music 'Music 'void #t))
 
 markupCond =

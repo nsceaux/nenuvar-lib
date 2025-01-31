@@ -71,6 +71,15 @@ withLyrics =
             \new Lyrics \lyricsto #name { #lyrics }
             >> #}))
 
+withTinyLyricsB =
+#(define-music-function (parser location music lyrics1 lyrics2) (ly:music? ly:music? ly:music?)
+   (let ((name (symbol->string (gen-unique-context))))
+     #{  << \context Voice = $name \with { autoBeaming = ##f } $music
+            \new Lyrics \with { fontSize = -2 } \lyricsto #name { #lyrics1 }
+            \new Lyrics \with { fontSize = -2 } \lyricsto #name { #lyrics2 }
+            >> #}))
+
+              
 withLyricsB =
 #(define-music-function (parser location music lyrics1 lyrics2) (ly:music? ly:music? ly:music?)
    (let ((name (symbol->string (gen-unique-context))))

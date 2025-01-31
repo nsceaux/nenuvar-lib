@@ -4,9 +4,9 @@
       \remove "Page_turn_engraver"
       \tinyStaff
       \haraKiriFirst
-    } \withLyrics <<
+    } \withTinyLyrics <<
       \global \keepWithTag #'basse \includeNotes "voix"
-    >> \keepWithTag #'basse { \set fontSize = #-2 \includeLyrics "paroles" }
+    >> \keepWithTag #'basse \includeLyrics "paroles"
     \new Staff \with { \haraKiriFirst } <<
       \keepWithTag #(*tag-global*) \global
       \keepWithTag #(*tag-notes*) \includeNotes #(*note-filename*)
