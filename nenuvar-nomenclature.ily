@@ -16,14 +16,22 @@
 
 #(make-instrument-variables "fl" "Fl" "Fl")
 #(make-instrument-variables "hb" "Hb" "Hb")
+#(make-instrument-variables
+  "hbdv"
+  #{\markup\center-column { Hb DVn }#}
+  #{\markup\center-column { Hb DVn }#})
 #(make-instrument-variables "bn" "Bn" "Bn")
 #(make-instrument-variables "dv" "DVn" "DVn")
 #(make-instrument-variables "hcv" "HcVn" "HcVn")
 #(make-instrument-variables "tv" "TVn" "TVn")
 #(make-instrument-variables "qv" "QVn" "QVn")
+#(make-instrument-variables "basse" "B" "B")
 #(make-instrument-variables "bv" "BVn" "BVn")
 #(make-instrument-variables "bc" "Bc" "Bc")
-#(make-instrument-variables "bvbc" #{\markup\center-column { BVn Bc }#} #{\markup\center-column { BVn Bc }#})
+#(make-instrument-variables
+  "bvbc"
+  #{\markup\center-column { BVn Bc }#}
+  #{\markup\center-column { BVn Bc }#})
 % Chœur
 #(make-instrument-variables "dchant" "D" "D")
 #(make-instrument-variables "dIchant" "D1" "D1")
