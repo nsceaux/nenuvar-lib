@@ -25,6 +25,10 @@
 #(make-instrument-variables "hcv" "HcVn" "HcVn")
 #(make-instrument-variables "tv" "TVn" "TVn")
 #(make-instrument-variables "qv" "QVn" "QVn")
+#(make-instrument-variables
+  "parties"
+  #{\markup\center-column { HcVn TVn }#}
+  #{\markup\center-column { HcVn TVn }#})
 #(make-instrument-variables "basse" "B" "B")
 #(make-instrument-variables "bv" "BVn" "BVn")
 #(make-instrument-variables "bc" "Bc" "Bc")

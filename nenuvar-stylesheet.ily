@@ -110,6 +110,11 @@
     \override AccidentalSuggestion.avoid-slur = #'outside
     \override NoteHead.style = #'baroque
   }
+  \context {
+    \Lyrics
+    %% Répéter les tirets dans les paroles après un saut de ligne
+    \override LyricHyphen.after-line-breaking = ##t
+  }
 }
 
 \midi {
@@ -257,7 +262,7 @@ greyNotes = {
   shortBookTitleMarkup =  \markup\abs-fontsize #12 {
     \override #'(baseline-skip . 3.5) \column {
       \fontsize#3 \bold \fill-line { \larger \fromproperty #'header:title }
-      \fontsize#2 \fill-line { \fromproperty #'header:subtitle }
+      \fontsize#0 \fill-line { \fromproperty #'header:subtitle }
       \fill-line {
         \column {
           \fromproperty #'header:poet
