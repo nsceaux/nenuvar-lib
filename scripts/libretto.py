@@ -13,7 +13,7 @@ class Verse():
         return self._metric
 
     def get_lily_text(self):
-        return "\livretVerse#{} {{ {} }}".format(
+        return "\\livretVerse#{} {{ {} }}".format(
             self.get_metric(),
             self.get_text())
 

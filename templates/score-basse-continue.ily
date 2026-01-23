@@ -11,7 +11,7 @@
                                  'symbol 'instrumentName))
                     (make-music 'Music))
     $(or (*score-extra-music*) (make-music 'Music))
-    \includeFigures "chiffres"
+    \keepWithTag #(*tag-notes*) \includeFigures "chiffres"
   >>
   \layout {
     system-count = #(or (*system-count*) #f)

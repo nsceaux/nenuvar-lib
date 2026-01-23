@@ -5,7 +5,8 @@
       \tinyStaff
       \haraKiriFirst
     } \withTinyLyrics <<
-      \global \keepWithTag #'basse \includeNotes "voix"
+      \keepWithTag #(*tag-global*) \global
+      \keepWithTag #'basse \includeNotes "voix"
     >> \keepWithTag #'basse \includeLyrics "paroles"
     \new Staff \with { \haraKiriFirst } <<
       \keepWithTag #(*tag-global*) \global

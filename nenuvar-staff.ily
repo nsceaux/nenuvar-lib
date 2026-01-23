@@ -126,8 +126,8 @@ withRecit =
    (let ((name (symbol->string (gen-unique-context))))
      #{  << \context Voice = $name \with { autoBeaming = ##f } <<
             \set Staff . explicitClefVisibility = #end-of-line-invisible
-            \override Staff . Clef #'full-size-change = ##t
-            \override Score.BreakAlignment #'break-align-orders =
+            \override Staff . Clef . full-size-change = ##t
+            \override Score.BreakAlignment.break-align-orders =
             ##(; end-of-line:
                (instrument-name left-edge ambitus breathing-sign
                 clef key-cancellation key-signature

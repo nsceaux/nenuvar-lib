@@ -406,7 +406,8 @@ setPath =
    (make-music 'Music 'void #t))
 
 #(define (include-score-helper parser name label allow-page-turn)
-   ;;(format #t "Including score `~a'~%" name)
+   (if (eqv? #t (ly:get-option 'nenuvar-debug))
+       (format #t "Including score `~a'~%" name))
    (if (eqv? #t (ly:get-option 'non-score-print))
        (let ((label (string->symbol (or label name))))
          (add-music

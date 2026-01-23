@@ -29,7 +29,7 @@
 %%% Clef mapping definition and accessors
 %%%
 %% actually accessors defined in a closure above
-#(define (clef-map tessitura)
+#(define-public (clef-map tessitura)
    "Procedure with setter, returning (ancient-clef . modern-clef) pair
 for `tessitura'"
    #f)

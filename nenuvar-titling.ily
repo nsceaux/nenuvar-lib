@@ -224,9 +224,15 @@
 #(define-markup-command (piece-title-with-rehearsal-number
                          layout props rehearsal-num title)
      (markup? markup?)
-   (interpret-markup
-    layout props
-    #{ \markup { \rehearsal-number $rehearsal-num \hspace#1 \huge $title }#}))
+   #:properties ((line-width #f))
+   (let* ((line-width (or line-width (ly:output-def-lookup layout 'line-width)))
+          (num-stencil (interpret-markup
+                        layout props
+                        #{\markup { \rehearsal-number $rehearsal-num \hspace #1  }#}))
+          (num-width (interval-length (ly:stencil-extent num-stencil Y))))
+     (interpret-markup
+      layout props
+      #{ \markup { \stencil $num-stencil \override #`(line-width . ,(- line-width num-width)) \huge $title }#})))
 
 #(define-markup-command (piece-title-without-rehearsal-number
                          layout props title)

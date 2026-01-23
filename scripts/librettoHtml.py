@@ -98,6 +98,8 @@ class LilyLine():
                 return """<div class="fin">{}</div>""".format(rest)
             elif cmd == "livretScene":
                 return "<h3>{}</h3>".format(rest)
+            elif re.match("livretTocRef", cmd):
+                return f"""<h4>{rest.replace('"', '')}</h4>"""
             elif re.match("livretRef", cmd):
                 return ""
             elif cmd == "sep":

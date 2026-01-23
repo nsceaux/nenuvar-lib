@@ -1,4 +1,5 @@
 #(ly:set-option 'point-and-click #f)
+#(use-modules (ice-9 copy-tree))
 
 \layout {
   \context {

@@ -178,8 +178,8 @@ class LilyLine():
             alt_match = re.match(r'^\s*([^ ]*)\s+([^ ]*)\s*$', alternatives)
         alt1 = alt_match.group(1).strip()
         alt2 = alt_match.group(2).strip()
-        html = """{}{} /{}\ {}
-{} \{}/""".format(
+        html = """{}{} /{}\\ {}
+{} \\{}/""".format(
             ' ' * max(0, 12 - metric), beginning, alt1, ending,
             ' ' * (max(0, 12 - metric) + len(beginning)), alt2)
         return html

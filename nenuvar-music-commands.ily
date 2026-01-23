@@ -281,6 +281,28 @@ sugNotes =
   \revert Accidental.font-size
   \revert AccidentalCautionary.font-size
   #})
+%%
+
+recomposition =
+#(define-music-function (parser location music) (ly:music?)
+   (if (symbol? (ly:get-option 'part))
+       music
+       #{
+\new Voice \with {
+  \override MultiMeasureRest.font-size = #-2
+  \override Rest.font-size = #-2
+  \override NoteHead.font-size = #-2
+  \override Flag.font-size = #-2
+  \override Dots.font-size = #-2
+  \override Stem.font-size = #-2
+  \override Stem.length-fraction = #0.8
+  \override Beam.beam-thickness = #0.384
+  \override Beam.length-fraction = #0.8
+  \override Accidental.font-size = #-4
+  \override AccidentalCautionary.font-size = #-4
+} $music
+  #}))
+  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
@@ -805,3 +827,30 @@ trillOutside = \override Script.avoid-slur = #'outside
 textUp = \override Staff.TextScript.direction = #UP
 
 forceHyphen = \once\override LyricHyphen.minimum-distance = #0.6
+
+%%%
+%%% Cues
+%%%
+clefsToCues =
+#(define-music-function (music) (ly:music?)
+   (music-map
+    (lambda (m)
+      (if (eqv? (ly:music-property m 'symbol) 'clefGlyph)
+          (set! (ly:music-property m 'symbol) 'cueClefGlyph))
+      (if (eqv? (ly:music-property m 'symbol) 'middleCClefPosition)
+          (set! (ly:music-property m 'symbol) 'middleCCuePosition))
+      (if (eqv? (ly:music-property m 'symbol) 'clefPosition)
+          (set! (ly:music-property m 'symbol) 'cueClefPosition))
+      (if (eqv? (ly:music-property m 'symbol) 'clefTransposition)
+          (set! (ly:music-property m 'symbol) 'cueClefTransposition))
+      (if (eqv? (ly:music-property m 'symbol) 'clefTranspositionStyle)
+          (set! (ly:music-property m 'symbol) 'cueClefTranspositionStyle))
+      (if (eqv? (ly:music-property m 'symbol) 'forceClef)
+          (set! (ly:music-property m 'value) #f))
+      m)
+    music))
+
+hideRest = {
+  \omit Staff.MultiMeasureRest
+  \omit Staff.Rest
+}
